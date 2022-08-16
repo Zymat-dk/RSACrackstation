@@ -4,22 +4,21 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <input class="border border-2 outline-none"/>
+    <input id="num" class="border border-2 outline-none"/>
     <button id="subBtn">Submit</button>
 </div>
 <script>
 $("#subBtn").on("click", function() {
     $.ajax({
-        url: "/api/GetStuff",
+        url: "/api/GetPrimes",
         type: "POST",
         data: {
-            "name": $("#name").val()
+            "inputNum": $("#num").val()
         },
         success: function(data) {
             console.log(data);
         }
     });
-    console.log("hello");
 })
 
 
