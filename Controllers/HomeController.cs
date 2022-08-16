@@ -15,7 +15,7 @@ public class HomeController : Controller{
         return View();
     }
 
-    public IActionResult Privacy(){
+    public IActionResult RsaCrack(){
         return View();
     }
 
