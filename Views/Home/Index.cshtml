@@ -5,7 +5,7 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <input id="num" class="border border-2 outline-none"/>
-    <button id="subBtn">Submit</button>
+    <button id="subBtn" onclick="factorize()">Submit</button>
 </div>
 <div id="primeDiv" class="text-center" style="display: none">
     <p id="p"></p>
@@ -14,9 +14,11 @@
 </div>
 
 <script>
-$("#subBtn").on("click", function() {
+
+
+function factorize() {
     $.ajax({
-        url: "/api/GetPrimes",
+        url: "/api/GetFactors",
         type: "POST",
         data: {
             "inputNum": $("#num").val()
@@ -35,7 +37,7 @@ $("#subBtn").on("click", function() {
             $("#redirectRSA").attr("href", "/Home/RsaCrack?p=" + data[0] + "&q=" + data[1]);
         }
     });
-})
+}
 
 
 
