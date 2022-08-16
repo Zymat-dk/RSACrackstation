@@ -7,8 +7,11 @@
     <input id="num" class="border border-2 outline-none"/>
     <button id="subBtn">Submit</button>
 </div>
-
-<a href="/Home/RsaCrack?p=2&q=23">gamer</a>
+<div id="primeDiv" class="text-center" style="display: none">
+    <p id="p"></p>
+    <p id="q"></p>
+    <a id="redirectRSA" href="/Home/RsaCrack?p=2&q=6">gamer</a>
+</div>
 
 <script>
 $("#subBtn").on("click", function() {
@@ -20,6 +23,16 @@ $("#subBtn").on("click", function() {
         },
         success: function(data) {
             console.log(data);
+            if (data[0] === -1 || data[1] === -1) {
+                console.log("fuck.. endnu en fejl")
+                $("#primeDiv").hide()
+                return 
+            }
+            console.log(data);
+            $("#primeDiv").show()
+            $("#p").text(data[0]);
+            $("#q").text(data[1]);
+            $("#redirectRSA").attr("href", "/Home/RsaCrack?p=" + data[0] + "&q=" + data[1]);
         }
     });
 })
