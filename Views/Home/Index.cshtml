@@ -6,6 +6,8 @@
     <h1 class="display-4">Welcome</h1>
     <input id="num" class="border border-2 outline-none"/>
     <button id="subBtn" onclick="factorize()">Submit</button>
+    
+    <h1 id="failText"></h1>
 </div>
 <div id="primeDiv" class="text-center" style="display: none">
     <p id="p"></p>
@@ -31,6 +33,7 @@
                 console.log(data);
                 if (data[0] === -1 || data[1] === -1) {
                     console.log("fuck.. endnu en fejl")
+                    $("#failText").text("yo makker der skete en fejl bare lige så du ved det");
                     $("#primeDiv").hide()
                     return 
                 }

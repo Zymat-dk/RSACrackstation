@@ -13,5 +13,17 @@ let q = params.get('q')
 console.log(p)
 console.log(q)
 
+function crackRSA() {
+        $.ajax({
+            url: "/api/RSACrack",
+            type: "POST",
+            data: {
+                "inputNum": "skørt"
+            },
+            success: function(data) {
+               
+            }
+        });
+    }
 
 </script>
