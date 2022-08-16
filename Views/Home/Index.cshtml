@@ -14,30 +14,34 @@
 </div>
 
 <script>
-
-
-function factorize() {
-    $.ajax({
-        url: "/api/GetFactors",
-        type: "POST",
-        data: {
-            "inputNum": $("#num").val()
-        },
-        success: function(data) {
-            console.log(data);
-            if (data[0] === -1 || data[1] === -1) {
-                console.log("fuck.. endnu en fejl")
-                $("#primeDiv").hide()
-                return 
-            }
-            console.log(data);
-            $("#primeDiv").show()
-            $("#p").text(data[0]);
-            $("#q").text(data[1]);
-            $("#redirectRSA").attr("href", "/Home/RsaCrack?p=" + data[0] + "&q=" + data[1]);
+    $("#num").keypress(function(event) {
+        if (event.keyCode === 13) {
+            factorize();
         }
     });
-}
+    
+    function factorize() {
+        $.ajax({
+            url: "/api/GetFactors",
+            type: "POST",
+            data: {
+                "inputNum": $("#num").val()
+            },
+            success: function(data) {
+                console.log(data);
+                if (data[0] === -1 || data[1] === -1) {
+                    console.log("fuck.. endnu en fejl")
+                    $("#primeDiv").hide()
+                    return 
+                }
+                console.log(data);
+                $("#primeDiv").show()
+                $("#p").text(data[0]);
+                $("#q").text(data[1]);
+                $("#redirectRSA").attr("href", "/Home/RsaCrack?p=" + data[0] + "&q=" + data[1]);
+            }
+        });
+    }
 
 
 
