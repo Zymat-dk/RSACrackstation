@@ -54,9 +54,7 @@
             success: function(data) {
                 console.log(data);
                 if (data[0] == -1 || data[1] == -1) {
-                    console.log("fuck.. endnu en fejl")
                     $("#failText").text("Invalid Input (could already be a prime number)");
-
                     return 
                 }
 
