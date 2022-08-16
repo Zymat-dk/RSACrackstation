@@ -36,7 +36,13 @@
     });
     
     function sendToRSACrack() {
-        window.location.href = "/Home/RSACrack?p=" + $("#p").val() + "&q=" + $("#q").val();
+        let location = "/Home/RSACrack"
+        let p = $("#p").val();
+        let q = $("#q").val();
+        if (p !== "" && q !== "") {
+            location += `?p=${p}&q=${q}`;
+        }
+        window.location.href = location;
     }
     
     function factorize() {
@@ -56,6 +62,8 @@
                 if (data[0] == -1 || data[1] == -1) {
                     console.log("fuck.. endnu en fejl")
                     $("#failText").text("Invalid Input (could already be a prime number)");
+                    $("#p").val("");
+                    $("#q").val("");
 
                     return 
                 }
