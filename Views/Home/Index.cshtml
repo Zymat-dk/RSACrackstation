@@ -2,18 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <input id="num" class="border border-2 outline-none w-1/2"/><br/>
-    <button id="subBtn" onclick="factorize()">Submit</button>
-    
-    <h1 id="failText"></h1>
-</div>
-<div id="primeDiv" class="flex justify-content">
-    <input id="p" class="border rounded outline w-1/2"><br/>
-    <input id="q" class="border rounded outline w-1/2"><br/>
-    <a id="redirectRSA">gamer</a>
-</div>
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 mb-14">Prime Factorization</h1>
+
+
+            <input id="num" placeholder="Input number to factorize" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
+            <button id="subBtn" onclick="factorize()" class="mb-12 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+
+            <h1 id="failText"></h1>
+
+            <div class="w-full">
+                <span class="text-2xl mr-3">P</span>
+                <input id="p" placeholder="P" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
+            </div>
+            <div class="w-full">
+                <span class="text-2xl mr-3">Q</span>
+                <input id="q" placeholder="Q" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
+            </div>
+            <a id="redirectRSA" href="#">Send to RSA Cracker</a>
+
+        </div>
+    </div>
+</section>
+
 
 <script>
     $("#num").keypress(function(event) {
@@ -43,9 +56,9 @@
                     return 
                 }
                 console.log(data);
-                 $("#failText").text("")
-                $("#p").text(data[0]);
-                $("#q").text(data[1]);
+                $("#failText").text("")
+                $("#p").val(data[0]);
+                $("#q").val(data[1]);
                 $("#redirectRSA").attr("href", "/Home/RsaCrack?p=" + data[0] + "&q=" + data[1]);
             }
         });
