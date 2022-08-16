@@ -11,7 +11,7 @@ public class RSACracker {
     private BigInteger _q;
     private BigInteger _d;
 
-    public int E { get; set; } = 65537;
+    public BigInteger E { get; set; } = 65537;
 
 
     public BigInteger N {
@@ -73,7 +73,7 @@ public class RSACracker {
         return factors;
     }
 
-    public BigInteger GetD() {
+    public BigInteger Decipher() {
         if (_d != 0 || _p == 0 || _q == 0) {
             // If the d value already exists, return it. If the factors are not found, return 0
             return _d;
