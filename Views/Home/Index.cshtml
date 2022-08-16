@@ -15,11 +15,11 @@
 
             <div class="w-full mt-6">
                 <span class="text-2xl mr-3">p</span>
-                <input id="p" placeholder="P" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
+                <input id="p" placeholder="p" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
             </div>
             <div class="w-full">
                 <span class="text-2xl mr-3">q</span>
-                <input id="q" placeholder="Q" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
+                <input id="q" placeholder="q" class="w-2/3 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6"/>
             </div>
             <button onclick="sendToRSACrack()" id="redirectRSA">Send to RSA Cracker</button>
 
@@ -60,18 +60,14 @@
             success: function(data) {
                 console.log(data);
                 if (data[0] == -1 || data[1] == -1) {
-                    console.log("fuck.. endnu en fejl")
                     $("#failText").text("Invalid Input (could already be a prime number)");
                     $("#p").val("");
                     $("#q").val("");
-
                     return 
                 }
-
                 $("#failText").text("")
                 $("#p").val(data[0]);
                 $("#q").val(data[1]);
-                
             }
         });
     }
