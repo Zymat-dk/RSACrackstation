@@ -1,31 +1,46 @@
 ﻿using System.Net;
+using System.Numerics;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Http.Features;
 
 namespace RSACrackstation.Backend;
 
 public class RSACracker {
-    public int E { get; set; } = 6557;
+    private BigInteger _n;
+    private BigInteger _p;
+    private BigInteger _q;
+    private BigInteger _d;
 
-    private string _n = "";
-    private string _p = "";
-    private string _q = "";
-    private string _d = "";
+    public int E { get; set; } = 65537;
 
+
+    public BigInteger N {
+        get { return _n; }
+    }
+
+    public BigInteger[] Factors {
+        get { return new BigInteger[] { _p, _q }; }
+    }
 
     public RSACracker(string n) {
-        _n = n;
+        _n = BigInteger.Parse(n);
     }
 
     public RSACracker(string p, string q) {
-        _p = p;
-        _q = q;
+        _p = BigInteger.Parse(p);
+        _q = BigInteger.Parse(q);
+
+        _n = _p * _q;
     }
 
     public string[] GetFactors() {
+        if ((_p != 0 && _q != 0) || _n == 0) {
+            return new string[] { _p.ToString(), _q.ToString() };
+        }
+
         string[] factors = { "-1", "-1" }; // Default values if the number, or the factors are not prime
 
-        var url = $"http://factordb.com/api?query={this._n}"; // factordb api url
+        var url = $"http://factordb.com/api?query={_n}"; // factordb api url
         var request = WebRequest.Create(url);
         request.Method = "GET"; // Use GET request
 
@@ -52,9 +67,40 @@ public class RSACracker {
             factors[i] = jsonData["factors"][i][0].ToString();
         }
 
-        _p = factors[0];
-        _q = factors[1];
+        _p = BigInteger.Parse(factors[0]);
+        _q = BigInteger.Parse(factors[1]);
 
         return factors;
+    }
+
+    public BigInteger GetD() {
+        if (_d != 0 || _p == 0 || _q == 0) {
+            // If the d value already exists, return it. If the factors are not found, return 0
+            return _d;
+        }
+
+        var phi_n = (_p - 1) * (_q - 1);
+        _d = EGCD(E, phi_n);
+        Console.WriteLine(_d);
+
+        return _d;
+    }
+
+    private BigInteger EGCD(BigInteger a, BigInteger b) {
+        BigInteger x = 0;
+        BigInteger y = 1;
+        BigInteger u = 1;
+        BigInteger v = 0;
+
+        while (a != 0) {
+            var q = BigInteger.Divide(b, a);
+            var r = b % a;
+            var m = x - u * q;
+            var n = y - v * q;
+            (b, a, x, y, u, v) = (a, r, u, v, m, n);
+            var gcd = b;
+        }
+
+        return x;
     }
 }

@@ -41,7 +41,7 @@
     
     function factorize() {
         let num = $("#num").val();
-        if (!(num.match(/^[0-9]+$/))) {
+        if (!(num.match(/^[0-9]+$/) || num == 0)) {
             $("#failText").text("Please enter a number");
             return;
         }
