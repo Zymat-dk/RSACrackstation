@@ -23,11 +23,16 @@
     });
     
     function factorize() {
+        let num = $("#num").val();
+        if (!(num.match(/^[0-9]+$/))) {
+            $("#failText").text("Please enter a number");
+            return;
+        }
         $.ajax({
             url: "/api/GetFactors",
             type: "POST",
             data: {
-                "inputNum": $("#num").val()
+                "inputNum": num
             },
             success: function(data) {
                 console.log(data);
