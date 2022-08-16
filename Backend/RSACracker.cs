@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Numerics;
+using System.Text;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -73,7 +74,7 @@ public class RSACracker {
         return factors;
     }
 
-    public BigInteger Decipher() {
+    public BigInteger GetD() {
         if (_d != 0 || _p == 0 || _q == 0) {
             // If the d value already exists, return it. If the factors are not found, return 0
             return _d;
@@ -84,6 +85,24 @@ public class RSACracker {
         Console.WriteLine(_d);
 
         return _d;
+    }
+
+    public BigInteger GetPlainText(string cipherText) {
+        var cipher = BigInteger.Parse(cipherText);
+        var pt = BigInteger.ModPow(cipher, _d, _n);
+        return pt;
+    }
+
+    public string ConvertToAscii(string pt) {
+        var plain = BigInteger.Parse(pt);
+        string hex = plain.ToString("X");  // Convert to hex
+        string ascii = "";
+        for (var i = 0; i < hex.Length; i += 2) {
+            var hexPair = hex.Substring(i, 2);
+            var asciiChar = (char)Convert.ToByte(hexPair, 16);
+            ascii += asciiChar;
+        }
+        return ascii;
     }
 
     private BigInteger EGCD(BigInteger a, BigInteger b) {
