@@ -48,7 +48,7 @@
     </div>
 </section>
 <style>
-    #pta {
+    textarea {
       overflow: hidden;
       height: 50px;
       padding: 0;
@@ -58,8 +58,8 @@
 </style>
 
 <script>
-
-$('#pta').on('input', function() {
+$('textarea').height(50).height($('textarea')[0].scrollHeight);
+$('textarea').on('input', function() {
   $(this)
     .height(50)
     .height(this.scrollHeight);
@@ -90,6 +90,7 @@ function crackRSA() {
                 $('#d').val(data['d'])
                 $('#pt').val(data['pt'])
                 $('#pta').val(data['ptAscii'])
+                $('textarea').height(50).height($('textarea')[0].scrollHeight);
             }
         });
     }
