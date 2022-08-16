@@ -21,10 +21,17 @@ public class ApiController : Controller {
         var output = new Dictionary<string, string>();
         output["N"] = cracker.N.ToString();
         output["d"] = cracker.GetD().ToString();
+
+        if (ct is null) {
+            output["pt"] = "";
+            output["ptAscii"] = "";
+        }
+        else {
+            var pt = cracker.GetPlainText(ct).ToString();
+            output["pt"] = pt;
+            output["ptAscii"] = cracker.ConvertToAscii(pt);
+        }
         
-        var pt = cracker.GetPlainText(ct).ToString();
-        output["pt"] = pt;
-        output["ptAscii"] = cracker.ConvertToAscii(pt);
 
         return output;
     }
