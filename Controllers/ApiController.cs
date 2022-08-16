@@ -5,7 +5,8 @@ using RSACrackstation.Models;
 namespace RSACrackstation.Controllers;
 
 public class ApiController : Controller{
-    public string GetPrimes(string inputNum){
-        return "yeehasdfsdfw" + inputNum;
+    public int[] GetPrimes(string inputNum){
+        int[] nums = {-1, -1};
+        return nums;
     }
 }
