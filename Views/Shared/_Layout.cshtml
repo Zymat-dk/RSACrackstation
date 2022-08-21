@@ -1,18 +1,23 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark dark:bg-gray-900">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - RSACrackstation</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+        darkMode: 'class',
+    }
+    </script>
 </head>
-<body>
+<body class="dark:bg-gray-900">
 
 
-<header class="text-gray-600 body-font border border-b-1 bg-gray-50 shadow-sm">
+<header class="text-gray-600 body-font border border-b-1 bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
-        <a href="/" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <a href="/" class="flex title-font font-medium items-center text-gray-900 dark:text-gray-50 mb-4 md:mb-0">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-10 h-10" viewBox="0 0 16 16">
                 <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
             </svg>
@@ -23,7 +28,9 @@
             <a href="/Home/RsaCrack" class="mr-5 hover:text-gray-900">RSA Crack</a>
 
         </nav>
-
+        <div>
+            <input type="checkbox" id="checkbox" checked>
+        </div>
     </div>
 </header>
 
@@ -33,16 +40,37 @@
     </main>
 </div>
 
-<footer class="text-gray-600 body-font w-full bottom-0 fixed z-40 border border-t-1 bg-white">
+<footer class="text-gray-600 body-font w-full bottom-0 fixed z-40 border border-t-1 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
         <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
             © 2022 RSA Crackstation —
-            <a href="https://github.com/DNIIBOY" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">Daniel Nettelfield</a>
-            &<a href="https://github.com/Gustav2" class="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">Gustav Nybro</a>
+            <a href="https://github.com/DNIIBOY" class="text-gray-600 dark:text-gray-50 ml-1" rel="noopener noreferrer" target="_blank">Daniel Nettelfield</a>
+            &<a href="https://github.com/Gustav2" class="text-gray-600 dark:text-gray-50 ml-1" rel="noopener noreferrer" target="_blank">Gustav Nybro</a>
         </p>
 
     </div>
 </footer>
+<style>
+    #checkbox:checked + label .switch-ball{
+      background-color: white;
+      transform: translateX(24px);
+      transition: transform 0.3s linear;
+    }
+  </style>
+<script>
+      const darkCheck = document.querySelector("#checkbox");
+      const html = document.querySelector("html");
+
+      const toggleDarkMode = function () {
+        darkCheck.checked
+        ? html.classList.add("dark")
+        : html.classList.remove("dark");
+      }
+
+      toggleDarkMode();
+      darkCheck.addEventListener("click",toggleDarkMode);
+
+      </script>
 
 </body>
 </html>
