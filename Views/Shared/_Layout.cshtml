@@ -77,7 +77,7 @@
         if (localStorage.getItem("darkMode") === "true") {
           darkCheck.checked = true;
           html.classList.add("dark");
-        } else {
+        } else if (localStorage.getItem("darkMode") === "false") {
           darkCheck.checked = false;
           html.classList.remove("dark");
         }
