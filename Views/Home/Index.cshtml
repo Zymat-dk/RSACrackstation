@@ -34,7 +34,6 @@
 
 <script>
     $("#HEXToggle").click(function() {
-        console.log($("#Decimal").css("font-weight"));
         if($("#Decimal").css("font-weight") == 400) {
             $("#Decimal").css("font-weight", "bold");
             $("#HEX").css("font-weight", "normal");
@@ -43,6 +42,19 @@
             $("#HEX").css("font-weight", "bold");
         }
     });
+    
+    $("#num").bind('paste', function(e) {
+        let data = e.originalEvent.clipboardData.getData('text');
+        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
+            $("#Decimal").css("font-weight", "normal");
+            $("#HEX").css("font-weight", "bold");
+        }
+        else{
+            $("#Decimal").css("font-weight", "bold");
+            $("#HEX").css("font-weight", "normal");
+        }
+    });
+    
     $("#num").keypress(function(event) {
         if (event.keyCode === 13) {
             factorize();
@@ -61,7 +73,7 @@
     
     function factorize() {
         let num = $("#num").val();
-        if (!(num.match(/^[0-9]+$/) || num == 0)) {
+        if (!(num.match(/^[0-9]+$/g || $("#HEX").css("font-weight") == 700) || num != 0)) {
             $("#failText").text("Please enter a number");
             return;
         }
@@ -69,7 +81,8 @@
             url: "/api/GetFactors",
             type: "POST",
             data: {
-                "inputNum": num
+                "inputNum": num,
+                "isHex": $("#HEX").css("font-weight") == 700
             },
             success: function(data) {
                 console.log(data);

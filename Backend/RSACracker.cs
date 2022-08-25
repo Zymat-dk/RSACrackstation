@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Globalization;
+using System.Net;
 using System.Numerics;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -23,8 +24,18 @@ public class RSACracker {
         get { return new BigInteger[] { _p, _q }; }
     }
 
-    public RSACracker(string n) {
-        _n = BigInteger.Parse(n);
+    public RSACracker(string n, bool isHex = false) {
+        if (!isHex) {
+            _n = BigInteger.Parse(n);
+        }
+        else {
+            if (n.Substring(0, 2) == "0x") {
+                n = n.Substring(2);
+                n = "0x" + n;
+            }
+
+            _n = BigInteger.Parse(n, NumberStyles.AllowHexSpecifier);
+        }
     }
 
     public RSACracker(string p, string q) {
@@ -94,13 +105,14 @@ public class RSACracker {
 
     public string ConvertToAscii(string pt) {
         var plain = BigInteger.Parse(pt);
-        string hex = plain.ToString("X");  // Convert to hex
+        string hex = plain.ToString("X"); // Convert to hex
         string ascii = "";
         for (var i = 0; i < hex.Length; i += 2) {
             var hexPair = hex.Substring(i, 2);
             var asciiChar = (char)Convert.ToByte(hexPair, 16);
             ascii += asciiChar;
         }
+
         return ascii;
     }
 
