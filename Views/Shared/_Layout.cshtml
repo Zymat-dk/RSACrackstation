@@ -60,15 +60,31 @@
 <script>
       const darkCheck = document.querySelector("#checkbox");
       const html = document.querySelector("html");
+      
+        loadLocalStorage();
 
       const toggleDarkMode = function () {
         darkCheck.checked
         ? html.classList.add("dark")
         : html.classList.remove("dark");
+        updateLocalStorage();
       }
 
       toggleDarkMode();
       darkCheck.addEventListener("click",toggleDarkMode);
+      
+      function loadLocalStorage() {
+        if (localStorage.getItem("darkMode") === "true") {
+          darkCheck.checked = true;
+          html.classList.add("dark");
+        } else {
+          darkCheck.checked = false;
+          html.classList.remove("dark");
+        }
+      }
+      function updateLocalStorage() {
+        localStorage.setItem("darkMode", darkCheck.checked);
+      }
 
       </script>
 
