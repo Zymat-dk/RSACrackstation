@@ -10,6 +10,7 @@
 
             <input id="num" placeholder="Input number to factorize" class="w-2/3  bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500  focus:outline-none text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-6 focus:bg-white dark:focus:bg-opacity-100 dark:bg-opacity-95"/>
             <button id="subBtn" onclick="factorize()" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+            <button id="HEXToggle" onclick="" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"><span style="font-weight: bold;" id="Decimal">Decimal</span>&nbsp;|&nbsp;<span id="HEX">Hex</span></button>
 
             <h1 id="failText" class="text-red-500 text-lg"></h1>
 
@@ -29,6 +30,16 @@
 
 
 <script>
+    $("#HEXToggle").click(function() {
+        console.log($("#Decimal").css("font-weight"));
+        if($("#Decimal").css("font-weight") == 400) {
+            $("#Decimal").css("font-weight", "bold");
+            $("#HEX").css("font-weight", "normal");
+        } else {
+            $("#Decimal").css("font-weight", "normal");
+            $("#HEX").css("font-weight", "bold");
+        }
+    });
     $("#num").keypress(function(event) {
         if (event.keyCode === 13) {
             factorize();
