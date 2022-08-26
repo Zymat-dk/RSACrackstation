@@ -31,7 +31,6 @@ public class RSACracker {
         else {
             if (n.Substring(0, 2) == "0x") {
                 n = n.Substring(2);
-                n = "0x" + n;
             }
 
             _n = BigInteger.Parse(n, NumberStyles.AllowHexSpecifier);
