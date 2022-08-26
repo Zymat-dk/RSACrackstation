@@ -19,22 +19,20 @@ public class RSACracker {
     public BigInteger N {
         get { return _n; }
     }
-
-    public BigInteger[] Factors {
-        get { return new BigInteger[] { _p, _q }; }
-    }
-
+    
     public RSACracker(string n, bool isHex = false) {
-        if (!isHex) {
-            _n = BigInteger.Parse(n);
-        }
-        else {
+        if (isHex) {
             if (n.Substring(0, 2) == "0x") {
                 n = n.Substring(2);
             }
 
-            _n = BigInteger.Parse(n, NumberStyles.AllowHexSpecifier);
+            _n = BigInteger.Parse(n, NumberStyles.HexNumber);
         }
+        else {
+            _n = BigInteger.Parse(n);
+        }
+
+        Console.WriteLine(_n.ToString());
     }
 
     public RSACracker(string p, string q) {
@@ -96,8 +94,24 @@ public class RSACracker {
         return _d;
     }
 
-    public BigInteger GetPlainText(string cipherText) {
-        var cipher = BigInteger.Parse(cipherText);
+    public BigInteger GetPlainText(string cipherText, bool isHex = false) {
+        var cipher = BigInteger.Zero;
+
+        if (isHex) {
+            if (cipherText.Substring(0, 2) == "0x") {
+                Console.WriteLine("huh");
+                cipherText = cipherText.Substring(2);
+            }
+
+            Console.WriteLine("hmmm");
+
+            cipher = BigInteger.Parse(cipherText, NumberStyles.AllowHexSpecifier);
+        }
+        else {
+            cipher = BigInteger.Parse(cipherText);
+        }
+        Console.WriteLine(cipher);
+
         var pt = BigInteger.ModPow(cipher, _d, _n);
         return pt;
     }
