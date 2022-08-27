@@ -15,8 +15,6 @@
             <button id="subBtn" onclick="factorize()" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
 
 
-            <h1 id="failText" class="text-red-500 text-lg"></h1>
-
             <div class="w-full mt-6">
                 <span class="text-2xl mr-3 dark:text-gray-100">p</span>
                 <input id="p" placeholder="p" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
@@ -27,13 +25,68 @@
             </div>
             <button class="rounded px-3 py-2 mt-4 inline-flex dark:text-gray-300 text-gray-600 dark:bg-gray-700 bg-gray-200 py-2 px-6 focus:outline-none dark:hover:bg-gray-600 hover:bg-gray-300 dark:hover:text-white rounded text-lg transition-colors duration-200 ease-in-out" onclick="sendToRSACrack()" id="redirectRSA">Send to RSA Cracker</button>
 
+            <div id="snackbar" class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800">
+                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div id="failText" class="ml-3 font-normal">Improve password difficulty.</div>
+            </div>
 
         </div>
     </div>
 </section>
 
+<style>
+    #snackbar {
+    visibility: hidden;
+    position: fixed;
+    z-index: 400;
+    left: 20px;
+    bottom: 50px;
+    }
+
+
+    .show-bar {
+    visibility: visible !important;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    }
+
+
+    @@keyframes fadein {
+    from {
+    bottom: 0;
+    opacity: 0;
+    }
+    to {
+    bottom: 50px;
+    opacity: 1;
+    }
+    }
+
+    @@keyframes fadeout {
+    from {
+    bottom: 50px;
+    opacity: 1;
+    }
+    to {
+    bottom: 0;
+    opacity: 0;
+    }
+    }>
+</style>
+
 
 <script>
+
+function showSnackbar() {
+    $("#snackbar").addClass("show-bar");
+    setTimeout(function () {
+       $("#snackbar").removeClass("show-bar");
+    }, 5000);
+}
+
     $("#HEXToggle").click(function() {
         if($("#Decimal").css("font-weight") == 400) {
             $("#Decimal").css("font-weight", "bold");
@@ -97,6 +150,7 @@
                 console.log(data);
                 if (data[0] == -1 || data[1] == -1) {
                     $("#failText").text("Invalid Input (could already be a prime number)");
+                    showSnackbar()
                     $("#p").val("");
                     $("#q").val("");
                     return 
