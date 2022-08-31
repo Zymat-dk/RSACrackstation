@@ -71,6 +71,7 @@
     </div>
 </footer>
 <style>
+    /* Darkmode switch */
     #checkbox:checked + .switch-ball{
         background-color: white;
         transform: translateX(24px);
@@ -80,10 +81,13 @@
 
 
 <script>
+    // Darkmode toggle script
+
     const darkCheck = document.querySelector("#checkbox");
     const html = document.querySelector("html");
     loadLocalStorage();
 
+    // Switches the darkmode to the opposite of the current state
     const toggleDarkMode = function () {
         darkCheck.checked
         ? html.classList.add("dark")
@@ -92,8 +96,10 @@
     }
 
     toggleDarkMode();
+    // Eventlistener for the darkmode toggle
     darkCheck.addEventListener("click",toggleDarkMode);
     
+    // Fetches the darkmode state from localstorage
     function loadLocalStorage() {
         if (localStorage.getItem("darkMode") === "true") {
             darkCheck.checked = true;
@@ -103,6 +109,7 @@
             html.classList.remove("dark");
         }
     }
+    // Updates the localstorage with the new state of the darkmode
     function updateLocalStorage() {
         localStorage.setItem("darkMode", darkCheck.checked);
     }
