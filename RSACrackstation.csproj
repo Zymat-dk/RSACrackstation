@@ -60,6 +60,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Rapport\out"/>
         <Folder Include="wwwroot\lib"/>
     </ItemGroup>
 
