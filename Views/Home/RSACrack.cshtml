@@ -4,7 +4,7 @@
 
 <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
-
+    <!-- Grid system for input and buttons -->
         <h1 class="text-center sm:text-3xl text-3xl font-medium title-font mb-2 text-gray-900 mb-14 dark:text-gray-200 mx-auto">RSA Cracker</h1>
         <div class="grid overflow-hidden grid-cols-9 grid-rows-8 gap-4 gap-y-7">
             <div class="box">
@@ -79,18 +79,24 @@
     </div>
 </section>
 <style>
+    /* Auto expands the plaintext field when enough data */
     textarea {
-      overflow: hidden;
-      height: 50px;
-      padding: 0;
-      resize: none;
-
+        overflow: hidden;
+        height: 50px;
+        padding: 0;
+        resize: none;
     }
-   
 </style>
 
 <script>
+// Submits form when enter is pressed
+$("#ct").keypress(function(event) {
+        if (event.keyCode === 13) {
+            crackRSA();
+        }
+    });
 
+// Toggles between decimal and hex
 $("#cHEXToggle").click(function() {
     if($("#cDecimal").css("font-weight") == 400) {
         $("#cDecimal").css("font-weight", "bold");
@@ -101,6 +107,7 @@ $("#cHEXToggle").click(function() {
     }
 });
 
+// Auto toggles between decimal and hex when the correct one is pasted
 $("#ct").bind('paste', function(e) {
     let data = e.originalEvent.clipboardData.getData('text');
     if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
@@ -113,6 +120,7 @@ $("#ct").bind('paste', function(e) {
     }
 });
 
+// Toggles between decimal and hex
 $("#pHEXToggle").click(function() {
     if($("#pDecimal").css("font-weight") == 400) {
         $("#pDecimal").css("font-weight", "bold");
@@ -123,22 +131,26 @@ $("#pHEXToggle").click(function() {
     }
 });
 
+// Auto expands the plaintext field when enough data is in there
 $('textarea').height(50).height($('textarea')[0].scrollHeight);
 $('textarea').on('input', function() {
-  $(this)
+    $(this)
     .height(50)
     .height(this.scrollHeight);
 });
 
+// Reads the data from the prime site, from the URL
 let params = new URLSearchParams(location.search);
 let p = params.get('p')
 let q = params.get('q')
 
+// If the URL contains the data, fill in the fields
 if (p != null && q != null) {
     document.getElementById('p').value = p
     document.getElementById('q').value = q
 }
 
+// AJAX call to backend to fetch the data 
 function crackRSA() {
     console.log($("#cHEX").css("font-weight") == 700)
     $.ajax({
