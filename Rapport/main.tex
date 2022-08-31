@@ -26,112 +26,35 @@
 
 \begin{document}
 
-    \pagestyle{empty}
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{1cm}
 
-    \begin{tikzpicture}[overlay,remember picture]
-% Background color
-        \fill[
-            black!2]
-        (current page.south west) rectangle (current page.north east);
+            \textbf{Thesis Title}
 
-% Rectangles
-        \shade[
-            left color=Dandelion,
-            right color=Dandelion!40,
-            transform canvas ={rotate around ={45:($(current page.north west)+(0,-6)$)}}]
-        ($(current page.north west)+(0,-6)$) rectangle ++(9,1.5);
+            \vspace{0.5cm}
+            Thesis Subtitle
 
-        \shade[
-            left color=lightgray,
-            right color=lightgray!50,
-            rounded corners=0.75cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(.5,-10)$)}}]
-        ($(current page.north west)+(0.5,-10)$) rectangle ++(15,1.5);
+            \vspace{1.5cm}
 
-        \shade[
-            left color=lightgray,
-            rounded corners=0.3cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(.5,-10)$)}}] ($(current page.north west)+(1.5,-9.55)$) rectangle ++(7,.6);
+            \textbf{Author Name}
 
-        \shade[
-            left color=orange!80,
-            right color=orange!60,
-            rounded corners=0.4cm,
-            transform canvas ={rotate around ={45:($(current page.north)+(-1.5,-3)$)}}]
-        ($(current page.north)+(-1.5,-3)$) rectangle ++(9,0.8);
+            \vfill
 
-        \shade[
-            left color=red!80,
-            right color=red!80,
-            rounded corners=0.9cm,
-            transform canvas ={rotate around ={45:($(current page.north)+(-3,-8)$)}}] ($(current page.north)+(-3,-8)$) rectangle ++(15,1.8);
+            A thesis presented for the degree of\\
+            Doctor of Philosophy
 
-        \shade[
-            left color=orange,
-            right color=Dandelion,
-            rounded corners=0.9cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(4,-15.5)$)}}]
-        ($(current page.north west)+(4,-15.5)$) rectangle ++(30,1.8);
+            \vspace{0.8cm}
 
-        \shade[
-            left color=RoyalBlue,
-            right color=Emerald,
-            rounded corners=0.75cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(13,-10)$)}}]
-        ($(current page.north west)+(13,-10)$) rectangle ++(15,1.5);
 
-        \shade[
-            left color=lightgray,
-            rounded corners=0.3cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(18,-8)$)}}]
-        ($(current page.north west)+(18,-8)$) rectangle ++(15,0.6);
 
-        \shade[
-            left color=lightgray,
-            rounded corners=0.4cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(19,-5.65)$)}}]
-        ($(current page.north west)+(19,-5.65)$) rectangle ++(15,0.8);
+            Department Name\\
+            University Name\\
+            Country\\
+            Date
 
-        \shade[
-            left color=OrangeRed,
-            right color=red!80,
-            rounded corners=0.6cm,
-            transform canvas ={rotate around ={45:($(current page.north west)+(20,-9)$)}}]
-        ($(current page.north west)+(20,-9)$) rectangle ++(14,1.2);
-
-% Year
-        \draw[ultra thick,gray]
-        ($(current page.center)+(5,2)$) -- ++(0,-3cm)
-        node[
-        midway,
-        left=0.25cm,
-        text width=5cm,
-        align=right,
-        black!75
-        ]
-            {
-                {\fontsize{25}{30} \selectfont \bf Studie Omr\åde \\[10pt] Projektet}
-        }
-        node[
-        midway,
-        right=0.25cm,
-        text width=6cm,
-        align=left,
-        orange]
-            {
-                {\fontsize{72}{86.4} \selectfont 2022}
-        };
-
-% Title
-        \node[align=center] at ($(current page.center)+(0,-6.5)$)
-            {
-                {\fontsize{26}{26} \selectfont {{Kryptografiske hashing algoritmer}}} \\[15pt] {\fontsize{28}{28} \selectfont {{MD5}}} \\[1.5cm]
-            {\fontsize{18}{22} \selectfont \textcolor{orange}{ \bf Gustav Søndergaard Nybro}}\\[10pt]
-            College360 - Teknisk Skole\\[3pt]
-            Programmering B \& Matematik A\\[3pt]
-            Vejleder 1 \& Vejleder 2\\[10pt]
-            \Large \bf 22/12 - 2022};
-    \end{tikzpicture}
+        \end{center}
+    \end{titlepage}
 
     \newpage
 
