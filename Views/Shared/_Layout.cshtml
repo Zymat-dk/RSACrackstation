@@ -1,17 +1,21 @@
 ﻿<!DOCTYPE html>
-<html lang="en" class="dark dark:bg-gray-900">
+<html lang="en" class="dark dark:bg-gray-900"> <!-- The jQuery toggles darkmode by adding and removing the "dark" tag -->
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - RSACrackstation</title>
+    
+    <!-- Imports jQuery and Tailwind from a CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
+    // Tailwind config 
         tailwind.config = {
-        darkMode: 'class',
+        darkMode: 'class', // This allows us to use the dark mode class in the HTML.
         theme: {
             extend: {
-                content: {
+                content: { // Moon and Sun symbols for the darkmode toggle
                     'moon': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='WhiteSmoke' class='bi bi-moon-stars-fill' viewBox='0 0 16 16'%3E%3Cpath d='M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z'/%3E%3Cpath d='M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z'/%3E%3C/svg%3E");`,
                     'sun': `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-brightness-high-fill' viewBox='0 0 16 16'%3E%3Cpath d='M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z'/%3E%3C/svg%3E");` 
                 },
@@ -20,24 +24,25 @@
     }
     </script>
 </head>
-<body class="dark:bg-gray-900">
-
+<body class="dark:bg-gray-900"> 
 
 <header class="text-gray-600 body-font border border-b-1 bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
         <a href="/" class="flex title-font font-medium items-center text-gray-900 dark:text-gray-50 mb-4 md:mb-0">
+            <!-- The CPU logo -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-10 h-10" viewBox="0 0 16 16">
                 <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
             </svg>
             <span class="ml-3 text-xl">RSA Crackstation</span>
         </a>
+        <!-- Navbar with pages links -->
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
             <a href="/" class="mr-5 hover:text-gray-900 dark:hover:text-white">Home</a>
             <a href="/Home/RsaCrack" class="mr-5 hover:text-gray-900 dark:hover:text-white">RSA Crack</a>
 
         </nav>
         <div>
-
+            <!-- Darkmode toggle -->
             <label for="checkbox" class="inline-flex relative items-center cursor-pointer">
                 <input type="checkbox" value="" id="checkbox" name="darktoggle" class="sr-only peer">
                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white peer-checked:before:content-moon before:content-sun peer-checked:before:left-1 before:right-1 before:absolute peer-checked:before:mt-[1px] before:mt-[1px] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -46,14 +51,17 @@
     </div>
 </header>
 
+
 <div class="">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
+<!-- Footer -->
 <footer class="text-gray-600 body-font w-full bottom-0 fixed z-40 border border-t-1 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
+        <!-- Social links -->
         <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
             © 2022 RSA Crackstation —
             <a href="https://github.com/DNIIBOY" class="text-gray-600 dark:text-gray-50 ml-1" rel="noopener noreferrer" target="_blank">Daniel Nettelfield</a>
@@ -64,41 +72,42 @@
 </footer>
 <style>
     #checkbox:checked + .switch-ball{
-      background-color: white;
-      transform: translateX(24px);
-      transition: transform 0.3s linear;
+        background-color: white;
+        transform: translateX(24px);
+        transition: transform 0.3s linear;
     }
-  </style>
-<script>
-      const darkCheck = document.querySelector("#checkbox");
-      const html = document.querySelector("html");
-      
-        loadLocalStorage();
+</style>
 
-      const toggleDarkMode = function () {
+
+<script>
+    const darkCheck = document.querySelector("#checkbox");
+    const html = document.querySelector("html");
+    loadLocalStorage();
+
+    const toggleDarkMode = function () {
         darkCheck.checked
         ? html.classList.add("dark")
         : html.classList.remove("dark");
         updateLocalStorage();
-      }
+    }
 
-      toggleDarkMode();
-      darkCheck.addEventListener("click",toggleDarkMode);
-      
-      function loadLocalStorage() {
+    toggleDarkMode();
+    darkCheck.addEventListener("click",toggleDarkMode);
+    
+    function loadLocalStorage() {
         if (localStorage.getItem("darkMode") === "true") {
-          darkCheck.checked = true;
-          html.classList.add("dark");
+            darkCheck.checked = true;
+            html.classList.add("dark");
         } else if (localStorage.getItem("darkMode") === "false") {
-          darkCheck.checked = false;
-          html.classList.remove("dark");
+            darkCheck.checked = false;
+            html.classList.remove("dark");
         }
-      }
-      function updateLocalStorage() {
+    }
+    function updateLocalStorage() {
         localStorage.setItem("darkMode", darkCheck.checked);
-      }
+    }
 
-      </script>
+</script>
 
 </body>
 </html>
