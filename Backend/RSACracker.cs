@@ -31,8 +31,6 @@ public class RSACracker {
         else {
             _n = BigInteger.Parse(n);
         }
-
-        Console.WriteLine(_n.ToString());
     }
 
     public RSACracker(string p, string q) {
@@ -110,7 +108,6 @@ public class RSACracker {
         else {
             cipher = BigInteger.Parse(cipherText);
         }
-        Console.WriteLine(cipher);
 
         var pt = BigInteger.ModPow(cipher, _d, _n);
         return pt;
@@ -121,15 +118,17 @@ public class RSACracker {
         string hex = plain.ToString("X"); // Convert to hex
         string ascii = "";
         for (var i = 0; i < hex.Length; i += 2) {
+            // Iterate over the hex string, and convert each 2 characters to an ascii character
             var hexPair = hex.Substring(i, 2);
             var asciiChar = (char)Convert.ToByte(hexPair, 16);
-            ascii += asciiChar;
+            ascii += asciiChar; // Append the ascii character to the string
         }
 
         return ascii;
     }
 
     private BigInteger EGCD(BigInteger a, BigInteger b) {
+        // Runs the extended euclidean algorithm to find the modular inverse of a mod b
         BigInteger x = 0;
         BigInteger y = 1;
         BigInteger u = 1;
