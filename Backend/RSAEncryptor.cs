@@ -11,14 +11,15 @@ public class RSAEncryptor{
     
     public BigInteger E{ get; set; } = 65537;
     
-    public RSAEncryptor(BigInteger n, BigInteger e){
-        _n = n;
-        _e = e;
+    public RSAEncryptor(string n, string e){
+        _n = BigInteger.Parse(n);
+        _e = BigInteger.Parse(e);
     }
     
-    public BigInteger Encrypt(BigInteger m){
+    public BigInteger Encrypt(BigInteger m, bool isHex = false){
         _p = m;
         _c = BigInteger.ModPow(m, _e, _n);
         return _c;
     }
+    
 }
