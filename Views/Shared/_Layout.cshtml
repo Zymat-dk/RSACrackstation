@@ -1,18 +1,26 @@
 ﻿<!DOCTYPE html>
-<html lang="en" class="dark dark:bg-gray-900"> <!-- The jQuery toggles darkmode by adding and removing the "dark" tag -->
+<html lang="en" class="dark dark:bg-gray-900">
+<!-- The jQuery toggles darkmode by adding and removing the "dark" tag -->
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
+    <meta name="title" content="RSACrackstation">
+    <meta name="description" content="The best website for all things RSA. RSA Cracking, Prime Factorization, RSA Encryption">
+    <meta name="keywords" content="PrimeFactorization, rsa, encryption, rsacracking, rsaencryption, rsaa, rsadecrypt, rsaencrypt, rsaenc, rsadec, cyber, cybersec, cybersecurity, cyberrsa, rsacyber, rsasecurity, rsafactor, prime, primefactor, ">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="14 days">
+    <meta name="author" content="RSACrackstation">
+
     @Html.Partial("_Favicons")
-    
+
     <title>@ViewData["Title"] - RSACrackstation</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    
+
     <!-- Imports jQuery and Tailwind from a CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <script>
     // Tailwind config 
         tailwind.config = {
@@ -28,11 +36,11 @@
     }
     </script>
 </head>
-<body class="dark:bg-gray-900"> 
+<body class="dark:bg-gray-900">
 
 <header class="text-gray-600 body-font border border-b-1 bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
-        <a href="/" class="flex title-font font-medium items-center text-gray-900 dark:text-gray-50 mb-4 md:mb-0">
+        <a href="/" class="flex title-font font-medium items-center text-gray-900 dark:text-gray-50 mb-4 md:mb-0 transition hover:scale-95">
             <!-- The CPU logo -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-10 h-10" viewBox="0 0 16 16">
                 <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
@@ -41,8 +49,10 @@
         </a>
         <!-- Navbar with pages links -->
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-            <a href="/" class="mr-5 hover:text-gray-900 dark:hover:text-white">Home</a>
-            <a href="/Home/RsaCrack" class="mr-5 hover:text-gray-900 dark:hover:text-white">RSA Crack</a>
+            <a href="/" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">Prime Factorization</a>
+            <a href="/Home/RsaCrack" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">RSA Crack</a>
+            <a href="/Home/RSAEncrypt" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">Encrypt</a>
+            <a href="/Home/RSAKeygen" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">Key Generator</a>
 
         </nav>
         <div>
