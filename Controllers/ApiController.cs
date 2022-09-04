@@ -36,6 +36,6 @@ public class ApiController : Controller{
         var encryptor = new RSAEncryptor(n, e);
         encryptor.E = BigInteger.Parse(e);
         return "gaming tid";
-        return encryptor.Encrypt(pt, isHex);
+        //return encryptor.Encrypt(pt, isHex);
     }
 }
