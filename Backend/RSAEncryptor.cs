@@ -16,10 +16,10 @@ public class RSAEncryptor{
         _e = BigInteger.Parse(e);
     }
     
-    public BigInteger Encrypt(BigInteger m, bool isHex = false){
-        _p = m;
-        _c = BigInteger.ModPow(m, _e, _n);
-        return _c;
+    public string Encrypt(string m, bool isHex = false){
+        _p = BigInteger.Parse(m);
+        _c = BigInteger.ModPow(_p, _e, _n);
+        return Convert.ToString(_c);
     }
     
 }

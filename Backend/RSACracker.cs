@@ -97,11 +97,8 @@ public class RSACracker {
 
         if (isHex) {
             if (cipherText.Substring(0, 2) == "0x") {
-                Console.WriteLine("huh");
                 cipherText = cipherText.Substring(2);
             }
-
-            Console.WriteLine("hmmm");
 
             cipher = BigInteger.Parse(cipherText, NumberStyles.AllowHexSpecifier);
         }

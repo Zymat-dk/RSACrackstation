@@ -27,15 +27,12 @@ public class ApiController : Controller{
             output["pt"] = pt;
             output["ptAscii"] = cracker.ConvertToAscii(pt);
         }
-
-
         return output;
     }
 
     public string Encrypt(string n, string e, string pt, bool isHex){
         var encryptor = new RSAEncryptor(n, e);
         encryptor.E = BigInteger.Parse(e);
-        return "gaming tid";
-        //return encryptor.Encrypt(pt, isHex);
+        return encryptor.Encrypt(pt, isHex);
     }
 }
