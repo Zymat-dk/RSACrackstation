@@ -1,15 +1,16 @@
-@{ <!-- Updates the title -->
+@{
+    <!-- Updates the title -->
     ViewData["Title"] = "Prime Encrypter";
 }
 
 <section class="text-gray-600 body-font h-min">
     <!-- Tailwind automatically creates sufficient margin to sides with "container" -->
-    <div class="container px-5 pt-20 mx-auto">
+    <div class="container px-5 pt-12 mx-auto">
         <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 dark:text-gray-50 mb-14">RSA Encrypter</h1>
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 dark:text-gray-50 mb-12">RSA Encrypter</h1>
 
             <!-- Prime input field and HEX/Decimal toggle -->
-            <div class="w-full mt-6">
+            <div class="w-full">
                 <span class="text-2xl mr-3 dark:text-gray-100">N</span>
                 <input id="N" placeholder="N" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
             </div>
@@ -19,17 +20,37 @@
             </div>
             <div class="w-full mt-6 mb-6">
                 <span class="text-2xl mr-3 dark:text-gray-100">pt</span>
-                <input id="q" placeholder="q" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
+                <input id="pt" placeholder="pt" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
             </div>
+            <ul class="items-center w-1/2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="horizontal-list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="horizontal-list-radio-license" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Driver License </label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="horizontal-list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="horizontal-list-radio-id" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">State ID</label>
+                    </div>
+                </li>
+                <li class="w-full dark:border-gray-600">
+                    <div class="flex items-center pl-3">
+                        <input id="horizontal-list-radio-passport" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="horizontal-list-radio-passport" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">US Passport</label>
+                    </div>
+                </li>
+            </ul>
             <button id="subBtn" onclick="factorize()" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
 
-            
+
             <div class="box w-2/3">
-                <textarea id="pta" placeholder="Plaintext ASCII" wrap="hard" class="w-full dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 transition-colors duration-200 ease-in-out"></textarea>
+                <input id="c" placeholder="c" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
             </div>
 
             <button class="rounded px-3 py-2 mt-4 inline-flex dark:text-gray-300 text-gray-600 dark:bg-gray-700 bg-gray-200 py-2 px-6 focus:outline-none dark:hover:bg-gray-600 hover:bg-gray-300 dark:hover:text-white rounded text-lg transition-colors duration-200 ease-in-out" onclick="sendToRSACrack()" id="redirectRSA">Send to RSA Cracker</button>
-            
+
             <!-- Snackbar that displays that displays error messages -->
             <div id="snackbar" class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800">
                 <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
