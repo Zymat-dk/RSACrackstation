@@ -31,7 +31,7 @@ public class ApiController : Controller{
     }
 
     public string Encrypt(string n, string e, string pt, bool isHex){
-        var encryptor = new RSAEncryptor(n, e);
+        var encryptor = new RSAEncrypter(n, e);
         encryptor.E = BigInteger.Parse(e);
         return encryptor.Encrypt(pt, isHex);
     }
