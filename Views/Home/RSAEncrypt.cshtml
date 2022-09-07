@@ -25,19 +25,19 @@
             <ul class="items-center w-1/2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white mb-4">
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input id="cASCII" checked type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <input id="cASCII" checked type="radio" value="0" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="cASCII" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ASCII</label>
                     </div>
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input id="cDecimal" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <input id="cDecimal" type="radio" value="1" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="cDecimal" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Decimal</label>
                     </div>
                 </li>
                 <li class="w-full dark:border-gray-600">
                     <div class="flex items-center pl-3">
-                        <input id="cHEX" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <input id="cHEX" type="radio" value="2" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="cHEX" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">HEX</label>
                     </div>
                 </li>
@@ -64,28 +64,9 @@
         </div>
     </div>
 </section>
-<script>
 
-
-// Auto expands the plaintext field when enough data is in there
-$('textarea').height(50).height($('textarea')[0].scrollHeight);
-$('textarea').on('input', function() {
-    $(this)
-    .height(50)
-    .height(this.scrollHeight);
-});
-
-</script>
 <style>
 
-
-    /* Auto expands the plaintext field when enough data */
-    textarea {
-        overflow: hidden;
-        height: 50px;
-        padding: 0;
-        resize: none;
-    }
     /* Snackbar special styling */
     #snackbar {
     visibility: hidden;
@@ -177,12 +158,16 @@ $('textarea').on('input', function() {
         window.location.href = location;
     }
     
+    
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function encrypt() {
         let N = $("#N").val();
         let e = $("#e").val();
         let pt = $("#pt").val();
+        let inputType = $("input[name='list-radio']:checked").val();
+        
+        
         
         if (N.substring(0, 2) == "0x"){
             console.log("bruh");
