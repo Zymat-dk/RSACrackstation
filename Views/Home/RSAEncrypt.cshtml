@@ -176,8 +176,7 @@
         let e = $("#e").val();
         let pt = $("#pt").val();
         let inputType = $("input[name='list-radio']:checked").val();
-        
-        
+        console.log(inputType);
         
         if (N.substring(0, 2) == "0x"){
             console.log("bruh");
@@ -197,7 +196,7 @@
                 "N": N,
                 "e": e,
                 "pt": pt,
-                "isHex": $("#HEX").css("font-weight") == 700 // If hex is bold, then it is hex. It reads from the DOM
+                "inputType": inputType
             },
             success: function(data) {
                 console.log(data);
