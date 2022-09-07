@@ -30,8 +30,8 @@ public class ApiController : Controller{
         return output;
     }
 
-    public string Encrypt(string n, string e, string pt, bool isHex){
-        var encryptor = new RSAEncrypter(n, e);
+    public string Encrypt(string N, string e, string pt, bool isHex=false){
+        var encryptor = new RSAEncrypter(N, e);
         encryptor.E = BigInteger.Parse(e);
         return encryptor.Encrypt(pt, isHex);
     }

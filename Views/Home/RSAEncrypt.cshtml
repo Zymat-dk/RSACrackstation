@@ -181,14 +181,16 @@ $('textarea').on('input', function() {
     // If it returns an error, it displays an error message
     function encrypt() {
         let N = $("#N").val();
+        let e = $("#e").val();
+        let pt = $("#pt").val();
         
-        if (num.substring(0, 2) == "0x"){
+        if (N.substring(0, 2) == "0x"){
             console.log("bruh");
             $("#Decimal").css("font-weight", "normal");
             $("#HEX").css("font-weight", "bold");
         }
         
-        if (!num.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
+        if (!N.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
             showSnackbar("Please enter a valid number");
             return;
         }
@@ -197,19 +199,14 @@ $('textarea').on('input', function() {
             url: "/api/Encrypt",
             type: "POST",
             data: {
-                "inputNum": num,
+                "N": N,
+                "e": e,
+                "pt": pt,
                 "isHex": $("#HEX").css("font-weight") == 700 // If hex is bold, then it is hex. It reads from the DOM
             },
             success: function(data) {
                 console.log(data);
-                if (data[0] == -1 || data[1] == -1) { // If the returned data is -1, then it is an error
-                    showSnackbar("Invalid Input (could already be a prime number)")
-                    $("#p").val("");
-                    $("#q").val("");
-                    return 
-                }
-                $("#p").val(data[0]);
-                $("#q").val(data[1]);
+                $("#c").val(data);
             }
         });
     }
