@@ -82,7 +82,8 @@
 
 <script>
     // Shows the snackbar for 5 seconds
-    function showSnackbar() {
+    function showSnackbar(message) {
+        $("#failText").text(message);
         $("#snackbar").addClass("show-bar");
         setTimeout(function () {
             $("#snackbar").removeClass("show-bar");
@@ -143,7 +144,7 @@
         }
         
         if (!num.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
-            $("#failText").text("Please enter a number");
+            showSnackbar("Please enter a number")
             return;
         }
         
@@ -157,13 +158,11 @@
             success: function(data) {
                 console.log(data);
                 if (data[0] == -1 || data[1] == -1) { // If the returned data is -1, then it is an error
-                    $("#failText").text("Invalid Input (could already be a prime number)");
-                    showSnackbar()
+                    showSnackbar("Invalid Input (could already be a prime number)")
                     $("#p").val("");
                     $("#q").val("");
                     return 
                 }
-                $("#failText").text("")
                 $("#p").val(data[0]);
                 $("#q").val(data[1]);
             }

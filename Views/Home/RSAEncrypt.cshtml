@@ -21,7 +21,7 @@
                 <span class="text-2xl mr-3 dark:text-gray-100">pt</span>
                 <input id="q" placeholder="q" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
             </div>
-            <button id="subBtn" onclick="factorize()" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+            <button id="subBtn" onclick="encrypt()" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
 
             
             <div class="box w-2/3">
@@ -104,7 +104,8 @@ $('textarea').on('input', function() {
 
 <script>
     // Shows the snackbar for 5 seconds
-    function showSnackbar() {
+    function showSnackbar(message) {
+        $("#failText").text(message);
         $("#snackbar").addClass("show-bar");
         setTimeout(function () {
             $("#snackbar").removeClass("show-bar");
@@ -138,7 +139,7 @@ $('textarea').on('input', function() {
     // Submits form if enter is pressed
     $("#num").keypress(function(event) {
         if (event.keyCode === 13) {
-            factorize();
+            encrypt();
         }
     });
     
@@ -155,8 +156,8 @@ $('textarea').on('input', function() {
     
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
-    function factorize() {
-        let num = $("#num").val();
+    function encrypt() {
+        let N = $("#N").val();
         
         if (num.substring(0, 2) == "0x"){
             console.log("bruh");
@@ -165,12 +166,12 @@ $('textarea').on('input', function() {
         }
         
         if (!num.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
-            $("#failText").text("Please enter a number");
+            showSnackbar("Please enter a valid number");
             return;
         }
         
         $.ajax({
-            url: "/api/GetFactors",
+            url: "/api/Encrypt",
             type: "POST",
             data: {
                 "inputNum": num,
@@ -179,13 +180,11 @@ $('textarea').on('input', function() {
             success: function(data) {
                 console.log(data);
                 if (data[0] == -1 || data[1] == -1) { // If the returned data is -1, then it is an error
-                    $("#failText").text("Invalid Input (could already be a prime number)");
-                    showSnackbar()
+                    showSnackbar("Invalid Input (could already be a prime number)")
                     $("#p").val("");
                     $("#q").val("");
                     return 
                 }
-                $("#failText").text("")
                 $("#p").val(data[0]);
                 $("#q").val(data[1]);
             }
