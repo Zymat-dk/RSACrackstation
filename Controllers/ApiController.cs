@@ -25,17 +25,35 @@ public class ApiController : Controller{
         else{
             var pt = cracker.GetPlainText(ct, isHex).ToString();
             output["pt"] = pt;
-            output["ptAscii"] = cracker.ConvertToAscii(pt);
+            try{
+                output["ptAscii"] = cracker.ConvertToAscii(pt);
+            }
+            catch{
+                output["ptAscii"] = "Could not convert to ASCII";
+            }
         }
-
-
         return output;
     }
 
-    public string Encrypt(string n, string e, string pt, bool isHex){
-        var encryptor = new RSAEncryptor(n, e);
+    public string Encrypt(string N, string e, string pt, int inputType = 0){
+        var encryptor = new RSAEncrypter(N, e);
         encryptor.E = BigInteger.Parse(e);
-        return "gaming tid";
-        //return encryptor.Encrypt(pt, isHex);
+        switch (inputType){
+            case 0:
+                // Ascii
+                pt = encryptor.FromAscii(pt);
+                break;
+            case 1:
+                // Decimal
+                // Do nothing
+                break;
+            case 2:
+                // Hex
+                pt = encryptor.FromHex(pt);
+                break;
+        }
+
+        Console.WriteLine(pt);
+        return encryptor.Encrypt(pt);
     }
 }
