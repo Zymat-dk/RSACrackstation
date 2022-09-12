@@ -5,8 +5,8 @@ using RSACrackstation.Backend;
 namespace RSACrackstation.Controllers;
 
 public class ApiController : Controller{
-    public string[] GetFactors(string inputNum, bool isHex){
-        var cracker = new RSACracker(inputNum, isHex);
+    public string[] GetFactors(string inputNum){
+        var cracker = new RSACracker(inputNum);
         return cracker.GetFactors();
     }
 
