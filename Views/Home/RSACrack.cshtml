@@ -129,6 +129,22 @@ $("#pHEXToggle").click(function() {
         $("#pDecimal").css("font-weight", "normal");
         $("#pHEX").css("font-weight", "bold");
     }
+    // Toggle the value of #pt, if it's not empty
+    let pt = $("#pt").val();
+    if(pt != "") {
+        if($("#pDecimal").css("font-weight") == 700) {
+            pt = hexToDecimal(pt);
+            if (pt === -1){
+                return;
+            }
+        } else {
+            pt = decimalToHex(pt);
+            if (pt === -1){
+                return;
+            }
+        }
+        $("#pt").val(pt);
+    }
 });
 
 // Auto expands the plaintext field when enough data is in there
