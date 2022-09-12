@@ -1,6 +1,6 @@
 @{
     <!-- Updates the title -->
-    ViewData["Title"] = "Prime Encrypter";
+    ViewData["Title"] = "RSA Encrypter";
 }
 
 <section class="text-gray-600 body-font h-min">
@@ -26,19 +26,19 @@
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 rounded-l-lg bg-indigo-500">
                     <div class="flex items-center ">
                         <input id="cASCII" checked type="radio" value="0" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="cASCII" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ASCII</label>
+                        <label for="cASCII" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ASCII</label>
                     </div>
                 </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center ">
                         <input id="cDecimal" type="radio" value="1" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="cDecimal" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Decimal</label>
+                        <label for="cDecimal" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Decimal</label>
                     </div>
                 </li>
                 <li class="w-full dark:border-gray-600 rounded-r-lg">
-                    <div class="flex items-center ">
+                    <div class="flex items-center">
                         <input id="cHEX" type="radio" value="2" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="cHEX" class=" py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">HEX</label>
+                        <label for="cHEX" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">HEX</label>
                     </div>
                 </li>
             </ul>
