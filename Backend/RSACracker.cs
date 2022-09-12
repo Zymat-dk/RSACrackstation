@@ -88,6 +88,10 @@ public class RSACracker {
 
         var phi_n = (_p - 1) * (_q - 1);
         _d = EGCD(E, phi_n);
+        _d = _d % phi_n;
+        if (_d < 0) {
+            _d += phi_n;
+        }
 
         Console.WriteLine(_d);
         return _d;
