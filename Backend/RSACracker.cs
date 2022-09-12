@@ -92,8 +92,6 @@ public class RSACracker {
         if (_d < 0) {
             _d += phi_n;
         }
-
-        Console.WriteLine(_d);
         return _d;
     }
 

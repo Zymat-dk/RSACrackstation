@@ -10,7 +10,7 @@ public class ApiController : Controller{
         return cracker.GetFactors();
     }
 
-    public Dictionary<string, string> Decipher(string p, string q, string e, string ct, bool isHex){
+    public Dictionary<string, string> Decipher(string p, string q, string e, string ct){
         var cracker = new RSACracker(p, q);
         cracker.E = BigInteger.Parse(e);
 
@@ -23,7 +23,7 @@ public class ApiController : Controller{
             output["ptAscii"] = "";
         }
         else{
-            var pt = cracker.GetPlainText(ct, isHex).ToString();
+            var pt = cracker.GetPlainText(ct).ToString();
             output["pt"] = pt;
             try{
                 output["ptAscii"] = cracker.ConvertToAscii(pt);

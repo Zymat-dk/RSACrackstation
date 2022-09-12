@@ -14,3 +14,12 @@ function hexToDecimal(hex) {
         return -1;
     }
 }
+
+function decimalToHex(dec) {
+    try {
+        let bn = BigInt(dec);
+        return bn.toString(16);
+    } catch (SyntaxError) {
+        return -1;
+    }
+}
