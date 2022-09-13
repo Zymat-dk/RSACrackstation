@@ -35,24 +35,9 @@ public class ApiController : Controller{
         return output;
     }
 
-    public string Encrypt(string N, string e, string pt, int inputType = 0){
+    public string Encrypt(string N, string e, string pt){
         var encryptor = new RSAEncrypter(N, e);
         encryptor.E = BigInteger.Parse(e);
-        switch (inputType){
-            case 0:
-                // Ascii
-                pt = encryptor.FromAscii(pt);
-                break;
-            case 1:
-                // Decimal
-                // Do nothing
-                break;
-            case 2:
-                // Hex
-                pt = encryptor.FromHex(pt);
-                break;
-        }
-
         Console.WriteLine(pt);
         return encryptor.Encrypt(pt);
     }
