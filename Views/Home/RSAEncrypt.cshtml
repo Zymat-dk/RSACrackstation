@@ -207,6 +207,10 @@
                 pt = hexToDecimal(pt);
                 break;
         }
+        if (pt > N) {
+            showSnackbar("Can not encrypt message larger than N");
+            return;
+        }
         
         $.ajax({
             url: "/api/Encrypt",
@@ -217,7 +221,6 @@
                 "pt": pt,
             },
             success: function(data) {
-                console.log(data);
                 $("#c").val(data);
             }
         });
