@@ -51,13 +51,22 @@ public class RSACracker {
         var request = WebRequest.Create(url);
         request.Method = "GET"; // Use GET request
 
-        using var webResponse = request.GetResponse();
-        using var webStream = webResponse.GetResponseStream();
+        var data = "";
+        try{
+            using var webResponse = request.GetResponse();
+            using var webStream = webResponse.GetResponseStream();
+            using var reader = new StreamReader(webStream);
+            data = reader.ReadToEnd();
+        }
+        catch (System.Net.WebException){
+            (factors[0], factors[1]) = ("-2", "-2");
+            return factors;
+        }
 
-        using var reader = new StreamReader(webStream);
-        var data = reader.ReadToEnd();
 
         dynamic jsonData = JsonObject.Parse(data); // parse json data
+        
+        Console.WriteLine(jsonData);
 
         if (jsonData["status"].ToString() != "FF" || jsonData["factors"].Count != 2) {
             // If the number is prime, or has more than two factors, return -1 -1
@@ -88,8 +97,10 @@ public class RSACracker {
 
         var phi_n = (_p - 1) * (_q - 1);
         _d = EGCD(E, phi_n);
-
-        Console.WriteLine(_d);
+        _d = _d % phi_n;
+        if (_d < 0) {
+            _d += phi_n;
+        }
         return _d;
     }
 

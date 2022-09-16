@@ -5,12 +5,12 @@ using RSACrackstation.Backend;
 namespace RSACrackstation.Controllers;
 
 public class ApiController : Controller{
-    public string[] GetFactors(string inputNum, bool isHex){
-        var cracker = new RSACracker(inputNum, isHex);
+    public string[] GetFactors(string inputNum){
+        var cracker = new RSACracker(inputNum);
         return cracker.GetFactors();
     }
 
-    public Dictionary<string, string> Decipher(string p, string q, string e, string ct, bool isHex){
+    public Dictionary<string, string> Decipher(string p, string q, string e, string ct){
         var cracker = new RSACracker(p, q);
         cracker.E = BigInteger.Parse(e);
 
@@ -23,7 +23,7 @@ public class ApiController : Controller{
             output["ptAscii"] = "";
         }
         else{
-            var pt = cracker.GetPlainText(ct, isHex).ToString();
+            var pt = cracker.GetPlainText(ct).ToString();
             output["pt"] = pt;
             try{
                 output["ptAscii"] = cracker.ConvertToAscii(pt);
@@ -35,24 +35,9 @@ public class ApiController : Controller{
         return output;
     }
 
-    public string Encrypt(string N, string e, string pt, int inputType = 0){
+    public string Encrypt(string N, string e, string pt){
         var encryptor = new RSAEncrypter(N, e);
         encryptor.E = BigInteger.Parse(e);
-        switch (inputType){
-            case 0:
-                // Ascii
-                pt = encryptor.FromAscii(pt);
-                break;
-            case 1:
-                // Decimal
-                // Do nothing
-                break;
-            case 2:
-                // Hex
-                pt = encryptor.FromHex(pt);
-                break;
-        }
-
         Console.WriteLine(pt);
         return encryptor.Encrypt(pt);
     }

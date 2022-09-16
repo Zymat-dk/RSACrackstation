@@ -16,11 +16,11 @@
             </div>
             <div class="w-full mt-6">
                 <span class="text-2xl mr-3 dark:text-gray-100">e</span>
-                <input id="e" placeholder="e" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
+                <input id="e" placeholder="e" value="65537" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
             </div>
             <div class="w-full mt-6 mb-2">
-                <span class="text-2xl mr-3 dark:text-gray-100">pt</span>
-                <input id="pt" placeholder="pt" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
+                <span class="text-2xl mr-3 dark:text-gray-100">m</span>
+                <input id="pt" placeholder="m" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
             </div>
             <ul id="inputRadio" class="items-center w-1/2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white mb-4">
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 rounded-l-lg bg-indigo-500">
@@ -189,6 +189,29 @@
             return;
         }
         
+        switch (parseInt(inputType)){
+            case 0:
+                pt = asciiToDecimal(pt);
+                break;
+            case 1:
+                if (!pt.match(/^[0-9]+$/g)) {
+                    showSnackbar("Please enter a valid number");
+                    return;
+                }
+                break;
+            case 2:
+                if (!pt.match(/^[0-9A-Fa-f]+$/g)) {
+                    showSnackbar("Please enter a valid hex string");
+                    return;
+                }
+                pt = hexToDecimal(pt);
+                break;
+        }
+        if (pt > N) {
+            showSnackbar("Can not encrypt message larger than N");
+            return;
+        }
+        
         $.ajax({
             url: "/api/Encrypt",
             type: "POST",
@@ -196,10 +219,8 @@
                 "N": N,
                 "e": e,
                 "pt": pt,
-                "inputType": inputType
             },
             success: function(data) {
-                console.log(data);
                 $("#c").val(data);
             }
         });
