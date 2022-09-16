@@ -163,12 +163,17 @@
                 "inputNum": num,
             },
             success: function(data) {
-                console.log(data);
+                if (data[0] == -2 || data[1] == -2) { // If the returned data is -1, then it is an error
+                    showSnackbar("FactorDB is currently offline")
+                    $("#p").val("");
+                    $("#q").val("");
+                    return;
+                }
                 if (data[0] == -1 || data[1] == -1) { // If the returned data is -1, then it is an error
                     showSnackbar("Invalid Input (could already be a prime number)")
                     $("#p").val("");
                     $("#q").val("");
-                    return 
+                    return;
                 }
                 $("#p").val(data[0]);
                 $("#q").val(data[1]);
