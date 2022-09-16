@@ -13,7 +13,7 @@
             <div class="w-full">
                 <span class="text-2xl mr-3 dark:text-gray-100">N</span>
                 <input id="N" placeholder="N" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
-                <button id="HEXToggle" onclick="" class="mb-6 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"><span style="font-weight: bold;" id="Decimal">Decimal</span>&nbsp;|&nbsp;<span id="HEX">Hex</span></button>
+                <button id="nHEXToggle" onclick="" class="mb-6 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"><span style="font-weight: bold;" id="nDecimal">Decimal</span>&nbsp;|&nbsp;<span id="nHEX">Hex</span></button>
             </div>
             <div class="w-full mt-6">
                 <span class="text-2xl mr-3 dark:text-gray-100">e</span>
@@ -26,8 +26,8 @@
             <ul id="inputRadio" class="items-center w-1/2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white mb-4">
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 rounded-l-lg bg-indigo-500">
                     <div class="flex items-center ">
-                        <input id="cASCII" checked type="radio" value="0" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="cASCII" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ASCII</label>
+                        <input id="mASCII" checked type="radio" value="0" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="mASCII" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ASCII</label>
                     </div>
                 </li> 
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
@@ -48,6 +48,7 @@
 
             <div class="box w-2/3">
                 <input id="c" placeholder="c" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
+                <button id="cHEXToggle" onclick="" class="mb-6 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"><span style="font-weight: bold;" id="cDecimal">Decimal</span>&nbsp;|&nbsp;<span id="cHEX">Hex</span></button>
             </div>
 
             <button class="rounded px-3 py-2 mt-4 inline-flex dark:text-gray-300 text-gray-600 dark:bg-gray-700 bg-gray-200 py-2 px-6 focus:outline-none dark:hover:bg-gray-600 hover:bg-gray-300 dark:hover:text-white rounded text-lg transition-colors duration-200 ease-in-out" onclick="sendToRSACrack()" id="redirectRSA">Send to RSA Cracker</button>
@@ -117,7 +118,7 @@
 
       });
     });
-
+    
     // Shows the snackbar for 5 seconds
     function showSnackbar(message) {
         $("#failText").text(message);
@@ -128,13 +129,24 @@
     }
 
     // Hextoggle button styling change
-    $("#HEXToggle").click(function() {
-        if($("#Decimal").css("font-weight") == 400) {
-            $("#Decimal").css("font-weight", "bold");
-            $("#HEX").css("font-weight", "normal");
+    $("#nHEXToggle").click(function() {
+        if($("#nDecimal").css("font-weight") == 400) {
+            $("#nDecimal").css("font-weight", "bold");
+            $("#nHEX").css("font-weight", "normal");
         } else {
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
+            $("#nDecimal").css("font-weight", "normal");
+            $("#nHEX").css("font-weight", "bold");
+        }
+    });
+    
+    // Hextoggle button styling change
+    $("#cHEXToggle").click(function() {
+        if($("#cDecimal").css("font-weight") == 400) {
+            $("c#Decimal").css("font-weight", "bold");
+            $("#cHEX").css("font-weight", "normal");
+        } else {
+            $("#cDecimal").css("font-weight", "normal");
+            $("#cHEX").css("font-weight", "bold");
         }
     });
     
