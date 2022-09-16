@@ -1,3 +1,190 @@
 @{
     ViewData["Title"] = "RSA Key Generator";
 }
+
+<section class="text-gray-600 body-font h-min">
+    <!-- Tailwind automatically creates sufficient margin to sides with "container" -->
+    <div class="container px-5 pt-12 mx-auto">
+        <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 dark:text-gray-50 mb-12">Key generator </h1>
+            <div class="grid overflow-hidden grid-cols-10 grid-rows-6 gap-2 w-full">
+                <div class="box">1</div>
+                <div class="box col-span-8">2</div>
+                <div class="box">3</div>
+                <div class="box col-start-4 col-span-2">
+                    <button id="subBtn" onclick="encrypt()" class="flex w-full text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                </div>
+                <div class="box col-span-2">
+                    5
+                </div>
+                <div class="box col-start-1">6</div>
+                <div class="box col-span-4">7</div>
+                <div class="box">8</div>
+                <div class="box col-span-4">9</div>
+                <div class="box">10</div>
+                <div class="box col-span-6">11</div>
+                <div class="box">12</div>
+                <div class="box col-span-2">13</div>
+                <div class="box col-span-10">14</div>
+                <div class="box">15</div>
+                <div class="box col-span-9">16</div>
+            </div>
+
+            <style>
+                .box {
+                	                    background-color: #f8fafc;
+                    border: 1px solid #edf2f7;
+          
+                		
+                }
+            </style>
+            
+
+            <!-- Snackbar that displays that displays error messages -->
+            <div id="snackbar" class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800">
+                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div id="failText" class="ml-3 font-normal"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+
+    /* Snackbar special styling */
+    #snackbar {
+    visibility: hidden;
+    position: fixed;
+    z-index: 400;
+    left: 20px;
+    bottom: 50px;
+    }
+
+    .show-bar {
+    visibility: visible !important;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    }
+
+    /* Snackbar styling */
+    @@keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+        to {
+            bottom: 50px;
+            opacity: 1;
+        }
+    }
+
+    @@keyframes fadeout {
+        from {
+            bottom: 50px;
+            opacity: 1;
+        }
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+</style>
+
+
+<script>
+ 
+    // Shows the snackbar for 5 seconds
+    function showSnackbar(message) {
+        $("#failText").text(message);
+        $("#snackbar").addClass("show-bar");
+        setTimeout(function () {
+            $("#snackbar").removeClass("show-bar");
+        }, 5000);
+    }
+
+    // Hextoggle button styling change
+    $("#HEXToggle").click(function() {
+        if($("#Decimal").css("font-weight") == 400) {
+            $("#Decimal").css("font-weight", "bold");
+            $("#HEX").css("font-weight", "normal");
+        } else {
+            $("#Decimal").css("font-weight", "normal");
+            $("#HEX").css("font-weight", "bold");
+        }
+    });
+    
+    // Checks if number is pasted and automatically changes state to hex if hex is pasted
+    $("#num").bind('paste', function(e) {
+        let data = e.originalEvent.clipboardData.getData('text');
+        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
+            $("#Decimal").css("font-weight", "normal");
+            $("#HEX").css("font-weight", "bold");
+        }
+        else{
+            $("#Decimal").css("font-weight", "bold");
+            $("#HEX").css("font-weight", "normal");
+        }
+    });
+    
+    // Submits form if enter is pressed
+    $("#num").keypress(function(event) {
+        if (event.keyCode === 13) {
+            encrypt();
+        }
+    });
+    
+    // Sends the value to crack site with the calculated values
+    function sendToRSACrack() {
+        let location = "/Home/RSACrack"
+        let p = $("#p").val();
+        let q = $("#q").val();
+        if (p !== "" && q !== "") {
+            location += `?p=${p}&q=${q}`;
+        }
+        window.location.href = location;
+    }
+    
+    
+    // Sends the data to backend with AJAX call and displays the returned result
+    // If it returns an error, it displays an error message
+    function encrypt() {
+        let N = $("#N").val();
+        let e = $("#e").val();
+        let pt = $("#pt").val();
+        let inputType = $("input[name='list-radio']:checked").val();
+        console.log(inputType);
+        
+        if (N.substring(0, 2) == "0x"){
+            console.log("bruh");
+            $("#Decimal").css("font-weight", "normal");
+            $("#HEX").css("font-weight", "bold");
+        }
+        
+        if (!N.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
+            showSnackbar("Please enter a valid number");
+            return;
+        }
+        
+        $.ajax({
+            url: "/api/Encrypt",
+            type: "POST",
+            data: {
+                "N": N,
+                "e": e,
+                "pt": pt,
+                "inputType": inputType
+            },
+            success: function(data) {
+                console.log(data);
+                $("#c").val(data);
+            }
+        });
+    }
+
+
+
+</script>
