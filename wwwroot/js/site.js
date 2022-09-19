@@ -45,12 +45,12 @@ function toggleHexButton(decimalText, hexText) {
     }
 }
 
-function toggleHexContent(pt, decimalText) {
-    if (pt !== "") {
+function toggleHexContent(text, decimalText) {
+    if (text !== "") {
         if (decimalText.css("font-weight") == 700) {
-            return hexToDecimal(pt);
+            return hexToDecimal(text);
         } else {
-            return decimalToHex(pt);
+            return decimalToHex(text);
         }
     }
     return -1;
