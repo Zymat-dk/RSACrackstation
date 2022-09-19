@@ -32,14 +32,14 @@
                 </li> 
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center ">
-                        <input id="cDecimal" type="radio" value="1" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="cDecimal" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Decimal</label>
+                        <input id="mDecimal" type="radio" value="1" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="mDecimal" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Decimal</label>
                     </div>
                 </li>
                 <li class="w-full dark:border-gray-600 rounded-r-lg">
                     <div class="flex items-center">
-                        <input id="cHEX" type="radio" value="2" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                        <label for="cHEX" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">HEX</label>
+                        <input id="mHEX" type="radio" value="2" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="mHEX" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">HEX</label>
                     </div>
                 </li>
             </ul>
@@ -130,24 +130,18 @@
 
     // Hextoggle button styling change
     $("#nHEXToggle").click(function() {
-        if($("#nDecimal").css("font-weight") == 400) {
-            $("#nDecimal").css("font-weight", "bold");
-            $("#nHEX").css("font-weight", "normal");
-        } else {
-            $("#nDecimal").css("font-weight", "normal");
-            $("#nHEX").css("font-weight", "bold");
-        }
+        toggleHexButton($("#nDecimal"), $("#nHEX"));
     });
     
     // Hextoggle button styling change
     $("#cHEXToggle").click(function() {
-        if($("#cDecimal").css("font-weight") == 400) {
-            $("c#Decimal").css("font-weight", "bold");
-            $("#cHEX").css("font-weight", "normal");
-        } else {
-            $("#cDecimal").css("font-weight", "normal");
-            $("#cHEX").css("font-weight", "bold");
+        toggleHexButton($("#cDecimal"), $("#cHEX"));
+        // Toggle the value of #pt, if it's not empty
+        let c = toggleHexContent($("#c").val(), $("#cDecimal"));
+        if(c === -1) {
+            return -1;
         }
+        $("#c").val(c);
     });
     
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
@@ -186,13 +180,29 @@
     // If it returns an error, it displays an error message
     function encrypt() {
         let N = $("#N").val();
+        if (N.substring(0, 2) == "0x"){
+            $("#nDecimal").css("font-weight", "normal");
+            $("#nHEX").css("font-weight", "bold");
+            N = N.substring(2);
+        }
+        
+        if (!N.match(/^[0-9]+$/g) && $("#nDecimal").css("font-weight") == 700) {
+            showSnackbar("Please enter a number")
+            return;
+        }
+        else if ($("#nHEX").css("font-weight") == 700) {
+            N = hexToDecimal(N);
+            if (N === -1) {
+                showSnackbar("Invalid hex number");
+                return;
+            }
+        }
+        
         let e = $("#e").val();
         let pt = $("#pt").val();
         let inputType = $("input[name='list-radio']:checked").val();
-        console.log(inputType);
         
         if (N.substring(0, 2) == "0x"){
-            console.log("bruh");
             $("#Decimal").css("font-weight", "normal");
             $("#HEX").css("font-weight", "bold");
         }

@@ -98,13 +98,18 @@ $("#ct").keypress(function(event) {
 
 // Toggles between decimal and hex in the c field
 $("#cHEXToggle").click(function() {
-    if($("#cDecimal").css("font-weight") == 400) {
-        $("#cDecimal").css("font-weight", "bold");
-        $("#cHEX").css("font-weight", "normal");
-    } else {
-        $("#cDecimal").css("font-weight", "normal");
-        $("#cHEX").css("font-weight", "bold");
+    toggleHexButton($("#cDecimal"), $("#cHEX"));
+});
+
+// Toggles between decimal and hex in the p field
+$("#pHEXToggle").click(function() {
+    toggleHexButton($("#pDecimal"), $("#pHEX"));
+    // Toggle the value of #pt, if it's not empty
+    let pt = toggleHexContent($("#pt").val(), $("#pDecimal"));
+    if(pt === -1) {
+        return -1;
     }
+    $("#pt").val(pt);
 });
 
 // Auto toggles between decimal and hex when the correct one is pasted
@@ -117,33 +122,6 @@ $("#ct").bind('paste', function(e) {
     else{
         $("#cDecimal").css("font-weight", "bold");
         $("#cHEX").css("font-weight", "normal");
-    }
-});
-
-// Toggles between decimal and hex in the p field
-$("#pHEXToggle").click(function() {
-    if($("#pDecimal").css("font-weight") == 400) {
-        $("#pDecimal").css("font-weight", "bold");
-        $("#pHEX").css("font-weight", "normal");
-    } else {
-        $("#pDecimal").css("font-weight", "normal");
-        $("#pHEX").css("font-weight", "bold");
-    }
-    // Toggle the value of #pt, if it's not empty
-    let pt = $("#pt").val();
-    if(pt != "") {
-        if($("#pDecimal").css("font-weight") == 700) {
-            pt = hexToDecimal(pt);
-            if (pt === -1){
-                return;
-            }
-        } else {
-            pt = decimalToHex(pt);
-            if (pt === -1){
-                return;
-            }
-        }
-        $("#pt").val(pt);
     }
 });
 

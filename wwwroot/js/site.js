@@ -34,3 +34,24 @@ function decimalToHex(dec) {
         return -1;
     }
 }
+
+function toggleHexButton(decimalText, hexText) {
+    if (decimalText.css("font-weight") == 400) {
+        decimalText.css("font-weight", "bold");
+        hexText.css("font-weight", "normal");
+    } else {
+        hexText.css("font-weight", "bold");
+        decimalText.css("font-weight", "normal");
+    }
+}
+
+function toggleHexContent(text, decimalText) {
+    if (text !== "") {
+        if (decimalText.css("font-weight") == 700) {
+            return hexToDecimal(text);
+        } else {
+            return decimalToHex(text);
+        }
+    }
+    return -1;
+}

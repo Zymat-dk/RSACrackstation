@@ -11,7 +11,7 @@
             <!-- Prime input field and HEX/Decimal toggle -->
             <div class="w-full">
                 <input id="num" placeholder="Input number to factorize" class="mb-4 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-3/5 mr-3"/>
-                <button id="HEXToggle" onclick="" class="mb-6 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"><span style="font-weight: bold;" id="Decimal">Decimal</span>&nbsp;|&nbsp;<span id="HEX">Hex</span></button>
+                <button id="nHEXToggle" onclick="" class="mb-6 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"><span style="font-weight: bold;" id="nDecimal">Decimal</span>&nbsp;|&nbsp;<span id="nHEX">Hex</span></button>
             </div>
             <button id="subBtn" onclick="factorize()" class="mb-6 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
 
@@ -91,26 +91,20 @@
     }
 
     // Hextoggle button styling change
-    $("#HEXToggle").click(function() {
-        if($("#Decimal").css("font-weight") == 400) {
-            $("#Decimal").css("font-weight", "bold");
-            $("#HEX").css("font-weight", "normal");
-        } else {
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
-        }
+    $("#nHEXToggle").click(function() {
+        toggleHexButton($("#nDecimal"), $("#nHEX"));
     });
     
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#num").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text');
         if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
+            $("#nDecimal").css("font-weight", "normal");
+            $("#nHEX").css("font-weight", "bold");
         }
         else{
-            $("#Decimal").css("font-weight", "bold");
-            $("#HEX").css("font-weight", "normal");
+            $("#nDecimal").css("font-weight", "bold");
+            $("#nHEX").css("font-weight", "normal");
         }
     });
     
@@ -138,18 +132,17 @@
         let num = $("#num").val();
         
         if (num.substring(0, 2) == "0x"){
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
+            $("#nDecimal").css("font-weight", "normal");
+            $("#nHEX").css("font-weight", "bold");
             num = num.substring(2);
         }
         
-        if (!num.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
+        if (!num.match(/^[0-9]+$/g) && $("#nDecimal").css("font-weight") == 700) {
             showSnackbar("Please enter a number")
             return;
         }
-        else if ($("#HEX").css("font-weight") == 700) {
+        else if ($("#nHEX").css("font-weight") == 700) {
             num = hexToDecimal(num);
-            console.log(num);
             if (num === -1) {
                 showSnackbar("Invalid hex number");
                 return;

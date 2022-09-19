@@ -66,8 +66,6 @@ public class RSACracker {
 
         dynamic jsonData = JsonObject.Parse(data); // parse json data
         
-        Console.WriteLine(jsonData);
-
         if (jsonData["status"].ToString() != "FF" || jsonData["factors"].Count != 2) {
             // If the number is prime, or has more than two factors, return -1 -1
             return factors;
