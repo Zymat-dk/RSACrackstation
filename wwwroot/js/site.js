@@ -35,12 +35,23 @@ function decimalToHex(dec) {
     }
 }
 
-function toggleHexButton(decimalButton, hexButton){
-    if(decimalButton.css("font-weight") == 400) {
-        decimalButton.css("font-weight", "bold");
-        hexButton.css("font-weight", "normal");
+function toggleHexButton(decimalText, hexText) {
+    if (decimalText.css("font-weight") == 400) {
+        decimalText.css("font-weight", "bold");
+        hexText.css("font-weight", "normal");
     } else {
-        hexButton.css("font-weight", "bold");
-        decimalButton.css("font-weight", "normal");
+        hexText.css("font-weight", "bold");
+        decimalText.css("font-weight", "normal");
     }
+}
+
+function toggleHexContent(pt, decimalText) {
+    if (pt !== "") {
+        if (decimalText.css("font-weight") == 700) {
+            return hexToDecimal(pt);
+        } else {
+            return decimalToHex(pt);
+        }
+    }
+    return -1;
 }

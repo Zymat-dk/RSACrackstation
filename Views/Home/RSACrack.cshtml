@@ -105,21 +105,11 @@ $("#cHEXToggle").click(function() {
 $("#pHEXToggle").click(function() {
     toggleHexButton($("#pDecimal"), $("#pHEX"));
     // Toggle the value of #pt, if it's not empty
-    let pt = $("#pt").val();
-    if(pt != "") {
-        if($("#pDecimal").css("font-weight") == 700) {
-            pt = hexToDecimal(pt);
-            if (pt === -1){
-                return;
-            }
-        } else {
-            pt = decimalToHex(pt);
-            if (pt === -1){
-                return;
-            }
-        }
-        $("#pt").val(pt);
+    let pt = toggleHexContent($("#pt").val(), $("#pDecimal"));
+    if(pt === -1) {
+        return -1;
     }
+    $("#pt").val(pt);
 });
 
 // Auto toggles between decimal and hex when the correct one is pasted
