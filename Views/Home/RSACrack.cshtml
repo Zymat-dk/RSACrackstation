@@ -98,37 +98,12 @@ $("#ct").keypress(function(event) {
 
 // Toggles between decimal and hex in the c field
 $("#cHEXToggle").click(function() {
-    if($("#cDecimal").css("font-weight") == 400) {
-        $("#cDecimal").css("font-weight", "bold");
-        $("#cHEX").css("font-weight", "normal");
-    } else {
-        $("#cDecimal").css("font-weight", "normal");
-        $("#cHEX").css("font-weight", "bold");
-    }
-});
-
-// Auto toggles between decimal and hex when the correct one is pasted
-$("#ct").bind('paste', function(e) {
-    let data = e.originalEvent.clipboardData.getData('text');
-    if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
-        $("#cDecimal").css("font-weight", "normal");
-        $("#cHEX").css("font-weight", "bold");
-    }
-    else{
-        $("#cDecimal").css("font-weight", "bold");
-        $("#cHEX").css("font-weight", "normal");
-    }
+    toggleHexButton($("#cDecimal"), $("#cHEX"));
 });
 
 // Toggles between decimal and hex in the p field
 $("#pHEXToggle").click(function() {
-    if($("#pDecimal").css("font-weight") == 400) {
-        $("#pDecimal").css("font-weight", "bold");
-        $("#pHEX").css("font-weight", "normal");
-    } else {
-        $("#pDecimal").css("font-weight", "normal");
-        $("#pHEX").css("font-weight", "bold");
-    }
+    toggleHexButton($("#pDecimal"), $("#pHEX"));
     // Toggle the value of #pt, if it's not empty
     let pt = $("#pt").val();
     if(pt != "") {
@@ -144,6 +119,19 @@ $("#pHEXToggle").click(function() {
             }
         }
         $("#pt").val(pt);
+    }
+});
+
+// Auto toggles between decimal and hex when the correct one is pasted
+$("#ct").bind('paste', function(e) {
+    let data = e.originalEvent.clipboardData.getData('text');
+    if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
+        $("#cDecimal").css("font-weight", "normal");
+        $("#cHEX").css("font-weight", "bold");
+    }
+    else{
+        $("#cDecimal").css("font-weight", "bold");
+        $("#cHEX").css("font-weight", "normal");
     }
 });
 

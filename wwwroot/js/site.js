@@ -34,3 +34,13 @@ function decimalToHex(dec) {
         return -1;
     }
 }
+
+function toggleHexButton(decimalButton, hexButton){
+    if(decimalButton.css("font-weight") == 400) {
+        decimalButton.css("font-weight", "bold");
+        hexButton.css("font-weight", "normal");
+    } else {
+        hexButton.css("font-weight", "bold");
+        decimalButton.css("font-weight", "normal");
+    }
+}

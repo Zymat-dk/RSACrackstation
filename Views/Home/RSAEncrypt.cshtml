@@ -130,24 +130,12 @@
 
     // Hextoggle button styling change
     $("#nHEXToggle").click(function() {
-        if($("#nDecimal").css("font-weight") == 400) {
-            $("#nDecimal").css("font-weight", "bold");
-            $("#nHEX").css("font-weight", "normal");
-        } else {
-            $("#nDecimal").css("font-weight", "normal");
-            $("#nHEX").css("font-weight", "bold");
-        }
+        toggleHexButton($("#nDecimal"), $("#nHEX"));
     });
     
     // Hextoggle button styling change
     $("#cHEXToggle").click(function() {
-        if($("#cDecimal").css("font-weight") == 400) {
-            $("c#Decimal").css("font-weight", "bold");
-            $("#cHEX").css("font-weight", "normal");
-        } else {
-            $("#cDecimal").css("font-weight", "normal");
-            $("#cHEX").css("font-weight", "bold");
-        }
+        toggleHexButton($("#cDecimal"), $("#cHEX"));
     });
     
     // Checks if number is pasted and automatically changes state to hex if hex is pasted

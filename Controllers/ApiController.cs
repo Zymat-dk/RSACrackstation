@@ -38,7 +38,6 @@ public class ApiController : Controller{
     public string Encrypt(string N, string e, string pt){
         var encryptor = new RSAEncrypter(N, e);
         encryptor.E = BigInteger.Parse(e);
-        Console.WriteLine(pt);
         return encryptor.Encrypt(pt);
     }
 }
