@@ -15,7 +15,7 @@
                     <input id="byteRange" type="range" min="2" max="4096" value="2048" class="w-full h-full"/>
                 </div>
                 <div class="">
-                    <input id="byteInput" placeholder="e" value="2048" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+                    <input id="byteInput" placeholder="2048" value="2048" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                 </div>
                 <div class="box col-start-4 col-span-2">
                     <button id="subBtn" onclick="encrypt()" class="flex justify-center w-2/3 text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
@@ -125,6 +125,9 @@
     document.getElementById("byteRange").addEventListener("input", function() {
         document.getElementById("byteInput").value = document.getElementById("byteRange").value;
     });
+    document.getElementById("byteInput").addEventListener("input", function() {
+            document.getElementById("byteRange").value = document.getElementById("byteInput").value;
+        });
     // Shows the snackbar for 5 seconds
     function showSnackbar(message) {
         $("#failText").text(message);
