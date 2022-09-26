@@ -9,7 +9,7 @@
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 dark:text-gray-50 mb-12">Key generator </h1>
             <div class="grid overflow-hidden grid-cols-10 grid-rows-6 gap-2 w-full text-gray-900 dark:text-gray-50">
                 <div class="text-right p-2 col-start-2">
-                    <span class="text-2xl align-middle">Bytes</span>
+                    <span class="text-2xl align-middle">Key size</span>
                 </div>
                 <div class="col-span-6">
                     <input id="byteRange" type="range" min="1" max="4096" value="2048" class="w-full h-full"/>
@@ -71,7 +71,7 @@
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                 <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="dCheck" class="w-8 h-8 hidden text-lime-400" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="dCheck" class="w-8 h-8 hidden text-green-800" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
                             </svg>
@@ -92,60 +92,10 @@
             </style>
 
 
-            <!-- Snackbar that displays that displays error messages -->
-            <div id="snackbar" class="flex items-center p-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800">
-                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div id="failText" class="ml-3 font-normal"></div>
-            </div>
-
         </div>
     </div>
 </section>
 
-<style>
-
-
-    /* Snackbar special styling */
-    #snackbar {
-    visibility: hidden;
-    position: fixed;
-    z-index: 400;
-    left: 20px;
-    bottom: 50px;
-    }
-
-    .show-bar {
-    visibility: visible !important;
-    animation: fadein 0.5s, fadeout 0.5s 4.5s;
-    }
-
-    /* Snackbar styling */
-    @@keyframes fadein {
-        from {
-            bottom: 0;
-            opacity: 0;
-        }
-        to {
-            bottom: 50px;
-            opacity: 1;
-        }
-    }
-
-    @@keyframes fadeout {
-        from {
-            bottom: 50px;
-            opacity: 1;
-        }
-        to {
-            bottom: 0;
-            opacity: 0;
-        }
-    }
-</style>
 
 <script>
 
@@ -154,7 +104,7 @@
     function copyToClipboard() {
         let copyText = $("#d")[0].value;
         navigator.clipboard.writeText(copyText);
-        showSnackbar("Copied to clipboard");
+        showSnackbar("Copied to clipboard", 1);
         $("#nonClip").addClass("hidden");
         $("#checkedClip").removeClass("hidden");
         $("#dCheck").removeClass("hidden");

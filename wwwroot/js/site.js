@@ -2,9 +2,15 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Shows the snackbar for 5 seconds
-function showSnackbar(message) {
+function showSnackbar(message, action) {
+    if (action === undefined) {
+        action = 0;
+    }
     $("#failText").text(message);
     $("#snackbar").addClass("show-bar");
+    $("#snackbar").children().addClass("hidden");
+    $("#snackbar").children().eq(action).removeClass("hidden");
+    $("#failText").removeClass("hidden");
     setTimeout(function () {
         $("#snackbar").removeClass("show-bar");
     }, 5000);
