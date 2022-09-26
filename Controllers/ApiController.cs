@@ -1,11 +1,15 @@
 using System.Numerics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RSACrackstation.Backend;
 
 namespace RSACrackstation.Controllers;
 
 public class ApiController : Controller{
     public string[] GetFactors(string inputNum){
+        var kg = new KeyGenerator();
+        kg.GenerateKeys(2048);
+        
         var cracker = new RSACracker(inputNum);
         return cracker.GetFactors();
     }
