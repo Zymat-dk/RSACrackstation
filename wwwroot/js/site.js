@@ -17,10 +17,16 @@ function showSnackbar(message, action) {
 }
 
 let isHex = false;
+let isHex2 = false;
 
 function updateHexToggle() {
     $("#hexToggle").children().toggleClass("bg-transparent bg-indigo-500");
     isHex = !isHex;
+}
+
+function updateHexToggle2() {
+    $("#hexToggle2").children().toggleClass("bg-transparent bg-indigo-500");
+    isHex2 = !isHex2;
 }
 
 function asciiToHex(ascii) {
