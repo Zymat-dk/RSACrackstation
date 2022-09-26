@@ -21,10 +21,13 @@
                     <button id="subBtn" onclick="generate()" class="flex justify-center w-36 text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
                 </div>
                 <div class="col-span-2">
-                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold" onclick="updateHexToggle()">
+                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
                         <span class="bg-indigo-500 p-2 rounded-lg">10</span>
                         <span class="bg-transparent p-2 rounded-lg">16</span>
                     </button>
+                    <div id="hexTooltip" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                        <span>Choose between base10 (decimal) and base16 (hexadecimal)</span>
+                    </div>
                 </div>
                 <div class="col-start-1 text-right p-2">
                     <span class="text-2xl align-middle">p</span>
@@ -92,11 +95,9 @@
 
 
 <script>
-    let isHex = false;
-    function updateHexToggle() {
-        $("#hexToggle").children().toggleClass("bg-transparent bg-indigo-500");
-        isHex = !isHex;
-    }
+
+
+
 
     function copyToClipboard() {
         let copyText = $("#d")[0].value;
@@ -129,7 +130,7 @@
         }
     });
 
-    document.getElementById("keySize").addEventListener('input', function() {
+    document.getElementById("byteInput").addEventListener('input', function() {
         //only allow numbers
         this.value = this.value.replace(/[^0-9]/g, '');
         if (this.value > 4096) {
@@ -138,13 +139,13 @@
         }
     });
     
-    //Updates keySize to the value of keySizeRange, when the range slider is changed
-    document.getElementById("keySizeRange").addEventListener("input", function() {
-        document.getElementById("keySize").value = document.getElementById("keySizeRange").value;
+    //Updates byteInput to the value of byteRange, when the range slider is changed
+    document.getElementById("byteRange").addEventListener("input", function() {
+        document.getElementById("byteInput").value = document.getElementById("byteRange").value;
     });
     
-    document.getElementById("keySize").addEventListener("input", function() {
-        document.getElementById("keySizeRange").value = document.getElementById("keySize").value;
+    document.getElementById("byteInput").addEventListener("input", function() {
+        document.getElementById("byteRange").value = document.getElementById("byteInput").value;
     });
     
     
@@ -183,33 +184,38 @@
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function generate() {
+        let N = $("#N").val();
         let e = $("#e").val();
-        let keySize = $("#keySize").val();
+        let pt = $("#pt").val();
+        let inputType = $("input[name='list-radio']:checked").val();
+        console.log(inputType);
         
-        if (!e.match(/^[0-9]+$/g) && !isHex) {
-            showSnackbar("Please enter a valid number", 2);
+        
+        
+        if (N.substring(0, 2) == "0x"){
+            console.log("bruh");
+            $("#Decimal").css("font-weight", "normal");
+            $("#HEX").css("font-weight", "bold");
+        }
+        
+        if (!N.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
+            showSnackbar("Please enter a valid number");
             return;
         }
         
         $.ajax({
-            url: "/api/GenerateKeys",
+            url: "/api/Encrypt",
             type: "POST",
             data: {
-                "keySize": keySize,
+                "N": N,
                 "e": e,
+                "pt": pt,
+                "inputType": inputType
             },
             success: function(data) {
                 console.log(data);
-                
-                if (data["status"] !== "success"){
-                    showSnackbar(data["message"], 2);
-                    return;
-                }
-                
-                $("#p").val(data["p"]);
-                $("#q").val(data["q"]);
-                $("#N").val(data["N"]);
                 $("#copy").removeClass("hidden");
+                $("#c").val(data);
                 $("#dCheck").addClass("hidden");
                 $("#dWarn").removeClass("hidden");
                 $("#tooltip-default").children().eq(1).addClass("hidden");
