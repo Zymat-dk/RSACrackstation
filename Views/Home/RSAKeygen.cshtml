@@ -17,11 +17,11 @@
                 <div class="">
                     <input id="byteInput" placeholder="2048" value="2048" pattern="/\d*/" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                 </div>
-                <div class="box col-start-4 col-span-2">
-                    <button id="subBtn" onclick="generate()" class="flex justify-center w-2/3 text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                <div class="col-start-4 col-span-2">
+                    <button id="subBtn" onclick="generate()" class="flex justify-center w-36 text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
                 </div>
-                <div class="box col-span-2">
-                    5
+                <div class="col-span-2">
+                    <button id="pHEXToggle" onclick="" class="text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:opacity-50 disabled:cursor-not-allowed"><span style="font-weight: bold;" id="pDecimal">Decimal</span>&nbsp;|&nbsp;<span id="pHEX">Hex</span></button>
                 </div>
                 <div class="col-start-1 text-right p-2">
                     <span class="text-2xl align-middle">p</span>
@@ -47,14 +47,43 @@
                 <div class="">
                     <input id="e" placeholder="e" value="65537" class="w-full h-full dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                 </div>
-                <div class="box col-span-8 col-start-2">14</div>
+                <div class="col-span-8 col-start-2">
+                    <button class="rounded px-3 py-2 inline-flex dark:text-gray-300 text-gray-600 dark:bg-gray-700 bg-gray-200 py-2 px-6 focus:outline-none dark:hover:bg-gray-600 hover:bg-gray-300 dark:hover:text-white rounded text-lg transition-colors duration-200 ease-in-out" onclick="sendToEncrypt()" id="redirectRSA">Send to RSA Encrypter</button>
+                </div>
                 <div class="text-right p-2 col-start-1">
                     <span class="text-2xl">D</span>
                 </div>
-                <div class="col-span-8">
+                <div class="col-span-8 relative">
                     <input id="d" placeholder="d" class="w-full h-full dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+                    <span class="absolute h-2/3 w-8 top-1/2 -translate-y-1/2 -translate-x-10 rounded shadow dark:bg-gray-600 bg-gray-50 dark:hover:bg-gray-700 hover:gray-200 transition">
+                        <button class="h-full w-full relative" onclick="copyToClipboard()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-auto" id="nonClip" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1A2.5 2.5 0 0 0 6.5 5h3A2.5 2.5 0 0 0 12 2.5v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Z"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-auto hidden" id="checkedClip" viewBox="0 0 16 16">
+                                <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+                            </svg>
+                        </button>
+                        <span class="absolute w-fit h-fit translate-x-6" data-tooltip-target="tooltip-default">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="dWarn" class="w-8 hidden h-8 text-orange-400" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="dCheck" class="w-8 h-8 hidden text-lime-400" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                        </span>
+                        <div id="tooltip-default" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                            <span>This will be lost when you exit the page!</span>
+                            <span>You have saved your private key!</span>
+                        </div>
+                    </span>
                 </div>
             </div>
+
 
             <style>
                 .box {
@@ -78,6 +107,7 @@
 </section>
 
 <style>
+
 
     /* Snackbar special styling */
     #snackbar {
@@ -117,27 +147,46 @@
     }
 </style>
 
-
 <script>
+
+    console.log($("#tooltip-default").children())
+
+    function copyToClipboard() {
+        let copyText = $("#d")[0].value;
+        navigator.clipboard.writeText(copyText);
+        showSnackbar("Copied to clipboard");
+        $("#nonClip").addClass("hidden");
+        $("#checkedClip").removeClass("hidden");
+        $("#dCheck").removeClass("hidden");
+        $("#dWarn").addClass("hidden");
+        $("#tooltip-default").children().eq(0).addClass("hidden");
+        $("#tooltip-default").children().eq(1).removeClass("hidden");
+    }
+
+    function sendToEncrypt() {
+        let N = $("#N").val();
+        let location = '/Home/RSAEncrypt'
+        if (N !== "") {
+            location += '?N=' + N;
+        }
+        window.location.href = location;
+    }
+
     document.getElementById("byteInput").addEventListener('input', function() {
         //only allow numbers
         this.value = this.value.replace(/[^0-9]/g, '');
     });
+    
     //Updates byteInput to the value of byteRange, when the range slider is changed
     document.getElementById("byteRange").addEventListener("input", function() {
         document.getElementById("byteInput").value = document.getElementById("byteRange").value;
     });
+    
     document.getElementById("byteInput").addEventListener("input", function() {
-            document.getElementById("byteRange").value = document.getElementById("byteInput").value;
-        });
-    // Shows the snackbar for 5 seconds
-    function showSnackbar(message) {
-        $("#failText").text(message);
-        $("#snackbar").addClass("show-bar");
-        setTimeout(function () {
-            $("#snackbar").removeClass("show-bar");
-        }, 5000);
-    }
+        document.getElementById("byteRange").value = document.getElementById("byteInput").value;
+    });
+    
+    
 
     // Hextoggle button styling change
     $("#HEXToggle").click(function() {
@@ -166,21 +215,9 @@
     // Submits form if enter is pressed
     $("#num").keypress(function(event) {
         if (event.keyCode === 13) {
-            encrypt();
+            generate();
         }
     });
-    
-    // Sends the value to crack site with the calculated values
-    function sendToRSACrack() {
-        let location = "/Home/RSACrack"
-        let p = $("#p").val();
-        let q = $("#q").val();
-        if (p !== "" && q !== "") {
-            location += `?p=${p}&q=${q}`;
-        }
-        window.location.href = location;
-    }
-    
     
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
@@ -190,6 +227,11 @@
         let pt = $("#pt").val();
         let inputType = $("input[name='list-radio']:checked").val();
         console.log(inputType);
+        
+        $("#dCheck").addClass("hidden");
+        $("#dWarn").removeClass("hidden");
+        $("#tooltip-default").children().eq(1).addClass("hidden");
+        $("#tooltip-default").children().eq(0).removeClass("hidden");
         
         if (N.substring(0, 2) == "0x"){
             console.log("bruh");

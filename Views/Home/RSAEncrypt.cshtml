@@ -29,7 +29,7 @@
                         <input id="mASCII" checked type="radio" value="0" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                         <label for="mASCII" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">ASCII</label>
                     </div>
-                </li> 
+                </li>
                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                     <div class="flex items-center ">
                         <input id="mDecimal" type="radio" value="1" name="list-radio" class="hidden text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
@@ -109,14 +109,20 @@
 
 
 <script>
+
+    let params = new URLSearchParams(window.location.search);
+    let N = params.get('N');
+    if (params.get('N') != null) {
+        document.getElementById("N").value = N;
+    }
+    
     $(document).ready(function() {
       //change colour when radio is selected
-      $('#inputRadio input:radio').change(function() {
+        $('#inputRadio input:radio').change(function() {
         // Only remove the class in the specific `box` that contains the radio
         $('li.bg-indigo-500').removeClass('bg-indigo-500');
         $(this).closest('li').addClass('bg-indigo-500');
-
-      });
+        });
     });
     
     // Shows the snackbar for 5 seconds

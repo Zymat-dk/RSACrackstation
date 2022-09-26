@@ -1,6 +1,15 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
+// Shows the snackbar for 5 seconds
+function showSnackbar(message) {
+    $("#failText").text(message);
+    $("#snackbar").addClass("show-bar");
+    setTimeout(function () {
+        $("#snackbar").removeClass("show-bar");
+    }, 5000);
+}
+
 function asciiToHex(ascii) {
     let hexArray = [];
     for (let n = 0, l = ascii.length; n < l; n++) {
