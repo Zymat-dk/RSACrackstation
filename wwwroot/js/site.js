@@ -16,6 +16,13 @@ function showSnackbar(message, action) {
     }, 5000);
 }
 
+let isHex = false;
+
+function updateHexToggle() {
+    $("#hexToggle").children().toggleClass("bg-transparent bg-indigo-500");
+    isHex = !isHex;
+}
+
 function asciiToHex(ascii) {
     let hexArray = [];
     for (let n = 0, l = ascii.length; n < l; n++) {

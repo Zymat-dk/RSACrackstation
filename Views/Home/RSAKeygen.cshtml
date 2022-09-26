@@ -21,10 +21,13 @@
                     <button id="subBtn" onclick="generate()" class="flex justify-center w-36 text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
                 </div>
                 <div class="col-span-2">
-                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold" onclick="updateHexToggle()">
+                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
                         <span class="bg-indigo-500 p-2 rounded-lg">10</span>
                         <span class="bg-transparent p-2 rounded-lg">16</span>
                     </button>
+                    <div id="hexTooltip" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                        <span>Choose between base10 (decimal) and base16 (hexadecimal)</span>
+                    </div>
                 </div>
                 <div class="col-start-1 text-right p-2">
                     <span class="text-2xl align-middle">p</span>
@@ -94,12 +97,7 @@
 <script>
 
 
-    let isHex = false;
-    function updateHexToggle() {
-        $("#hexToggle").children().toggleClass("bg-transparent bg-indigo-500");
-        isHex = !isHex;
-        console.log(isHex);
-    }
+
 
     function copyToClipboard() {
         let copyText = $("#d")[0].value;
