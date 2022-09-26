@@ -100,7 +100,7 @@
 
 
     function copyToClipboard() {
-        let copyText = $("#d")[0].value;
+        let copyText = $("#D")[0].value;
         navigator.clipboard.writeText(copyText);
         showSnackbar("Copied to clipboard", 2);
         $("#nonClip").addClass("hidden");
