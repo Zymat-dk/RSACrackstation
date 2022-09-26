@@ -149,13 +149,13 @@
         }
         
         if (!N.match(/^[0-9]+$/g) && $("#nDecimal").css("font-weight") == 700) {
-            showSnackbar("Please enter a number")
+            showSnackbar("Please enter a number", 1)
             return;
         }
         else if ($("#nHEX").css("font-weight") == 700) {
             N = hexToDecimal(N);
             if (N === -1) {
-                showSnackbar("Invalid hex number");
+                showSnackbar("Invalid hex number", 0);
                 return;
             }
         }
@@ -180,20 +180,20 @@
                 break;
             case 1:
                 if (!pt.match(/^[0-9]+$/g)) {
-                    showSnackbar("Please enter a valid number");
+                    showSnackbar("Please enter a valid number", 0);
                     return;
                 }
                 break;
             case 2:
                 if (!pt.match(/^[0-9A-Fa-f]+$/g)) {
-                    showSnackbar("Please enter a valid hex string");
+                    showSnackbar("Please enter a valid hex string", 0);
                     return;
                 }
                 pt = hexToDecimal(pt);
                 break;
         }
         if (pt > N) {
-            showSnackbar("Can not encrypt message larger than N", 2);
+            showSnackbar("Can not encrypt message larger than N", 0);
             return;
         }
         

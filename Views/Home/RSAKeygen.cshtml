@@ -102,7 +102,7 @@
     function copyToClipboard() {
         let copyText = $("#d")[0].value;
         navigator.clipboard.writeText(copyText);
-        showSnackbar("Copied to clipboard", 1);
+        showSnackbar("Copied to clipboard", 2);
         $("#nonClip").addClass("hidden");
         $("#checkedClip").removeClass("hidden");
         $("#dCheck").removeClass("hidden");
@@ -135,7 +135,7 @@
         this.value = this.value.replace(/[^0-9]/g, '');
         if (this.value > 4096) {
             this.value = 4096;
-            showSnackbar("Max 4096 bits", 0);
+            showSnackbar("Max 4096 bits", 1);
         }
     });
     
@@ -188,7 +188,7 @@
         let keySize = $("#keySize").val();
         
         if (!e.match(/^[0-9]+$/g) && !isHex) {
-            showSnackbar("Please enter a valid number", 2);
+            showSnackbar("Please enter a valid number", 0);
             return;
         }
         
@@ -202,7 +202,7 @@
             success: function(data) {
                 console.log(data)
                 if (data["status"] !== "success"){
-                    showSnackbar(data["message"], 2);
+                    showSnackbar(data["message"], 0);
                     return;
                 }
                 

@@ -96,13 +96,13 @@
         }
         
         if (!num.match(/^[0-9]+$/g) && $("#nDecimal").css("font-weight") == 700) {
-            showSnackbar("Please enter a number", 0)
+            showSnackbar("Please enter a number", 1)
             return;
         }
         else if ($("#nHEX").css("font-weight") == 700) {
             num = hexToDecimal(num);
             if (num === -1) {
-                showSnackbar("Invalid hex number", 0);
+                showSnackbar("Invalid hex number", 1);
                 return;
             }
         }
@@ -115,7 +115,7 @@
             },
             success: function(data) {
                 if (data[0] == -2 || data[1] == -2) { // If the returned data is -1, then it is an error
-                    showSnackbar("FactorDB is currently offline", 2)
+                    showSnackbar("FactorDB is currently offline", 0)
                     $("#p").val("");
                     $("#q").val("");
                     return;
