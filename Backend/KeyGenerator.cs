@@ -9,13 +9,13 @@ namespace RSACrackstation.Backend;
 public class KeyGenerator{
     private BigInteger _p;
     private BigInteger _q;
-    
+
     private BigInteger _n;
     private BigInteger _d;
 
-    public BigInteger E { get; set; } = 65537;
+    public BigInteger E{ get; set; } = 65537;
 
-    public BigInteger N {
+    public BigInteger N{
         get { return _n; }
     }
 
@@ -24,10 +24,8 @@ public class KeyGenerator{
     public KeyGenerator(BigInteger e){
         E = e;
     }
-    
-    public BigInteger[] GenerateKeys(int keySize){
-        BigInteger[] numbers = { -1, -1 }; // Default values if the key generation fails
 
+    public Dictionary<string, string> GenerateKeys(int keySize){
         var url = $"http://127.0.0.1:8080/?size={keySize}"; // local python server for number generation
         var request = WebRequest.Create(url);
         request.Method = "GET"; // Use GET request
@@ -40,21 +38,29 @@ public class KeyGenerator{
             data = reader.ReadToEnd();
         }
         catch (System.Net.WebException){
-            (numbers[0], numbers[1]) = (-2, -2);
-            return numbers;
-        }
-        
-        dynamic jsonData = JsonObject.Parse(data); // parse json data
-        
-        if (jsonData["status"].ToString() != "success") {
-            // If the number is prime, or has more than two factors, return -1 -1
-            return numbers;
-        }
-        for (int i = 0; i<2; i++)
-        {
-            numbers[i] = BigInteger.Parse(jsonData["numbers"][i].ToString());
+            return new Dictionary<string, string>()
+            {
+                { "status", "error" }, { "message", "Could not connect to the number generation server" }
+            };
         }
 
-        return numbers;
+        dynamic jsonData = JsonObject.Parse(data); // parse json data
+
+        if (jsonData["status"].ToString() != "success"){
+            return new Dictionary<string, string>()
+            {
+                { "status", "error" }, { "message", "Unexpected error on the number generation server" }
+            };
+        }
+        
+        _p = BigInteger.Parse(jsonData["numbers"][0].ToString());
+        _q = BigInteger.Parse(jsonData["numbers"][1].ToString());
+        _n = _p * _q;
+        
+        return new Dictionary<string, string>()
+        {
+            {"status", "success"}, {"message", "Keys generated successfully"},
+            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()}
+        };
     }
 }
