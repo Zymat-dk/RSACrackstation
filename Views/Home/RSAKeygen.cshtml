@@ -130,7 +130,7 @@
         }
     });
 
-    document.getElementById("byteInput").addEventListener('input', function() {
+    document.getElementById("keySize").addEventListener('input', function() {
         //only allow numbers
         this.value = this.value.replace(/[^0-9]/g, '');
         if (this.value > 4096) {
@@ -139,13 +139,13 @@
         }
     });
     
-    //Updates byteInput to the value of byteRange, when the range slider is changed
-    document.getElementById("byteRange").addEventListener("input", function() {
-        document.getElementById("byteInput").value = document.getElementById("byteRange").value;
+    //Updates keySize to the value of keySizeRange, when the range slider is changed
+    document.getElementById("keySizeRange").addEventListener("input", function() {
+        document.getElementById("keySize").value = document.getElementById("keySizeRange").value;
     });
     
-    document.getElementById("byteInput").addEventListener("input", function() {
-        document.getElementById("byteRange").value = document.getElementById("byteInput").value;
+    document.getElementById("keySize").addEventListener("input", function() {
+        document.getElementById("keySizeRange").value = document.getElementById("keySize").value;
     });
     
     
