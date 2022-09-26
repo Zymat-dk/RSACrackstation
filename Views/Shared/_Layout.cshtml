@@ -64,11 +64,10 @@
         </a>
         <!-- Navbar with pages links -->
         <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-            <a href="/" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">Prime Factorization</a>
-            <a href="/Home/RsaCrack" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">RSA Crack</a>
-            <a href="/Home/RSAEncrypt" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">Encrypt</a>
-            <a href="/Home/RSAKeygen" class="mr-5 hover:text-gray-900 dark:hover:text-white transition hover:scale-95">Key Generator</a>
-
+            @Html.ActionLink("Prime Factorization", "Index", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
+            @Html.ActionLink("RSA Crack", "RSACrack", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
+            @Html.ActionLink("Encrypt", "RSAEncrypt", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
+            @Html.ActionLink("Key Generator", "RSAKeygen", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
         </nav>
         <div>
             <!-- Darkmode toggle -->
