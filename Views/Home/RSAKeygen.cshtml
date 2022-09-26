@@ -184,38 +184,32 @@
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function generate() {
-        let N = $("#N").val();
         let e = $("#e").val();
-        let pt = $("#pt").val();
-        let inputType = $("input[name='list-radio']:checked").val();
-        console.log(inputType);
+        let keySize = $("#keySize").val();
         
-        
-        
-        if (N.substring(0, 2) == "0x"){
-            console.log("bruh");
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
-        }
-        
-        if (!N.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
-            showSnackbar("Please enter a valid number");
+        if (!e.match(/^[0-9]+$/g) && !isHex) {
+            showSnackbar("Please enter a valid number", 2);
             return;
         }
         
         $.ajax({
-            url: "/api/Encrypt",
+            url: "/api/GenerateKeys",
             type: "POST",
             data: {
-                "N": N,
+                "keySize": keySize,
                 "e": e,
-                "pt": pt,
-                "inputType": inputType
             },
             success: function(data) {
-                console.log(data);
+                console.log(data)
+                if (data["status"] !== "success"){
+                    showSnackbar(data["message"], 2);
+                    return;
+                }
+                
+                $("#p").val(data["p"]);
+                $("#q").val(data["q"]);
+                $("#N").val(data["N"]);
                 $("#copy").removeClass("hidden");
-                $("#c").val(data);
                 $("#dCheck").addClass("hidden");
                 $("#dWarn").removeClass("hidden");
                 $("#tooltip-default").children().eq(1).addClass("hidden");
