@@ -12,7 +12,7 @@
                     <span class="text-2xl align-middle">Key size</span>
                 </div>
                 <div class="col-span-6">
-                    <input id="keySizeRange" type="range" min="1" max="4096" value="2048" class="w-full h-full"/>
+                    <input id="keySizeRange" type="range" min="2" max="4096" value="2048" class="w-full h-full"/>
                 </div>
                 <div class="">
                     <input id="keySize" placeholder="2048" value="2048" pattern="/\d*/" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
@@ -118,6 +118,16 @@
         }
         window.location.href = location;
     }
+    
+    document.getElementById("keySize").addEventListener('focusout', function() {
+        if (this.value === "") {
+            this.value = 2048;
+        }
+        if (this.value < 2){
+            this.value = 2;
+            showSnackbar("Minimum 2 bits", 0);
+        }
+    });
 
     document.getElementById("keySize").addEventListener('input', function() {
         //only allow numbers
