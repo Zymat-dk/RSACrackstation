@@ -27,7 +27,7 @@ public class ApiController : Controller{
             var pt = cracker.GetPlainText(ct).ToString();
             output["pt"] = pt;
             try{
-                output["ptAscii"] = cracker.ConvertToAscii(pt);
+                output["ptAscii"] = RSACracker.ToAscii(pt);
             }
             catch{
                 output["ptAscii"] = "Could not convert to ASCII";
@@ -40,5 +40,17 @@ public class ApiController : Controller{
         var encryptor = new RSAEncrypter(N, e);
         encryptor.E = BigInteger.Parse(e);
         return encryptor.Encrypt(pt);
+    }
+    
+    public Dictionary<string, string> GenerateKeys(int keySize, int e = 65537){
+        KeyGenerator kg;
+        if (e < 1){
+            kg = new KeyGenerator();
+        }
+        else{
+            kg = new KeyGenerator(e);
+        }
+        var output = kg.GenerateKeys(keySize);
+        return output;
     }
 }

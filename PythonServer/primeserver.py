@@ -48,7 +48,10 @@ def generatePrimes(size: int) -> list[int]:
     """
     Generate two primes of size {size}
     """
-    return [number.getPrime(size), number.getPrime(size)], "success"
+    try:
+        return [number.getPrime(size), number.getPrime(size)], "success"
+    except:
+        return [-1, -1]; "fail"
 
 if __name__ == '__main__':
     server = HTTPServer(('localhost', 8080), RequestHandler)

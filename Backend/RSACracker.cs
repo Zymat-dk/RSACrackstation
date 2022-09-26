@@ -20,17 +20,8 @@ public class RSACracker {
         get { return _n; }
     }
     
-    public RSACracker(string n, bool isHex = false) {
-        if (isHex) {
-            if (n.Substring(0, 2) == "0x") {
-                n = n.Substring(2);
-            }
-
-            _n = BigInteger.Parse(n, NumberStyles.HexNumber);
-        }
-        else {
+    public RSACracker(string n) {
             _n = BigInteger.Parse(n);
-        }
     }
 
     public RSACracker(string p, string q) {
@@ -38,6 +29,14 @@ public class RSACracker {
         _q = BigInteger.Parse(q);
 
         _n = _p * _q;
+    }
+    
+    public RSACracker(string p, string q, int e) {
+        _p = BigInteger.Parse(p);
+        _q = BigInteger.Parse(q);
+
+        _n = _p * _q;
+        E = e;
     }
 
     public string[] GetFactors() {
@@ -88,8 +87,13 @@ public class RSACracker {
     }
 
     public BigInteger GetD() {
-        if (_d != 0 || _p == 0 || _q == 0) {
-            // If the d value already exists, return it. If the factors are not found, return 0
+        if (_p == 0 || _q == 0){
+            // If the factors are not set, return -1
+            return -1;
+        }
+        
+        if (_d != 0) {
+            // If the d value already exists, return it
             return _d;
         }
 
@@ -120,7 +124,7 @@ public class RSACracker {
         return pt;
     }
 
-    public string ConvertToAscii(string pt) {
+    public static string ToAscii(string pt) {
         var plain = BigInteger.Parse(pt);
         string hex = plain.ToString("X"); // Convert to hex
         string ascii = "";
