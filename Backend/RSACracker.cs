@@ -31,12 +31,12 @@ public class RSACracker {
         _n = _p * _q;
     }
     
-    public RSACracker(string p, string q, int e) {
-        _p = BigInteger.Parse(p);
-        _q = BigInteger.Parse(q);
+    public RSACracker(BigInteger p, BigInteger q, BigInteger e){
+        _p = p;
+        _q = q;
+        E = e;
 
         _n = _p * _q;
-        E = e;
     }
 
     public string[] GetFactors() {
@@ -67,11 +67,17 @@ public class RSACracker {
         
         if (jsonData["status"].ToString() != "FF" || jsonData["factors"].Count != 2) {
             // If the number is prime, or has more than two factors, return -1 -1
+            // If the number is a perfect square, it is allowed to have only one factor
+            if (jsonData["factors"].Count == 1 && jsonData["factors"][0][1].ToString() == "2") {
+                var factor = jsonData["factors"][0][0].ToString();
+                return new string[] { factor, factor };
+            }
             return factors;
         }
 
         if (jsonData["factors"][0][1].ToString() != "1" || jsonData["factors"][1][1].ToString() != "1") {
             // Check for multiple of the same factor, and return -1 -1 if found
+            Console.WriteLine("Multiple of the same factor found");
             return factors;
         }
 

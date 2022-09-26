@@ -57,10 +57,13 @@ public class KeyGenerator{
         _q = BigInteger.Parse(jsonData["numbers"][1].ToString());
         _n = _p * _q;
         
+        var cracker = new RSACracker(_p, _q, E);
+        _d = cracker.GetD();
+        
         return new Dictionary<string, string>()
         {
             {"status", "success"}, {"message", "Keys generated successfully"},
-            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()}
+            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()}, {"D", _d.ToString()}
         };
     }
 }
