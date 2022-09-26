@@ -63,22 +63,12 @@ function decimalToHex(dec) {
     }
 }
 
-function toggleHexButton(decimalText, hexText) {
-    if (decimalText.css("font-weight") == 400) {
-        decimalText.css("font-weight", "bold");
-        hexText.css("font-weight", "normal");
-    } else {
-        hexText.css("font-weight", "bold");
-        decimalText.css("font-weight", "normal");
-    }
-}
-
-function toggleHexContent(text, decimalText) {
+function toggleHexContent(text, toHex) {
     if (text !== "") {
-        if (decimalText.css("font-weight") == 700) {
-            return hexToDecimal(text);
-        } else {
+        if (toHex) {
             return decimalToHex(text);
+        } else {
+            return hexToDecimal(text);
         }
     }
     return -1;

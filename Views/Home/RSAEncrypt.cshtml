@@ -89,19 +89,14 @@
         });
     });
     
-
-    // Hextoggle button styling change
-    $("#nHEXToggle").click(function() {
-        toggleHexButton($("#nDecimal"), $("#nHEX"));
-    });
     
     // Hextoggle button styling change
-    $("#cHEXToggle").click(function() {
-        toggleHexButton($("#cDecimal"), $("#cHEX"));
+    $("#hexToggle2").click(function() {
         // Toggle the value of #pt, if it's not empty
-        let c = toggleHexContent($("#c").val(), $("#cDecimal"));
+        c = toggleHexContent($("#c").val(), isHex2);
         if(c === -1) {
-            return -1;
+            showSnackbar("Hex conversion failed", 0);
+            return;
         }
         $("#c").val(c);
     });
@@ -142,17 +137,19 @@
     // If it returns an error, it displays an error message
     function encrypt() {
         let N = $("#N").val();
-        if (N.substring(0, 2) == "0x"){
-            $("#nDecimal").css("font-weight", "normal");
-            $("#nHEX").css("font-weight", "bold");
+        
+        if (N.substring(0, 2) === "0x"){
+            if (!isHex){
+                updateHexToggle()
+            }
             N = N.substring(2);
         }
         
-        if (!N.match(/^[0-9]+$/g) && $("#nDecimal").css("font-weight") == 700) {
+        if (!N.match(/^[0-9]+$/g) && !isHex) {
             showSnackbar("Please enter a number", 1)
             return;
         }
-        else if ($("#nHEX").css("font-weight") == 700) {
+        else if (isHex) {
             N = hexToDecimal(N);
             if (N === -1) {
                 showSnackbar("Invalid hex number", 0);
@@ -164,12 +161,7 @@
         let pt = $("#pt").val();
         let inputType = $("input[name='list-radio']:checked").val();
         
-        if (N.substring(0, 2) == "0x"){
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
-        }
-        
-        if (!N.match(/^[0-9]+$/g) && $("#Decimal").css("font-weight") == 700) {
+        if (!N.match(/^[0-9]+$/g) && !isHex) {
             showSnackbar("Please enter a valid number");
             return;
         }
@@ -206,6 +198,12 @@
                 "pt": pt,
             },
             success: function(data) {
+                if (isHex2 !== isHex){
+                    updateHexToggle2();
+                }
+                if (isHex2){
+                    data = decimalToHex(data);
+                }
                 $("#c").val(data);
             }
         });
