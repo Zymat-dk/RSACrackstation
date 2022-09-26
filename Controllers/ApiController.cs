@@ -7,9 +7,6 @@ namespace RSACrackstation.Controllers;
 
 public class ApiController : Controller{
     public string[] GetFactors(string inputNum){
-        var kg = new KeyGenerator();
-        kg.GenerateKeys(2048);
-        
         var cracker = new RSACracker(inputNum);
         return cracker.GetFactors();
     }
