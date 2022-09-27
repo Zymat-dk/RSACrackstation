@@ -102,20 +102,18 @@
     });
     
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
-    $("#num").bind('paste', function(e) {
+    $("#N").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text');
-        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
+        if (/[A-Za-z]/g.test(data) && !isHex) {  // Check if pasted value is hex
+            updateHexToggle();
         }
-        else{
-            $("#Decimal").css("font-weight", "bold");
-            $("#HEX").css("font-weight", "normal");
+        else if (isHex){
+            updateHexToggle();
         }
     });
     
     // Submits form if enter is pressed
-    $("#num").keypress(function(event) {
+    $("#pt").keypress(function(event) {
         if (event.keyCode === 13) {
             encrypt();
         }
