@@ -47,7 +47,7 @@
 
 <header class="text-gray-600 body-font border border-b-1 bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
-        <a href="/" class="flex title-font font-medium items-center text-gray-900 dark:text-gray-50 mb-4 md:mb-0 transition hover:scale-95">
+        <a href="/" class="flex title-font font-medium items-center text-gray-900 dark:text-gray-50 md:mb-0 transition hover:scale-95">
             <!-- The CPU logo -->
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-10 h-10" viewBox="0 0 16 16">
                 <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
@@ -55,12 +55,18 @@
             <span class="ml-3 text-xl">RSA Crackstation</span>
         </a>
         <!-- Navbar with pages links -->
-        <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
+        <nav class="hidden md:block md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400flex flex-wrap items-center text-base justify-center">
             @Html.ActionLink("Prime Factorization", "Index", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
             @Html.ActionLink("RSA Crack", "RSACrack", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
             @Html.ActionLink("Encrypt", "RSAEncrypt", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
             @Html.ActionLink("Key Generator", "RSAKeygen", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
         </nav>
+        <button onclick="toggleMenu()" class="space-y-2 block md:hidden absolute top-5 left-5">
+            <div class="w-8 h-0.5 bg-gray-600 dark:bg-gray-200"></div>
+            <div class="w-8 h-0.5 bg-gray-600 dark:bg-gray-200"></div>
+            <div class="w-8 h-0.5 bg-gray-600 dark:bg-gray-200"></div>
+        </button>
+
         <div>
             <!-- Darkmode toggle -->
             <label for="checkbox" class="top-5 right-5 md:top-auto md:right-auto absolute inline-flex md:relative items-center cursor-pointer">
@@ -70,16 +76,48 @@
         </div>
     </div>
 </header>
+<!-- Hambuger menu -->
+<div id="menu" class="hidden absolute left-0 top-0 h-screen w-4/5 sm:w-80  bg-gray-200 dark:bg-neutral-800 shadow-2xl z-50 flex pt-5 flex-col">
+    <div class="relative">
+        <a href="/" class="flex mx-auto w-fit title-font font-medium items-center text-gray-900 dark:text-gray-50 md:mb-0 transition hover:scale-95">
+            <!-- The CPU logo -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-10 h-10" viewBox="0 0 16 16">
+                <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0zm-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3h-7zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+            </svg>
+            <span class="ml-3 text-xl">RSA Crackstation</span>
+        </a>
+        <button onclick="toggleMenu()" class="absolute right-6 top-0 text-black dark:text-white w-6 h-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg>
+        </button>
+    </div>
+    <a href="/" class="mt-6 p-2 flex rounded-lg h-fit bg-neutral-700 px-5 py-2 mx-4 flex-col">
+        <h2 class="text-white text-lg title-font font-medium">Prime Factorization</h2>
+    </a>
+    <a href="/Home/RSACrack" class="mt-3 p-2 flex rounded-lg h-fit bg-neutral-700 px-5 py-2 mx-4 flex-col">
+        <h2 class="text-white text-lg title-font font-medium">RSA Crack</h2>
+    </a>
+    <a href="/Home/RSAEncrypt" class="mt-3 p-2 flex rounded-lg h-fit bg-neutral-700 px-5 py-2 mx-4 flex-col">
+        <h2 class="text-white text-lg title-font font-medium">Encrypt</h2>
+    </a>
+    <a href="/Home/RSADecrypt" class="mt-3 p-2 flex rounded-lg h-fit bg-neutral-700 px-5 py-2 mx-4 flex-col">
+        <h2 class="text-white text-lg title-font font-medium">Decrypt</h2>
+    </a>
+    <a href="RSAKeygen" class="mt-3 p-2 flex rounded-lg h-fit bg-neutral-700 px-5 py-2 mx-4 flex-col">
+        <h2 class="text-white text-lg title-font font-medium">Key Generator</h2>
+    </a>
 
+</div>
 
-<div class="">
+<div id="maindiv" class="">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
 <!-- Footer -->
-<footer class="text-gray-600 body-font w-full bottom-0 fixed z-40 border border-t-1 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-none">
+<footer class="text-gray-600 body-font w-full bottom-0 fixed z-40 border border-t-1 bg-white dark:bg-gray-800 dark:text-gray-100 dark:border-none hidden md:block">
     <div class="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
         <!-- Social links -->
         <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
@@ -159,6 +197,13 @@
 
 
 <script>
+    // Hamburger menu 
+    function toggleMenu() {
+        $("#menu").toggleClass("hidden");
+        $("#maindiv").toggleClass("blur-sm");
+    }
+    
+    
     // Darkmode toggle script
 
     const darkCheck = document.querySelector("#checkbox");
