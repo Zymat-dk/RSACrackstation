@@ -20,12 +20,12 @@ let isHex = false;
 let isHex2 = false;
 
 function updateHexToggle() {
-    $("#hexToggle").children().toggleClass("bg-transparent bg-indigo-500");
+    $("#hexToggle").children().toggleClass("bg-transparent bg-indigo-500 text-white");
     isHex = !isHex;
 }
 
 function updateHexToggle2() {
-    $("#hexToggle2").children().toggleClass("bg-transparent bg-indigo-500");
+    $("#hexToggle2").children().toggleClass("bg-transparent bg-indigo-500 text-white");
     isHex2 = !isHex2;
 }
 
