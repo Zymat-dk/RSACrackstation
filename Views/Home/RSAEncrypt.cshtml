@@ -92,8 +92,12 @@
     
     // Hextoggle button styling change
     $("#hexToggle2").click(function() {
-        // Toggle the value of #pt, if it's not empty
-        c = toggleHexContent($("#c").val(), isHex2);
+        // Toggle the value of #c, if it's not empty
+        let c = $("#c").val();
+        if (c === ""){
+            return;
+        }
+        c = toggleHexContent(c, isHex2);
         if(c === -1) {
             showSnackbar("Hex conversion failed", 0);
             return;
