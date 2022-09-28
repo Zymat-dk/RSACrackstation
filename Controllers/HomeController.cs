@@ -22,6 +22,10 @@ public class HomeController : Controller{
     public IActionResult RSAEncrypt(){
         return View();
     }
+    
+    public IActionResult RSADecrypt(){
+        return View();
+    }
 
     public IActionResult RSAKeygen(){
         return View();
