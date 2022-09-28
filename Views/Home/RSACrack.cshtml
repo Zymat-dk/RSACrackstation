@@ -105,40 +105,39 @@
 </style>
 
 <script>
+
 // Submits form when enter is pressed
 $("#ct").keypress(function(event) {
-        if (event.keyCode === 13) {
-            crackRSA();
-        }
-    });
-
-// Toggles between decimal and hex in the c field
-$("#cHEXToggle").click(function() {
-    toggleHexButton($("#cDecimal"), $("#cHEX"));
-});
-
-// Toggles between decimal and hex in the p field
-$("#pHEXToggle").click(function() {
-    toggleHexButton($("#pDecimal"), $("#pHEX"));
-    // Toggle the value of #pt, if it's not empty
-    let pt = toggleHexContent($("#pt").val(), $("#pDecimal"));
-    if(pt === -1) {
-        return -1;
+    if (event.keyCode === 13) {
+        crackRSA();
     }
-    $("#pt").val(pt);
 });
 
 // Auto toggles between decimal and hex when the correct one is pasted
 $("#ct").bind('paste', function(e) {
     let data = e.originalEvent.clipboardData.getData('text');
-    if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
-        $("#cDecimal").css("font-weight", "normal");
-        $("#cHEX").css("font-weight", "bold");
+    if (/[A-Za-z]/g.test(data) && !isHex) {  // Check if pasted value is hex
+        updateHexToggle();
     }
-    else{
-        $("#cDecimal").css("font-weight", "bold");
-        $("#cHEX").css("font-weight", "normal");
+    else if (isHex){
+        updateHexToggle();
     }
+});
+
+
+// Toggles between decimal and hex in the m field
+$("#hexToggle2").click(function() {
+    // Toggle the value of #pt, if it's not empty
+    let pt = $("#pt").val();
+    if (pt === ""){
+        return;
+    }
+    pt = toggleHexContent(pt, isHex2);
+    if(pt === -1) {
+        showSnackbar("Hex conversion failed", 0);
+        return;
+    }
+    $("#pt").val(pt);
 });
 
 // Auto expands the plaintext field when enough data is in there
@@ -162,19 +161,24 @@ if (p != null && q != null) {
 
 // AJAX call to backend to fetch the data 
 function crackRSA() {
-    // Set pt hex toggle to same as c
-    $("#pDecimal").css("font-weight", $("#cDecimal").css("font-weight"));
-    $("#pHEX").css("font-weight", $("#cHEX").css("font-weight"));
-    
     let ct = $("#ct").val();
-    if ($("#cHEX").css("font-weight") == 700) {
+    if (ct === "") {
+        showSnackbar("Please enter a ciphertext", 1);
+        return;
+    }
+    if (isHex) {
         ct = hexToDecimal(ct);
         if (ct === -1){
-            // TODO: Snackbar here
+            showSnackbar("Hex conversion failed", 0);
             return;
         }
     }
     console.log(ct);
+    
+    // Set pt hex toggle to same as c
+    if (isHex !== isHex2) {
+        updateHexToggle2();
+    }
     
     $.ajax({
         url: "/api/Decipher",
@@ -193,12 +197,10 @@ function crackRSA() {
             $('#pta').val(data['ptAscii'])
             
             // Convert pt to hex, if hex is selected
-            if($("#pHEX").css("font-weight") == 700) {
+            if(isHex2) {
                 let hexval = decimalToHex(data['pt']);
-                console.log(data['pt'])
-                console.log(hexval);
                 if (hexval === -1){
-                    //TODO: Snackbar here
+                    showSnackbar("Hex conversion failed", 0);
                     return;
                 }
                 $('#pt').val(hexval);
