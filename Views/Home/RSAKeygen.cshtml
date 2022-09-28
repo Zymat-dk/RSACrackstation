@@ -95,12 +95,8 @@
 
 
 <script>
-
-
-
-
     function copyToClipboard() {
-        let copyText = $("#d")[0].value;
+        let copyText = $("#D")[0].value;
         navigator.clipboard.writeText(copyText);
         showSnackbar("Copied to clipboard", 2);
         $("#nonClip").addClass("hidden");
@@ -110,7 +106,7 @@
         $("#tooltip-default").children().eq(0).addClass("hidden");
         $("#tooltip-default").children().eq(1).removeClass("hidden");
     }
-
+    
     function sendToEncrypt() {
         let N = $("#N").val();
         let location = '/Home/RSAEncrypt'
@@ -148,37 +144,29 @@
         document.getElementById("keySizeRange").value = document.getElementById("keySize").value;
     });
     
-    
-
-    // Hextoggle button styling change
-    $("#HEXToggle").click(function() {
-        if($("#Decimal").css("font-weight") == 400) {
-            $("#Decimal").css("font-weight", "bold");
-            $("#HEX").css("font-weight", "normal");
-        } else {
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
-        }
-    });
-    
-    // Checks if number is pasted and automatically changes state to hex if hex is pasted
-    $("#num").bind('paste', function(e) {
-        let data = e.originalEvent.clipboardData.getData('text');
-        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
-            $("#Decimal").css("font-weight", "normal");
-            $("#HEX").css("font-weight", "bold");
-        }
-        else{
-            $("#Decimal").css("font-weight", "bold");
-            $("#HEX").css("font-weight", "normal");
-        }
-    });
-    
     // Submits form if enter is pressed
-    $("#num").keypress(function(event) {
+    $("#keySize").keypress(function(event) {
         if (event.keyCode === 13) {
             generate();
         }
+    });
+    
+    // Hextoggle functionality.
+    $("#hexToggle").click(function() {
+        // Toggle the value of everything, if it's not empty
+        let ids = ["p", "q", "N", "D", "e"];
+        ids.forEach(function(id) {
+            let element = $("#" + id);
+            if (element.val() === "") {
+                return;
+            }
+            let new_val = toggleHexContent(element.val(), isHex);
+            if (new_val === -1){
+                showSnackbar("Hex conversion failed", 0);
+                return;
+            }
+            element.val(new_val);
+        });
     });
     
     // Sends the data to backend with AJAX call and displays the returned result
@@ -204,6 +192,13 @@
                 if (data["status"] !== "success"){
                     showSnackbar(data["message"], 0);
                     return;
+                }
+                
+                if (isHex){
+                    let keys = ["p", "q", "N", "D"];
+                    keys.forEach(function(key) {
+                        data[key] = decimalToHex(data[key]);
+                    });
                 }
                 
                 $("#p").val(data["p"]);
