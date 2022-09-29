@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="w-full flex mt-6 mb-12 justify-center">
-                <button id="subBtn" onclick="encrypt()" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                <button id="subBtn" onclick="decrypt()" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
                 <div class="w-fit dark:text-white text-gray-800">
                     <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold ml-4" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
                         <span class="bg-indigo-500 p-2 rounded-lg text-white">10</span>
@@ -126,22 +126,6 @@
         });
     });
     
-    
-    // Hextoggle button styling change
-    $("#hexToggle2").click(function() {
-        // Toggle the value of #c, if it's not empty
-        let c = $("#c").val();
-        if (c === ""){
-            return;
-        }
-        c = toggleHexContent(c, isHex2);
-        if(c === -1) {
-            showSnackbar("Hex conversion failed", 0);
-            return;
-        }
-        $("#c").val(c);
-    });
-    
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#N").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text');
@@ -156,7 +140,7 @@
     // Submits form if enter is pressed
     $("#pt").keypress(function(event) {
         if (event.keyCode === 13) {
-            encrypt();
+            decrypt();
         }
     });
     
@@ -174,29 +158,25 @@
     
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
-    function encrypt() {
+    function decrypt() {
         $("#copySpan").addClass("hidden");
         
-        let N = $("#N").val();
-        
-        if (N.substring(0, 2) === "0x"){
-            if (!isHex){
-                updateHexToggle()
-            }
-            N = N.substring(2);
-        }
-        
-        if (!N.match(/^[0-9]+$/g) && !isHex) {
-            showSnackbar("Please enter a number", 1)
-            return;
-        }
-        else if (isHex) {
-            N = hexToDecimal(N);
-            if (N === -1) {
-                showSnackbar("Invalid hex number", 0);
+        // Input parsing
+        let inputs = ["c", "D", "N"];
+        inputs.forEach(function(input, index) {
+            let value = $("#" + input).val();
+            if (value === "") {
+                showSnackbar("Please fill in all fields", 1);
                 return;
             }
-        }
+            if (!value.match(/^[0-9]+$/) && !isHex) {
+                showSnackbar(`${input} is not a decimal value`, 1);
+                return;
+            }
+            if (!value.match(/^[0-9a-zA-Z]+$/) && isHex) {
+                showSnackbar(`${input} is not a valid hex value`, 1);
+            }
+        });
         
         let e = $("#e").val();
         let pt = $("#pt").val();
@@ -226,7 +206,7 @@
                 break;
         }
         if (pt > N) {
-            showSnackbar("Can not encrypt message larger than N", 0);
+            showSnackbar("Can not decrypt message larger than N", 0);
             return;
         }
         
