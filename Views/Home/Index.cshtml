@@ -10,11 +10,11 @@
             <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 dark:text-gray-50 mb-14">Prime Factorization</h1>
 
             <!-- Prime input field and HEX/Decimal toggle -->
-            <div class="w-2/3 flex flex-wrap justify-center">
+            <div class="w-full md:w-4/5 lg:w-2/3 flex flex-wrap justify-center">
                 <input id="num" placeholder="Input number to factorize" class="mb-4 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow mr-3"/>
-                <div class="w-fit dark:text-white">
-                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold -translate-y-1" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
-                        <span class="bg-indigo-500 p-2 rounded-lg">10</span>
+                <div class="w-fit dark:text-white text-gray-800">
+                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold ml-4" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
+                        <span class="bg-indigo-500 p-2 rounded-lg text-white">10</span>
                         <span class="bg-transparent p-2 rounded-lg">16</span>
                     </button>
                 </div>
@@ -31,7 +31,7 @@
                 <input id="p" placeholder="p" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out footer flex-grow"/>
 
                 <div class="basis-full h-4"></div>
-                
+
                 <span class="text-2xl mr-3 dark:text-gray-100 w-18">q</span>
                 <input id="q" placeholder="q" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
                 <div class="basis-full">
