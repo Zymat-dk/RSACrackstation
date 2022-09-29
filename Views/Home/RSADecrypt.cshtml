@@ -90,6 +90,16 @@
 </style>
 
 <script>
+    // Get params from URL and set them to the input field
+    function getParams(){
+        let params = new URLSearchParams(window.location.search);
+        let N = params.get('N');
+        if (params.get('N') != null) {
+            document.getElementById("N").value = N;
+        }
+    }
+    getParams()
+    
     $("input[name='list-radio']").change(function() {
         var radioValue = $("input[name='list-radio']:checked").val();
         console.log(radioValue);
@@ -109,11 +119,6 @@
         .height(50)
         .height(this.scrollHeight);
     });
-    let params = new URLSearchParams(window.location.search);
-    let N = params.get('N');
-    if (params.get('N') != null) {
-        document.getElementById("N").value = N;
-    }
     
     $(document).ready(function() {
       //change colour when radio is selected
@@ -163,52 +168,45 @@
         
         // Input parsing
         let inputs = ["c", "D", "N"];
-        inputs.forEach(function(input, index) {
+        let passed = true;
+        inputs.forEach(function(input) {
             let value = $("#" + input).val();
             if (value === "") {
                 showSnackbar("Please fill in all fields", 1);
+                passed = false;
                 return;
             }
             if (!value.match(/^[0-9]+$/) && !isHex) {
-                showSnackbar(`${input} is not a decimal value`, 1);
+                showSnackbar(`${input} is not a positive decimal value`, 1);
+                passed = false;
                 return;
             }
-            if (!value.match(/^[0-9a-zA-Z]+$/) && isHex) {
+            if (!value.match(/^[0-9A-Fa-f]+$/) && isHex) {
                 showSnackbar(`${input} is not a valid hex value`, 1);
+                passed = false;
             }
         });
-        
-        let e = $("#e").val();
-        let pt = $("#pt").val();
-        let inputType = $("input[name='list-radio']:checked").val();
-        
-        if (!N.match(/^[0-9]+$/g) && !isHex) {
-            showSnackbar("Please enter a valid number");
+        if (!passed) {
             return;
         }
         
-        switch (parseInt(inputType)){
-            case 0:
-                pt = asciiToDecimal(pt);
-                break;
-            case 1:
-                if (!pt.match(/^[0-9]+$/g)) {
-                    showSnackbar("Please enter a valid number", 0);
-                    return;
-                }
-                break;
-            case 2:
-                if (!pt.match(/^[0-9A-Fa-f]+$/g)) {
-                    showSnackbar("Please enter a valid hex string", 0);
-                    return;
-                }
-                pt = hexToDecimal(pt);
-                break;
-        }
-        if (pt > N) {
-            showSnackbar("Can not decrypt message larger than N", 0);
+        // Get values from input fields and convert them to hex if needed
+        let ids = ["c", "D", "N"];
+        let values = [];
+        ids.forEach(function(id) {
+            let val = $("#" + id).val();
+            if (isHex){
+                val = hexToDecimal(val);
+            }
+            values.push(val);
+        });
+        if (values.includes(-1)){
+            showSnackbar("Invalid hex value", 1);
             return;
         }
+        let c = values[0];
+        let D = values[1];
+        let N = values[2];
         
         $.ajax({
             url: "/api/Encrypt",
