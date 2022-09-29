@@ -209,14 +209,15 @@
         let N = values[2];
         
         $.ajax({
-            url: "/api/Encrypt",
+            url: "/api/Decrypt",
             type: "POST",
             data: {
+                "c": c,
+                "D": D,
                 "N": N,
-                "e": e,
-                "pt": pt,
             },
             success: function(data) {
+                console.log(data)
                 if (isHex2 !== isHex){
                     updateHexToggle2();
                 }
