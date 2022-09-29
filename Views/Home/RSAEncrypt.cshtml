@@ -188,7 +188,7 @@
                 pt = hexToDecimal(pt);
                 break;
         }
-        if (pt > N) {
+        if (parseInt(pt) > parseInt(N)) {
             showSnackbar("Can not encrypt message larger than N", 0);
             return;
         }
