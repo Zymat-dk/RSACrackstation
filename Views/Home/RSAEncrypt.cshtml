@@ -57,7 +57,21 @@
 
 
             <div class="box w-2/3 flex justify-center">
-                <input id="c" placeholder="c" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/>
+
+                <div class="relative w-full h-fit">
+                    <input id="c" placeholder="c" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-full"/>
+                    <div id="copySpan" class="hidden w-8 h-8 bg-white absolute top-1/2 -translate-y-1/2 right-1 rounded dark:text-white dark:bg-gray-600 bg-gray-50 dark:hover:bg-gray-700 hover:gray-200 transition">
+                        <button class="h-full w-full relative" onclick="copyToClipboard()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-auto" id="nonClip" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1A2.5 2.5 0 0 0 6.5 5h3A2.5 2.5 0 0 0 12 2.5v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Z"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-auto hidden" id="checkedClip" viewBox="0 0 16 16">
+                                <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+                                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
                 <div class="w-fit dark:text-white text-gray-800 ml-4">
                     <button id="hexToggle2" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold" onclick="updateHexToggle2()" data-tooltip-target="hexTooltip">
                         <span class="bg-indigo-500 p-2 rounded-lg text-white">10</span>
@@ -73,6 +87,14 @@
 
 
 <script>
+
+    function copyToClipboard() {
+        let copyText = $("#c")[0].value;
+        navigator.clipboard.writeText(copyText);
+        showSnackbar("Copied to clipboard", 2);
+        $("#nonClip").addClass("hidden");
+        $("#checkedClip").removeClass("hidden");
+    }
 
     let params = new URLSearchParams(window.location.search);
     let N = params.get('N');
@@ -140,6 +162,8 @@
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function encrypt() {
+        $("#copySpan").addClass("hidden");
+        
         let N = $("#N").val();
         
         if (N.substring(0, 2) === "0x"){
@@ -209,6 +233,7 @@
                     data = decimalToHex(data);
                 }
                 $("#c").val(data);
+                $("#copySpan").removeClass("hidden");
             }
         });
     }
