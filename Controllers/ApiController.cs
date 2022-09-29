@@ -42,6 +42,11 @@ public class ApiController : Controller{
         return encryptor.Encrypt(pt);
     }
     
+    public string Decrypt(string N, string d, string ct){
+        var decrypter = new RSADecrypter(N, d);
+        return decrypter.Decrypt(ct);
+    }
+    
     public Dictionary<string, string> GenerateKeys(int keySize, int e = 65537){
         KeyGenerator kg;
         if (e < 1){

@@ -39,6 +39,9 @@ function asciiToHex(ascii) {
 }
 
 function hexToDecimal(hex) {
+    if (hex.substring(0, 2) === "0x") {
+        hex = hex.substring(2);
+    }
     if (hex.length % 2) {
         hex = '0' + hex;
     }
