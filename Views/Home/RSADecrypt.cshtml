@@ -90,6 +90,11 @@
 </style>
 
 <script>
+    $("input[name='list-radio']").change(function() {
+        var radioValue = $("input[name='list-radio']:checked").val();
+        console.log(radioValue);
+    });
+
     function copyToClipboard() {
         let copyText = $("#m")[0].value;
         navigator.clipboard.writeText(copyText);
