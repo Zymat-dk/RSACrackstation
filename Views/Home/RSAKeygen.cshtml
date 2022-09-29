@@ -18,7 +18,15 @@
                     <input id="keySize" placeholder="2048" value="2048" pattern="/\d*/" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                 </div>
                 <div class="col-start-4 col-span-2">
-                    <button id="subBtn" onclick="generate()" class="flex justify-center w-36 text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                    <button id="subBtn" onclick="generate()" class="relative flex justify-center w-fit text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                        <span id="subBtnText">Sumbit</span>
+                        <span id="generating-icon" class="top-1/2 -translate-y-1/2 absolute left-2 hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="animate-spin w-5 h-5 left-5 " viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                            </svg>
+                        </span>
+                    </button>
                 </div>
                 <div class="col-span-2">
                     <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
@@ -175,6 +183,10 @@
         let e = $("#e").val();
         let keySize = $("#keySize").val();
         
+        $("#generating-icon").removeClass("hidden");
+        $("#subBtnText").text("Generating...");
+        $("#subBtn").prop("disabled", true);
+        
         if (!e.match(/^[0-9]+$/g) && !isHex) {
             showSnackbar("Please enter a valid number", 0);
             return;
@@ -188,6 +200,10 @@
                 "e": e,
             },
             success: function(data) {
+                $("#generating-icon").addClass("hidden");
+                $("#subBtnText").text("Submit");
+                $("#subBtn").prop("disabled", false);
+                
                 console.log(data)
                 if (data["status"] !== "success"){
                     showSnackbar(data["message"], 0);
