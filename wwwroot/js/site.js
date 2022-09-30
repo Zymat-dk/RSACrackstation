@@ -63,11 +63,12 @@ function decimalToHex(dec) {
 }
 
 function hexToAscii(hex) {
-    let ascii = '';
+    hex  = hex.toString();
+    let str = '';
     for (let n = 0; n < hex.length; n += 2) {
-        ascii += String.fromCharCode(parseInt(hex.substring(n, 2), 16));
+        str += String.fromCharCode(parseInt(hex.substr(n, 2), 16));
     }
-    return ascii;
+    return str;
 }
 
 function asciiToDecimal(ascii) {
