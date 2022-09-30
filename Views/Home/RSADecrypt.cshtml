@@ -212,19 +212,12 @@
             url: "/api/Decrypt",
             type: "POST",
             data: {
-                "c": c,
+                "ct": c,
                 "D": D,
                 "N": N,
             },
             success: function(data) {
-                console.log(data)
-                if (isHex2 !== isHex){
-                    updateHexToggle2();
-                }
-                if (isHex2){
-                    data = decimalToHex(data);
-                }
-                $("#c").val(data);
+                $("#m").val(data);
                 $("#copySpan").removeClass("hidden");
             }
         });
