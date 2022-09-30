@@ -90,6 +90,7 @@
 </style>
 
 <script>
+    var m_decimal = "0";  // Decimal value of the message, used for conversion
     // Get params from URL and set them to the input field
     function getParams(){
         let params = new URLSearchParams(window.location.search);
@@ -101,9 +102,28 @@
     getParams()
     
     $("input[name='list-radio']").change(function() {
-        var radioValue = $("input[name='list-radio']:checked").val();
-        console.log(radioValue);
+        setMType()
     });
+    
+    // Toggle m value based on radioValue
+    function setMType(){
+        if (parseInt(m_decimal) <= 0){
+            return;
+        }
+        let radioValue = parseInt($("input[name='list-radio']:checked").val());
+        let m = $("#m");
+        switch (radioValue){
+            case 0:
+                m.val(decimalToAscii(m_decimal));
+                break;
+            case 1:
+                m.val(m_decimal);
+                break;
+            case 2:
+                m.val(decimalToHex(m_decimal));
+                break;
+        }
+    }
 
     function copyToClipboard() {
         let copyText = $("#m")[0].value;
@@ -212,19 +232,13 @@
             url: "/api/Decrypt",
             type: "POST",
             data: {
-                "c": c,
+                "ct": c,
                 "D": D,
                 "N": N,
             },
             success: function(data) {
-                console.log(data)
-                if (isHex2 !== isHex){
-                    updateHexToggle2();
-                }
-                if (isHex2){
-                    data = decimalToHex(data);
-                }
-                $("#c").val(data);
+                m_decimal = data
+                setMType()
                 $("#copySpan").removeClass("hidden");
             }
         });

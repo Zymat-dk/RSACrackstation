@@ -53,10 +53,6 @@ function hexToDecimal(hex) {
     }
 }
 
-function asciiToDecimal(ascii) {
-    return hexToDecimal(asciiToHex(ascii));
-}
-
 function decimalToHex(dec) {
     try {
         let bn = BigInt(dec);
@@ -64,6 +60,22 @@ function decimalToHex(dec) {
     } catch (SyntaxError) {
         return -1;
     }
+}
+
+function hexToAscii(hex) {
+    let ascii = '';
+    for (let n = 0; n < hex.length; n += 2) {
+        ascii += String.fromCharCode(parseInt(hex.substring(n, 2), 16));
+    }
+    return ascii;
+}
+
+function asciiToDecimal(ascii) {
+    return hexToDecimal(asciiToHex(ascii));
+}
+
+function decimalToAscii(dec) {
+    return hexToAscii(decimalToHex(dec));
 }
 
 function toggleHexContent(text, toHex) {
