@@ -114,19 +114,19 @@
     });
     
     
-    // Hextoggle button styling change
+    // Hextoggle functionality
     $("#hexToggle2").click(function() {
-        // Toggle the value of #c, if it's not empty
-        let c = $("#c").val();
-        if (c === ""){
+        // Toggle the value of #pt, if it's not empty
+        let element = $("#c");
+        if (element.val() === ""){
             return;
         }
-        c = toggleHexContent(c, isHex2);
+        c = toggleHexContent(element.val(), isHex2);
         if(c === -1) {
             showSnackbar("Hex conversion failed", 0);
             return;
         }
-        $("#c").val(c);
+        $(element).val(c);
     });
     
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
@@ -165,7 +165,6 @@
         $("#copySpan").addClass("hidden");
         
         let N = $("#N").val();
-        
         if (N.substring(0, 2) === "0x"){
             if (!isHex){
                 updateHexToggle()
