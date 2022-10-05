@@ -17,9 +17,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             resp = generatePrimes(params['size'])
             numbers, status = resp
         except:
-            raise
             numbers = [-1, -1]
-            status = "fail"
+            status = "error"
 
         self.wfile.write(json.dumps({
             'method': self.command,
@@ -51,7 +50,7 @@ def generatePrimes(size: int) -> list[int]:
     try:
         return [number.getPrime(size), number.getPrime(size)], "success"
     except:
-        return [-1, -1]; "fail"
+        return [-1, -1]; "error"
 
 if __name__ == '__main__':
     server = HTTPServer(('localhost', 8080), RequestHandler)
