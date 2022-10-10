@@ -48,8 +48,8 @@
 <script>
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#num").bind('paste', function(e) {
-        let data = e.originalEvent.clipboardData.getData('text');
-        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
+        let data = e.originalEvent.clipboardData.getData('text'); // Gets data from clipboard
+        if (/[A-Za-z]/g.test(data)) {  // Regex to check if hex is pasted
             if (!isHex){
                 updateHexToggle();
             }
@@ -61,20 +61,20 @@
     
     // Submits form if enter is pressed
     $("#num").keypress(function(event) {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13) { // Checks if enter is pressed
             factorize();
         }
     });
     
     // Sends the value to crack site with the calculated values
     function sendToRSACrack() {
-        let location = "/Home/RSACrack"
+        let location = "/Home/RSACrack" // Location of the crack site
         let p = $("#p").val();
         let q = $("#q").val();
         if (p !== "" && q !== "") {
-            location += `?p=${p}&q=${q}`;
+            location += `?p=${p}&q=${q}`; // Adds the values to the url
         }
-        window.location.href = location;
+        window.location.href = location; // Redirects to the crack site
     }
     
     // Sends the data to backend with AJAX call and displays the returned result
@@ -82,20 +82,20 @@
     function factorize() {
         let num = $("#num").val();
         
-        if (num.substring(0, 2) == "0x"){
-            num = num.substring(2);
+        if (num.substring(0, 2) == "0x"){ // Checks if hex is pasted with 0x at start
+            num = num.substring(2); // Removes 0x from the start
             if (!isHex){
                 updateHexToggle();
             }
         }
         
-        if (!num.match(/^[0-9]+$/g) && !isHex) {
+        if (!num.match(/^[0-9]+$/g) && !isHex) { // Checks if input is not a number
             showSnackbar("Please enter a number", 1)
             return;
         }
-        else if (isHex) {
+        else if (isHex) { // Checks if input is hex
             num = hexToDecimal(num);
-            if (num === -1) {
+            if (num === -1) { 
                 showSnackbar("Invalid hex number", 1);
                 return;
             }
@@ -109,14 +109,14 @@
             },
             success: function(data) {
                 if (data[0] == -2 || data[1] == -2) { // If the returned data is -1, then it is an error
-                    showSnackbar("FactorDB is currently offline", 0)
-                    $("#p").val("");
+                    showSnackbar("FactorDB is currently offline", 0) // Displays error message
+                    $("#p").val(""); // Clears the output fields
                     $("#q").val("");
                     return;
                 }
                 if (data[0] == -1 || data[1] == -1) { // If the returned data is -1, then it is an error
-                    showSnackbar("Could not factorize", 1)
-                    $("#p").val("");
+                    showSnackbar("Could not factorize", 1) // Displays error message
+                    $("#p").val(""); // Clears the output fields
                     $("#q").val("");
                     return;
                 }
