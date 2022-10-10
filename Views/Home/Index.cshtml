@@ -18,7 +18,7 @@
                         <span class="bg-transparent p-2 rounded-lg">16</span>
                     </button>
                 </div>
-
+                <!-- Tooltip for HEX/Decimal toggle -->
                 <div id="hexTooltip" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
                     <span>Choose between base10 (decimal) and base16 (hexadecimal)</span>
                 </div>
@@ -61,7 +61,7 @@
     
     // Submits form if enter is pressed
     $("#num").keypress(function(event) {
-        if (event.keyCode === 13) { // Checks if enter is pressed
+        if (event.keyCode === 13) { // 13 is keycode for enter
             factorize();
         }
     });
@@ -84,7 +84,7 @@
         
         if (num.substring(0, 2) == "0x"){ // Checks if hex is pasted with 0x at start
             num = num.substring(2); // Removes 0x from the start
-            if (!isHex){
+            if (!isHex){ // If hex is not selected, it selects it
                 updateHexToggle();
             }
         }
@@ -94,7 +94,7 @@
             return;
         }
         else if (isHex) { // Checks if input is hex
-            num = hexToDecimal(num);
+            num = hexToDecimal(num); // returns -1 if input is not hex
             if (num === -1) { 
                 showSnackbar("Invalid hex number", 1);
                 return;

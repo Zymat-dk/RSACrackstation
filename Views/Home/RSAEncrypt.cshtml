@@ -20,6 +20,7 @@
                             <span class="bg-transparent p-2 rounded-lg">16</span>
                         </button>
                     </div>
+                    <!-- Tooltip above hextoggle -->
                     <div id="hexTooltip" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
                         <span>Choose between base10 (decimal) and base16 (hexadecimal)</span>
                     </div>
@@ -98,7 +99,7 @@
 
     let params = new URLSearchParams(window.location.search); // get the url params
     let N = params.get('N'); // get the N param
-    if (params.get('N') != null) {
+    if (params.get('N') != null) { // only sets the N input if the N param is not null
         document.getElementById("N").value = N;
     }
     
@@ -106,10 +107,10 @@
       //change colour when radio is selected
         $('#inputRadio input:radio').change(function() {
         // Only remove the class in the specific `box` that contains the radio
-        $('li.bg-indigo-500').removeClass('text-white'); // remove the text-white class
-        $('li.bg-indigo-500').removeClass('bg-indigo-500'); // remove the bg-indigo-500 class
-        $(this).closest('li').addClass('bg-indigo-500').addClass('text-white');
-
+        $('li.bg-indigo-500').removeClass('text-white'); // remove the text-white class from all the labels
+        $('li.bg-indigo-500').removeClass('bg-indigo-500'); // remove the bg-indigo-500 class from all the labels
+        $(this).closest('li').addClass('bg-indigo-500').addClass('text-white'); // adds the classes to the selected radio
+        
         });
     });
     
@@ -122,7 +123,7 @@
             return;
         }
         c = toggleHexContent(element.val(), isHex2);
-        if(c === -1) {
+        if(c === -1) { // only runs is the hex conversion failed
             showSnackbar("Hex conversion failed", 0);
             return;
         }
@@ -131,7 +132,7 @@
     
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#N").bind('paste', function(e) {
-        let data = e.originalEvent.clipboardData.getData('text');
+        let data = e.originalEvent.clipboardData.getData('text'); // Fetches clipboard data
         if (/[A-Za-z]/g.test(data) && !isHex) {  // Checks string for letters and if hex is not already selected
             updateHexToggle();
         }
@@ -162,7 +163,7 @@
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function encrypt() {
-        $("#copySpan").addClass("hidden"); 
+        $("#copySpan").addClass("hidden"); // hides the copy button
         
         let N = $("#N").val();
         if (N.substring(0, 2) === "0x"){ // if the number is in hex, remove the 0x
@@ -208,10 +209,10 @@
                     showSnackbar("Please enter a valid hex string", 0);
                     return;
                 }
-                pt = hexToDecimal(pt);
+                pt = hexToDecimal(pt); // converts hex to decimal
                 break;
         }
-        if (parseInt(pt) > parseInt(N)) { // check if pt is bigger than N
+        if (parseInt(pt) > parseInt(N)) { // check if the plaintext is bigger than N
             showSnackbar("Can not encrypt message larger than N", 0);
             return;
         }
@@ -225,14 +226,14 @@
                 "pt": pt,
             },
             success: function(data) {
-                if (isHex2 !== isHex){
+                if (isHex2 !== isHex){ // sets the second hextoggle to the same state as the first one
                     updateHexToggle2();
                 }
-                if (isHex2){
+                if (isHex2){ // if hex is selected, convert the result to hex
                     data = decimalToHex(data);
                 }
                 $("#c").val(data);
-                $("#copySpan").removeClass("hidden");
+                $("#copySpan").removeClass("hidden"); // shows the copy button
             }
         });
     }
