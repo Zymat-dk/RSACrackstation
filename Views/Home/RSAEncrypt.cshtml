@@ -87,17 +87,17 @@
 
 
 <script>
-
+    // copies the text in the c input to the clipboard
     function copyToClipboard() {
         let copyText = $("#c")[0].value;
-        navigator.clipboard.writeText(copyText);
-        showSnackbar("Copied to clipboard", 2);
+        navigator.clipboard.writeText(copyText); // copies the text to the clipboard
+        showSnackbar("Copied to clipboard", 2); // show a snackbar with a green success icon
         $("#nonClip").addClass("hidden");
         $("#checkedClip").removeClass("hidden");
     }
 
-    let params = new URLSearchParams(window.location.search);
-    let N = params.get('N');
+    let params = new URLSearchParams(window.location.search); // get the url params
+    let N = params.get('N'); // get the N param
     if (params.get('N') != null) {
         document.getElementById("N").value = N;
     }
@@ -106,8 +106,8 @@
       //change colour when radio is selected
         $('#inputRadio input:radio').change(function() {
         // Only remove the class in the specific `box` that contains the radio
-        $('li.bg-indigo-500').removeClass('text-white');
-        $('li.bg-indigo-500').removeClass('bg-indigo-500');
+        $('li.bg-indigo-500').removeClass('text-white'); // remove the text-white class
+        $('li.bg-indigo-500').removeClass('bg-indigo-500'); // remove the bg-indigo-500 class
         $(this).closest('li').addClass('bg-indigo-500').addClass('text-white');
 
         });
@@ -132,7 +132,7 @@
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#N").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text');
-        if (/[A-Za-z]/g.test(data) && !isHex) {  // Check if pasted value is hex
+        if (/[A-Za-z]/g.test(data) && !isHex) {  // Checks string for letters and if hex is not already selected
             updateHexToggle();
         }
         else if (isHex){
@@ -142,18 +142,18 @@
     
     // Submits form if enter is pressed
     $("#pt").keypress(function(event) {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13) { // enter key pressed
             encrypt();
         }
     });
     
     // Sends the value to crack site with the calculated values
     function sendToRSACrack() {
-        let location = "/Home/RSACrack"
-        let p = $("#p").val();
+        let location = "/Home/RSACrack" // location of the crack site
+        let p = $("#p").val(); 
         let q = $("#q").val();
         if (p !== "" && q !== "") {
-            location += `?p=${p}&q=${q}`;
+            location += `?p=${p}&q=${q}`; // add the p and q values to the url
         }
         window.location.href = location;
     }
@@ -162,48 +162,48 @@
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function encrypt() {
-        $("#copySpan").addClass("hidden");
+        $("#copySpan").addClass("hidden"); 
         
         let N = $("#N").val();
-        if (N.substring(0, 2) === "0x"){
+        if (N.substring(0, 2) === "0x"){ // if the number is in hex, remove the 0x
             if (!isHex){
                 updateHexToggle()
             }
             N = N.substring(2);
         }
         
-        if (!N.match(/^[0-9]+$/g) && !isHex) {
+        if (!N.match(/^[0-9]+$/g) && !isHex) { // if the number is not a number and not hex
             showSnackbar("Please enter a number", 1)
             return;
         }
-        else if (isHex) {
+        else if (isHex) { // checks if number is hex 
             N = hexToDecimal(N);
-            if (N === -1) {
-                showSnackbar("Invalid hex number", 0);
-                return;
+            if (N === -1) { // if function returns -1, the hex number is invalid
+                showSnackbar("Invalid hex number", 0); // show a snackbar with a red error icon
+                return; 
             }
         }
         
         let e = $("#e").val();
         let pt = $("#pt").val();
-        let inputType = $("input[name='list-radio']:checked").val();
+        let inputType = $("input[name='list-radio']:checked").val(); // get the selected input type (ASCII, Decimal or Hex)
         
-        if (!N.match(/^[0-9]+$/g) && !isHex) {
-            showSnackbar("Please enter a valid number");
+        if (!N.match(/^[0-9]+$/g) && !isHex) { // check if N is a number and not hex
+            showSnackbar("Please enter a valid number", 0); // show a snackbar with a red error icon
             return;
         }
         
         switch (parseInt(inputType)){
-            case 0:
+            case 0: // ASCII
                 pt = asciiToDecimal(pt);
                 break;
-            case 1:
+            case 1: // decimal
                 if (!pt.match(/^[0-9]+$/g)) {
                     showSnackbar("Please enter a valid number", 0);
                     return;
                 }
                 break;
-            case 2:
+            case 2: // hex
                 if (!pt.match(/^[0-9A-Fa-f]+$/g)) {
                     showSnackbar("Please enter a valid hex string", 0);
                     return;
@@ -211,7 +211,7 @@
                 pt = hexToDecimal(pt);
                 break;
         }
-        if (parseInt(pt) > parseInt(N)) {
+        if (parseInt(pt) > parseInt(N)) { // check if pt is bigger than N
             showSnackbar("Can not encrypt message larger than N", 0);
             return;
         }
