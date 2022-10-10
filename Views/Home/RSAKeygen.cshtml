@@ -12,10 +12,10 @@
                     <span class="text-2xl align-middle">Key size</span>
                 </div>
                 <div class="col-span-6">
-                    <input id="keySizeRange" type="range" min="2" max="4096" value="2048" class="w-full h-full"/>
+                    <input id="keySizeRange" type="range" min="2" max="2048" value="1024" class="w-full h-full"/>
                 </div>
                 <div class="">
-                    <input id="keySize" placeholder="2048" value="2048" pattern="/\d*/" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+                    <input id="keySize" placeholder="1024" value="1024" pattern="/\d*/" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                 </div>
                 <div class="col-start-4 col-span-2">
                     <button id="subBtn" onclick="generate()" class="relative flex justify-center w-fit text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
@@ -137,9 +137,9 @@
     document.getElementById("keySize").addEventListener('input', function() {
         //only allow numbers
         this.value = this.value.replace(/[^0-9]/g, '');
-        if (this.value > 4096) {
-            this.value = 4096;
-            showSnackbar("Max 4096 bits", 1);
+        if (this.value > 2048) {
+            this.value = 2048;
+            showSnackbar("Max 2048 bits", 1);
         }
     });
     
@@ -182,6 +182,11 @@
     function generate() {
         let e = $("#e").val();
         let keySize = $("#keySize").val();
+        
+        $("#p").val("");
+        $("#q").val("");
+        $("#N").val("");
+        $("#D").val("");
         
         $("#generating-icon").removeClass("hidden");
         $("#subBtnText").text("Generating...");
