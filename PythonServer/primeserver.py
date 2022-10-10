@@ -4,6 +4,9 @@ from Crypto.Util import number
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse
 import json
+from socketserver import ThreadingMixIn
+import threading
+
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -30,7 +33,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         }).encode())
         return
 
-def parse_params(params: dict) -> int:
+
+def parse_params(params: dict) -> dict:
     """
     Convert {size: ['4']} to {size: 4} and use 2048 as default case
     """
@@ -43,15 +47,22 @@ def parse_params(params: dict) -> int:
     params["size"] = size
     return params
 
-def generatePrimes(size: int) -> list[int]:
+
+def generatePrimes(size: int) -> tuple:
     """
     Generate two primes of size {size}
     """
     try:
         return [number.getPrime(size), number.getPrime(size)], "success"
     except:
-        return [-1, -1]; "error"
+        return [-1, -1], "error"
+
+
+class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+    """Handle requests in a separate thread."""
+
 
 if __name__ == '__main__':
-    server = HTTPServer(('localhost', 8080), RequestHandler)
+    server = ThreadedHTTPServer(('localhost', 8080), RequestHandler)
+    print("Starting server, use <Ctrl-C> to stop")
     server.serve_forever()
