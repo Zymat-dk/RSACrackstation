@@ -7,6 +7,8 @@ import json
 from socketserver import ThreadingMixIn
 import threading
 
+MAX_VAL = 2048
+DEFAULT_VAL = 1024
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -36,14 +38,16 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 def parse_params(params: dict) -> dict:
     """
-    Convert {size: ['4']} to {size: 4} and use 2048 as default case
+    Convert {size: ['4']} to {size: 4} and use DEFAULT_VAL as default case
     """
 
-    size = params.get("size", ["2048"])[0]
+    size = params.get("size", ["1024"])[0]
     try:
         size = int(size)
     except ValueError:
-        size = 2048
+        size = DEFAULT_VAL
+    if size < 2 or size > MAX_VAL:
+        size = DEFAULT_VAL
     params["size"] = size
     return params
 
