@@ -123,6 +123,7 @@ function copyToClipboard() {
     $("#nonClip").addClass("hidden");
     $("#checkedClip").removeClass("hidden");
 }
+
 // Submits form when enter is pressed
 $("#ct").keypress(function(event) {
     if (event.keyCode === 13) {
@@ -192,11 +193,24 @@ function crackRSA() {
             return;
         }
     }
-    console.log(ct);
     
     // Set pt hex toggle to same as c
     if (isHex !== isHex2) {
         updateHexToggle2();
+    }
+    
+    let fields = ["p", "q", "e"];
+    let valid = true
+    for (let i = 0; i < fields.length; i++) {
+        let value = $("#" + fields[i]).val();
+        if (!value.match(/^[0-9]+$/)){
+            showSnackbar("Please enter a valid number for " + fields[i], 1);
+            valid = false;
+            break;
+        }
+    }
+    if (!valid) {
+        return;
     }
     
     $.ajax({
@@ -228,6 +242,9 @@ function crackRSA() {
             $("#copySpan").removeClass("hidden");
             // Auto expands the plaintext field when enough data is in there
             $('textarea').height(50).height($('textarea')[0].scrollHeight);
+        },
+        error: function(data) {
+            showSnackbar("Internal server error", 0);
         }
     });
     
