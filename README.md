@@ -1,6 +1,6 @@
 # RSACrackstation
 
-The source code behind the service running at ![RSACrackstation](https://rsacrackstation.com). Feel free to poke around and look at the code. 
+The source code behind the service running at [RSACrackstation](https://rsacrackstation.com). Feel free to poke around and look at the code. 
 
 Control all at once 
 ```bash
