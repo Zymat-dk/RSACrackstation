@@ -121,6 +121,9 @@
         if (N !== "") {
             location += '?N=' + N;
         }
+        if (isHex && N !== "") {
+            location += '&hex';
+        }
         window.location.href = location;
     }
     
