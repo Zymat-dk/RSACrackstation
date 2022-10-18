@@ -154,8 +154,10 @@
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#N").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text');
-        if (/[A-Za-z]/g.test(data) && !isHex) {  // Check if pasted value is hex
-            updateHexToggle();
+        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
+            if (!isHex){
+                updateHexToggle();
+            }
         }
         else if (isHex){
             updateHexToggle();
