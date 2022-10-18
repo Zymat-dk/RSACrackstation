@@ -57,7 +57,8 @@ def generatePrimes(size: int) -> tuple:
     Generate two primes of size {size}
     """
     try:
-        return [number.getPrime(size), number.getPrime(size)], "success"
+        primes = [number.getPrime(size), number.getPrime(size)]
+        return primes, "success"
     except:
         return [-1, -1], "error"
 

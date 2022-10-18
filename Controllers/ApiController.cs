@@ -11,7 +11,7 @@ public class ApiController : Controller{
         return cracker.GetFactors();
     }
 
-    public Dictionary<string, string> Decipher(string p, string q, string e, string ct){
+    public Dictionary<string, string> Decrypt(string p, string q, string e, string ct){
         var cracker = new RSACracker(p, q);
         cracker.E = BigInteger.Parse(e);
 
@@ -37,24 +37,18 @@ public class ApiController : Controller{
     }
 
     public string Encrypt(string N, string e, string pt){
-        var encryptor = new RSAEncrypter(N, e);
-        encryptor.E = BigInteger.Parse(e);
-        return encryptor.Encrypt(pt);
+        var encrypter = new RSAEncrypter(N, e);
+        return encrypter.Encrypt(pt);
     }
     
-    public string Decrypt(string N, string d, string ct){
+    public string Decipher(string N, string d, string ct){
         var decrypter = new RSADecrypter(N, d);
         return decrypter.Decrypt(ct);
     }
     
     public Dictionary<string, string> GenerateKeys(int keySize, int e = 65537){
-        KeyGenerator kg;
-        if (e < 1){
-            kg = new KeyGenerator();
-        }
-        else{
-            kg = new KeyGenerator(e);
-        }
+        KeyGenerator kg = (e < 1) ? new KeyGenerator() : new KeyGenerator(e);
+        
         var output = kg.GenerateKeys(keySize);
         return output;
     }

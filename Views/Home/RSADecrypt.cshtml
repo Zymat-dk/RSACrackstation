@@ -169,18 +169,6 @@
         }
     });
     
-    // Sends the value to crack site with the calculated values
-    function sendToRSACrack() {
-        let location = "/Home/RSACrack"
-        let p = $("#p").val();
-        let q = $("#q").val();
-        if (p !== "" && q !== "") {
-            location += `?p=${p}&q=${q}`;
-        }
-        window.location.href = location;
-    }
-    
-    
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function decrypt() {
@@ -201,7 +189,7 @@
                 passed = false;
                 return;
             }
-            if (!value.match(/^[0-9A-Fa-f]+$/) && isHex) {
+            if (!value.match(/^(0x)?[0-9A-Fa-f]+$/) && isHex) {
                 showSnackbar(`${input} is not a valid hex value`, 1);
                 passed = false;
             }
@@ -229,7 +217,7 @@
         let N = values[2];
         
         $.ajax({
-            url: "/api/Decrypt",
+            url: "/api/Decipher",
             type: "POST",
             data: {
                 "ct": c,
