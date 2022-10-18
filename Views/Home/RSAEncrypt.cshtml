@@ -99,8 +99,12 @@
 
     let params = new URLSearchParams(window.location.search); // get the url params
     let N = params.get('N'); // get the N param
+    let hexParam = params.get('hex'); // get the hex param
     if (params.get('N') != null) { // only sets the N input if the N param is not null
         document.getElementById("N").value = N;
+    }
+    if (hexParam != null) {
+        updateHexToggle();
     }
     
     $(document).ready(function() {
