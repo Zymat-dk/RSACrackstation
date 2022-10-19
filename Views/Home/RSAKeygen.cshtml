@@ -184,6 +184,7 @@
     // If it returns an error, it displays an error message
     function generate() {
         let e = $("#e").val();
+        e = isHex ? hexToDecimal(e) : e;
         let keySize = $("#keySize").val();
         
         $("#p").val("");
