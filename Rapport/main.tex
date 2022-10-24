@@ -27,15 +27,15 @@
     numberstyle=\tiny\color{codegray},
     stringstyle=\color{codepurple},
     basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=4
 }
 
@@ -47,7 +47,6 @@
 \usepackage[T1]{fontenc}
 
 \begin{document}
-
     \begin{titlepage}
         \begin{center}
             \vspace*{1cm}
@@ -68,8 +67,6 @@
 
             \vspace{0.8cm}
 
-
-
             Teknisk Gymnasium Silkeborg\\
             3x\\
             31/10 - 2022
@@ -79,19 +76,17 @@
 
     \newpage
 
-
-
     \tableofcontents
 
 
     \section{Abstract}\label{sec:abstract}
 
-    Your introduction goes here! Simply start writing your document and use the Recompile button to view the 
+    Your introduction goes here! Simply start writing your document and use the Recompile button to view the
     updated PDF preview. Examples of commonly used commands and features are listed below, to help you get started.
 
-    Once you're familiar with the editor, you can find various project settings in the Overleaf menu, accessed 
-    via the button in the very top left of the editor. To view tutorials, user guides, and further documentation, 
-    please visit our \href{https://www.overleaf.com/learn}{help library}, or head to our plans page to 
+    Once you're familiar with the editor, you can find various project settings in the Overleaf menu, accessed
+    via the button in the very top left of the editor. To view tutorials, user guides, and further documentation,
+    please visit our \href{https://www.overleaf.com/learn}{help library}, or head to our plans page to
     \href{https://www.overleaf.com/user/subscription/plans}{choose your plan}.
 
 
@@ -111,16 +106,31 @@
     \end{itemize}
 
 
-
     \section{Hvad er RSA?}\label{sec:hvad-er-rsa}
     RSA er en asymmetrisk kryptografialgoritme, som er udviklet af Ron Rivest, Adi Shamir og Leonard Adleman i 1977.
     En asymmetrisk kryptografialgoritme er en kryptografialgoritme der bruger to forskellige nøgler til at kryptere og dekryptere,
     og bruges ofte af blandt andet banker, til at sikre deres data.
     Idéen er er man kan offenliggøre krypteringsnøglen, men beholde dekrypteringsnøglen privat, så brugere kan kryptere data på deres egen maskine,
-    og sende den krypterede tekst til banken.
+    og sende den krypterede tekst til banken, som dekrypterer den med sin private nøgle.
+    RSA nøglerne er genereret ved at bruge to primtal, som er valgt tilfældigt.
+    Den offentlige nøgle regnes ved at gange de to printal sammen, og den private ved at bruge en kompliceret algoritme,
+    der hedder Extended Euclidean Algorithm.
+    De to tilfældige primtal kaldes \emph{p} og \emph{q}, deres produkt (den offentlige nøgle) kaldes \emph{n}, og den private nøgle kaldes \emph{d}.
+    Udover at bruge primtal til at generere RSA nøglerne, bruger RSA også en eksponent, som har en række af krav den skal opfylde,
+    alt efter værdierne af de to primtal.
+    Dog findes der et tal, som altid kan bruges som eksponent, og det er 65537, denne eksponent kaldes \emph{e}.
+    Det sidste tal man bruger i RSA, hedder \emph{m}, og er den værdi man gerne vil sende, ofte en tekst.
+
+    \subsection{Hvordan virker RSA?}\label{subsec:hvordan-virker-rsa}
+    Når man krypterer med RSA, bruges følgende formel:
     
+    \begin{equation\label{eq:rsa-kryptering}}
+        c = m^e \mod n\label{eq:equation}
+    \end{equation}
+
+
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
-    API står for "Application programming interface", hvilket er en måde for noget kode at intergere med noget andet kode. En API er modsætningen til en bruger interface, som er et interface ment til mennesker. API calls kan enten ændre data eller hente data fra en server. APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs. Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen. Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden. Backenden sender kun rå JSON data tilbage, som frontenden behandler og 
+    API står for "Application programming interface", hvilket er en måde for noget kode at intergere med noget andet kode. En API er modsætningen til en bruger interface, som er et interface ment til mennesker. API calls kan enten ændre data eller hente data fra en server. APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs. Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen. Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden. Backenden sender kun rå JSON data tilbage, som frontenden behandler og
 
 
     \section{Frontend}\label{sec:frontend}
@@ -137,11 +147,14 @@
 
 
     \section{Backend}\label{sec:backend}
+
     \subsection{RSA Funktionalitet}\label{subsec:rsa-funktionalitet}
+
     \subsection{API call}\label{subsec:api-call}
 
+
     \section{Konklusion}\label{sec:konklusion}
-    
+
     \bibliographystyle{alpha}
     \bibliography{sample}
 
