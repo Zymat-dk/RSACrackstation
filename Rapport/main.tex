@@ -66,7 +66,6 @@
     \section{Abstract}\label{sec:abstract}
 
 
-
     \section{Problemformulering}\label{sec:problemformulering}
 
     \subsection{Beskrivelse}\label{subsec:beskrivelse}
@@ -83,66 +82,53 @@
     \end{itemize}
 
 
-
     \section{Hvad er RSA?}\label{sec:hvad-er-rsa}
     RSA er en asymmetrisk kryptografialgoritme, som er udviklet af Ron Rivest, Adi Shamir og Leonard Adleman i 1977.
     En asymmetrisk kryptografialgoritme er en kryptografialgoritme der bruger to forskellige nøgler til at kryptere og dekryptere,
     og bruges ofte af blandt andet banker, til at sikre deres data.
     Idéen er er man kan offenliggøre krypteringsnøglen, men beholde dekrypteringsnøglen privat, så brugere kan kryptere data på deres egen maskine,
     og sende den krypterede tekst til banken.
-    
+
+
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
     API står for Application programming interface, hvilket er en måde for noget kode at intergere med noget andet kode.
     En API er modsætningen til en bruger interface, som er et interface ment til mennesker.
-    API calls kan enten ændre data eller hente data fra en server. 
-    APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs. 
-    Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen. 
-    Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden. 
+    API calls kan enten ændre data eller hente data fra en server.
+    APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs.
+    Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen.
+    Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden.
     Backenden sender kun rå JSON data tilbage, som frontenden behandler og viser på en måde, brugeren lettere kan forestå.
 
 
     \section{Frontend}\label{sec:frontend}
-  
 
 
-    \begin{minted}{python}
-        import numpy as np
-            
-        def incmatrix(genl1,genl2):
-            m = len(genl1)
-            n = len(genl2)
-            M = None #to become the incidence matrix
-            VT = np.zeros((n*m,1), int)  #dummy variable
-            
-            #compute the bitwise xor matrix
-            M1 = bitxormatrix(genl1)
-            M2 = np.triu(bitxormatrix(genl2),1) 
-        
-            for i in range(m-1):
-                for j in range(i+1, m):
-                    [r,c] = np.where(M2 == M1[i,j])
-                    for k in range(len(r)):
-                        VT[(i)*n + r[k]] = 1;
-                        VT[(i)*n + c[k]] = 1;
-                        VT[(j)*n + r[k]] = 1;
-                        VT[(j)*n + c[k]] = 1;
-                        
-                        if M is None:
-                            M = np.copy(VT)
-                        else:
-                            M = np.concatenate((M, VT), 1)
-                        
-                        VT = np.zeros((n*m,1), int)
-            
-            return M
+
+    \begin{minted}{javascript}
+    // Checks if number is pasted and automatically changes state to hex if hex is pasted
+    $("#num").bind('paste', function(e) {
+        let data = e.originalEvent.clipboardData.getData('text'); // Gets data from clipboard
+        if (/[A-Za-z]/g.test(data)) {  // Regex to check if hex is pasted
+            if (!isHex){
+                updateHexToggle();
+            }
+        }
+        else if (isHex){
+            updateHexToggle()
+        }
+    });
     \end{minted}
 
+
     \section{Backend}\label{sec:backend}
+
     \subsection{RSA Funktionalitet}\label{subsec:rsa-funktionalitet}
+
     \subsection{API call}\label{subsec:api-call}
 
+
     \section{Konklusion}\label{sec:konklusion}
-    
+
     \bibliographystyle{alpha}
     \bibliography{sample}
 
