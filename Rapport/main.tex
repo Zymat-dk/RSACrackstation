@@ -16,30 +16,9 @@
 \usetikzlibrary{calc}
 \usepackage{anyfontsize}
 \usepackage{sectsty}
-\usepackage{jslistings}
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
 
-\lstdefinestyle{JavaScript}{
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=4
-}
 
-\lstset{style=javascript}
+\usepackage{minted}
 
 
 \usepackage{wrapfig}
@@ -49,7 +28,7 @@
 \begin{document}
     \begin{titlepage}
         \begin{center}
-            \vspace*{1cm}
+            \vspace{1cm}
 
             \textbf{RSACrackstation}
 
@@ -78,7 +57,6 @@
 
     \tableofcontents
 
-
     \section{Abstract}\label{sec:abstract}
 
     Your introduction goes here! Simply start writing your document and use the Recompile button to view the
@@ -96,14 +74,15 @@
     Hjemmesiden er en side der kan faktorisere primtal ved hjælp at af API call til en ekstern database.
     Derudover kan hjemmesiden bruges til at bryde krypteringsalgoritmen RSA, og dertil dekryptere indtastet tekst.
     Derudover kan hjemmesiden også bruges til at kryptere tekst med RSA. Hjemmesidens målgruppe er primært CTF
-    spillere, cybersikkerheds entusiaster og andre der skal kryptere og dekryptere med RSA.
+    spillere, cybersikkerheds entusiaster og andre der skal kryptere og dekryptere med RSA\@.
 
     \subsection{Krav}\label{subsec:krav}
     \begin{itemize}
         \item Hjemmesiden skal kunne faktorisere primtal.
         \item Hjemmesiden skal kunne bryde RSA kryptering.
-        \item Hjemmesiden skal kunne kryptere med RSA.
+        \item Hjemmesiden skal kunne kryptere med RSA\@.
     \end{itemize}
+
 
 
     \section{Hvad er RSA?}\label{sec:hvad-er-rsa}
@@ -130,28 +109,39 @@
 
 
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
-    API står for "Application programming interface", hvilket er en måde for noget kode at intergere med noget andet kode. En API er modsætningen til en bruger interface, som er et interface ment til mennesker. API calls kan enten ændre data eller hente data fra en server. APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs. Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen. Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden. Backenden sender kun rå JSON data tilbage, som frontenden behandler og
+    API står for Application programming interface, hvilket er en måde for noget kode at intergere med noget andet kode.
+    En API er modsætningen til en bruger interface, som er et interface ment til mennesker.
+    API calls kan enten ændre data eller hente data fra en server.
+    APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs.
+    Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen.
+    Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden.
+    Backenden sender kun rå JSON data tilbage, som frontenden behandler og viser på en måde, brugeren lettere kan forestå.
 
 
     \section{Frontend}\label{sec:frontend}
-    \begin{lstlisting}[language=JavaScript,label={lst:kode}]
-    // Shows the snackbar for 5 seconds
-    function showSnackbar(message) {
-        $("#failText").text(message);
-        $("#snackbar").addClass("show-bar");
-        setTimeout(function () {
-            $("#snackbar").removeClass("show-bar");
-        }, 5000);
-    }
-    \end{lstlisting}
 
+
+
+    \begin{minted}{javascript}
+    // Checks if number is pasted and automatically changes state to hex if hex is pasted
+    $("#num").bind('paste', function(e) {
+        let data = e.originalEvent.clipboardData.getData('text'); // Gets data from clipboard
+        if (/[A-Za-z]/g.test(data)) {  // Regex to check if hex is pasted
+            if (!isHex){
+                updateHexToggle();
+            }
+        }
+        else if (isHex){
+            updateHexToggle()
+        }
+    });
+    \end{minted}
 
     \section{Backend}\label{sec:backend}
 
     \subsection{RSA Funktionalitet}\label{subsec:rsa-funktionalitet}
 
     \subsection{API call}\label{subsec:api-call}
-
 
     \section{Konklusion}\label{sec:konklusion}
 
