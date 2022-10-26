@@ -102,8 +102,8 @@
 
     \subsection{Hvordan virker RSA?}\label{subsec:hvordan-virker-rsa}
     Når man krypterer med RSA, bruges følgende formel:
-    
-    \begin{equation\label{eq:rsa-kryptering}}
+
+    \begin{equation}
         c = m^e \mod n\label{eq:equation}
     \end{equation}
 
@@ -119,7 +119,29 @@
 
 
     \section{Frontend}\label{sec:frontend}
+    For at kunne bruge hjemmesiden ordenligt er et vigtigt med et brugervenligt interface.
+    For at kunne lave et brugervenligt interface, skal der bruges HTML, CSS og JavaScript.
+    Det er muligt at lave en flot og meget brugervenligt interface med blot normal CSS og JavaScript,
+    men for hurtigere at kunne udvikle vores produkt, valgte vi at bruge Tailwind CSS og JQuery i stedet.
+    Tailwind CSS er et CSS framework, der han en masse prædefineret klasser, som kun har en bestemt funktion.
+    Man kan derfor hurtigt lave et flot interface, uden at skulle skrive CSS selv, men bare bruge de prædefinerede klasser.
+    Tailwind gør det også nemmere at lave et responsivt UI, da hele frameworket er bygget op omkring det.
 
+    Alle vores HTML elementer som er blevet ændret med Tailwind, har to forskellige klasser - en til darkmode og en til lightmode.
+    Et eksempel kan ses nedenfor
+
+    \begin{minted}{html}
+        <div class="w-fit dark:text-white text-gray-800">
+        ...
+    \end{minted}
+
+    I eksemplet ovenfor bliver der oprette et $<div>$ tag som indeholder nogle elementer.
+    Tagget har to klasser der ændrer tekstens farve, som burde overskrive hinanden, men fordi den ene har \emph{dark:} foran,
+    bliver den kun brugt når darkmode er slået til. 
+    Darkmode bliver slået til ved at brugeren trykker på en knap i toppen af siden, som tilføjer/fjerne klassen 
+    \emph{dark} fra \emph{body} tagget. 
+
+    
 
 
     \begin{minted}{javascript}
