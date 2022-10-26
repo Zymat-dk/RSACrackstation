@@ -127,24 +127,29 @@
     Man kan derfor hurtigt lave et flot interface, uden at skulle skrive CSS selv, men bare bruge de prædefinerede klasser.
     Tailwind gør det også nemmere at lave et responsivt UI, da hele frameworket er bygget op omkring det.
 
+    \medskip
+
     Alle vores HTML elementer som er blevet ændret med Tailwind, har to forskellige klasser - en til darkmode og en til lightmode.
     Et eksempel kan ses nedenfor
 
-    \begin{minted}{html}
+    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize]{html}
         <div class="w-fit dark:text-white text-gray-800">
         ...
     \end{minted}
 
     I eksemplet ovenfor bliver der oprette et $<div>$ tag som indeholder nogle elementer.
     Tagget har to klasser der ændrer tekstens farve, som burde overskrive hinanden, men fordi den ene har \emph{dark:} foran,
-    bliver den kun brugt når darkmode er slået til. 
-    Darkmode bliver slået til ved at brugeren trykker på en knap i toppen af siden, som tilføjer/fjerne klassen 
-    \emph{dark} fra \emph{body} tagget. 
+    bliver den kun brugt når darkmode er slået til.
 
-    
+    \medskip
+
+    Hjemmesiden kan arbejde både med decimaltal og hexadecimaltal, og der er en knap der skifter mellem dem.
+    Hvis man kopirer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket er derfor den automatisk
+    skifter mellem dem, afhængig af hvad der er indsat i inputfeltet.
+    Koden nedenfor skifter automatisk mellem de to.
 
 
-    \begin{minted}{javascript}
+    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{javascript}
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#num").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text'); // Gets data from clipboard
@@ -158,6 +163,7 @@
         }
     });
     \end{minted}
+
 
     \section{Backend}\label{sec:backend}
 
