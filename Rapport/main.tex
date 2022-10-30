@@ -147,6 +147,7 @@
     Hvis man kopirer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket er derfor den automatisk
     skifter mellem dem, afhængig af hvad der er indsat i inputfeltet.
     Koden nedenfor skifter automatisk mellem de to.
+   
 
 
     \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{javascript}
@@ -163,6 +164,13 @@
         }
     });
     \end{minted}
+    Funktionen \emph{bind} bliver kaldt på \emph{#num}, som er inputfeltet hvor brugeren indtaster tallet.
+    Når der bliver kopieret noget ind i inputfeltet, bliver \emph{paste} funktionen kaldt.
+    Funktionen henter data fra clipboardet og gemmer det i en variabel.
+    Herefter bliver der brugt en regex til at tjekke om der er nogle bogstaver i det indsatte tal.
+    Hvis der er nogle bogstaver, bliver der tjekket om \emph{isHex} er \emph{false}, hvis det er tilfældet, bliver \emph{updateHexToggle} kaldt.
+    \emph{updateHexToggle} skifter mellem de to, og hvis \emph{isHex} er \emph{true}, bliver den kaldt igen, så den skifter tilbage til decimaltal.
+    
 
 
     \section{Backend}\label{sec:backend}
