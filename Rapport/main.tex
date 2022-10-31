@@ -8,6 +8,9 @@
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
 \usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
 
+% Include images
+\graphicspath{ {./img/} }
+
 % Useful packages
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -42,8 +45,9 @@
 
             \vfill
 
-            A thesis presented for the degree of\\
-            Doctor of Philosophy
+            En teknologisk og matematisk gennemgang af RSA kryptering\\
+            og RSACrackstation projektet, udviklet i forbindelse med\\
+            programmeringsfaget på HTX.\@
 
             \vspace{0.8cm}
 
@@ -323,7 +327,7 @@
     Hvis talet findes i databasen, sender vi det tilbage til brugeren, og hvis det ikke findes, sender vi en fejlmeddelelse.
     Vores implementation af dette kan ses nedenfor.
     \begin{listing}[!ht]
-    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
+        \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
 public string[] GetFactors(){
     string[] factors = { "-1", "-1" };
     var url = $"http://factordb.com/api?query={_n}";
@@ -341,10 +345,10 @@ public string[] GetFactors(){
     
     return factors;
 }
-    \end{minted}
-    \caption{/Backend/RSACracker.cs, Linje 42}
+        \end{minted}
+        \caption{/Backend/RSACracker.cs, Linje 42}
     \end{listing}
-    
+
     På linje 1 defineres en metode, der hedder \emph{GetFactors()}, som returnere et array af strings.
     Et array er en datastruktur der kan indeholde flere værdier af samme type.
     I dette tilfælde indeholder arrayet to strings, som er de to faktorer der kommer af at faktorisere \textbf{n}.
@@ -354,12 +358,12 @@ public string[] GetFactors(){
     På linje 4 defineres en variabel, der hedder \emph{request}, som er af typen \emph{WebRequest}.
     WebRequest er en klasse, der indeholder metoder til at sende forespørgsler til en server.
     I dette tilfælde, bruger vi typen af forespørgslen, der hedder `GET`, som er den mest almindelige type af forespørgsler.
-    Med en `GET` forespørgsel, kan vi hente data fra en server, uden at ændre noget på den, 
+    Med en `GET` forespørgsel, kan vi hente data fra en server, uden at ændre noget på den,
     hvilket er det vi ønsker i dette tilfælde.
     På linje 5 definere vi en ny variabel, af typen string, som hedder \emph{data}.
     Der er her vores respons fra factorDB, skal ligge.
     Derefter kommer der en masse kode, som ikke er vigtig for at forstå hvordan vi bruger API'en.
-    På linje 11 definere vi endnu en variabel, der hedder \emph{jsonData}, som er af typen \emph{JsonObject}, 
+    På linje 11 definere vi endnu en variabel, der hedder \emph{jsonData}, som er af typen \emph{JsonObject},
     hvilket lader os håndtere JSON data, som vi får fra factorDB.\@
     Derefter kommer der lidt kode, som undersøger om vi får en gyldig respons, dette er ikke nødvendigt at gennegå.
     På linje 12 laver vi et for-loop, som kører to gange.
@@ -367,14 +371,14 @@ public string[] GetFactors(){
     Det er her vi henter ændrer værdierne i arrayet, som vi definerede på linje 2.
     Det gør vi ved at læse JSON dataen, og sætte værdierne i arrayet til de faktorer vi får fra factorDB.\@
     Til sidst returnerer vi arrayet, som indeholder de faktorer vi har fået fra factorDB.\@
-    
+
     \subsection{RSA Funktionalitet}\label{subsec:rsa-functionality}
     For at kryptere og dekryptere RSA, skal vi bruge lidt kode.
     Da vi bruge objektorienteret programmering, har vi lavet nogle klasser, en af disse hedder \emph{RSADecryper},
     som indeholder metoder til at dekryptere.
     Hele klassen kan ses her:
     \begin{listing}[!ht]
-    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
+        \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
 public class RSADecrypter{
     private BigInteger _n;
     private BigInteger _d;
@@ -392,10 +396,10 @@ public class RSADecrypter{
         return Convert.ToString(_m);
     }
 }
-    \end{minted}
-    \caption{/Backend/RSADecrypter.cs}
+        \end{minted}
+        \caption{/Backend/RSADecrypter.cs}
     \end{listing}
-    
+
     I denne klasse, har vi fire private variable, som er af typen \emph{BigInteger}.
     BigInteger er en klasse, der kan håndtere meget store tal, hvilket vi har brug for, når vi arbejder med RSA.\@
     På linje 7 definerer vi en constructor-metode, som er den metode der kaldes,
@@ -409,7 +413,33 @@ public class RSADecrypter{
     Denne udregning blev gennemgået i \autoref{subsec:hvordan-virker-rsa}, og er sådan man dekryptere RSA.\@
     Til sidst returnerer vi resultatet af udregningen som typen string, for at undgå problemer i frontenden.\@
 
-    \section{Test af programmet}\label{sec:test}
+    \section{Test af programmet}\label{sec:testing}
+
+    \subsection{Test af kryptering}\label{subsec:testing-encryption}
+    For at teste om vores program virker, har vi lavet en test, som krypterer begge vores navne.
+    Vi starter med at generere en nøgle, som vi kan bruge til at kryptere vores navne.
+    Derefter indsætter vi nøglen på krypteringssiden, og krypterer vores besked.
+    Dette giver et stort tal, som enten kan vises som normalt heltal, eller som et hexadecimalt tal.
+
+    \includegraphics[scale=0.7]{EncryptionLight}\label{img:encryption}  % Broken
+
+    \subsection{Test af faktorisering}\label{subsec:testing-factorization}
+    For at undersøge om vi kan faktorisere et tal, har vi valgt at lave en svag nøgle,
+    så det er muligt at faktorisere den.
+    Hvis man indsætter det tal vi brugte til at kryptere, på vores faktoriseringsside, får man følgende resultat:
+    
+    \includegraphics[scale=0.7]{FactorizationLight}\label{img:factorization}  % Broken
+    
+    Det betyder at vi har fundet de to tal, der kan ganges sammen og give det tal vi startede med.
+    Med den information kan man bryde RSA krypteringen, og få beskeden ud.
+    
+    \subsection{Test af RSA-brydning}\label{subsec:testing-cracking}
+    For at teste om vi kan bryde RSA krypteringen, har vi brugt de to faktorer vi fik fra faktoriseringen,
+    sammen med den nøgle vi brugte til at kryptere.
+    Hvis man sætter dem ind på vores hjemmeside, sammen med den krypterede tekst, får man dette resultat:
+    
+    \includegraphics[scale=0.7]{CrackingLight}\label{img:cracking}  % Broken
+
     \section{Konklusion}\label{sec:konklusion}
 
 \end{document}
