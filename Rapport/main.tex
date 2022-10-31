@@ -90,7 +90,6 @@
     \end{itemize}
 
 
-
     \section{Hvad er RSA?}\label{sec:hvad-er-rsa}
     RSA er en asymmetrisk kryptografialgoritme, som er udviklet af Ron Rivest, Adi Shamir og Leonard Adleman i 1977.
     En asymmetrisk kryptografialgoritme er en kryptografialgoritme der bruger to forskellige nøgler til at kryptere og dekryptere,
@@ -444,5 +443,13 @@ public class RSADecrypter{
     Her får vi den originale besked ud, hvilket betyder at vi har brudt RSA krypteringen, og bestået alle tests.
 
     \section{Konklusion}\label{sec:konklusion}
+    Vi har i dette projekt arbejdet med at bryde RSA kryptering ved hjælp af faktorisering.
+    Vi har lavet en hjemmeside, som kan bruges til at kryptere og dekryptere RSA, og til at bryde svag RSA kryptering.
+    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database, 
+    som vi kan tilgå ved at bruge en API, udviklet af factorDB, som en den største offentlige faktoriseringsdatabase.
+    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler, 
+    der er stærke nok til at være sikre mod faktorisering.
+    Vi har også lavet en række tests, som viser at vores hjemmeside virker,
+    og at vi kan leve op til vores krav om at bryde RSA krypteringen.
 
 \end{document}
