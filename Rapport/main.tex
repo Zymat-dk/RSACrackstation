@@ -92,7 +92,7 @@
     Idéen er er man kan offenliggøre krypteringsnøglen, men beholde dekrypteringsnøglen privat, så brugere kan kryptere data på deres egen maskine,
     og sende den krypterede tekst til banken, som dekrypterer den med sin private nøgle.
     RSA nøglerne er genereret ved at bruge to primtal, som er valgt tilfældigt.
-    Den offentlige nøgle regnes ved at gange de to printal sammen, og den private ved at bruge en kompliceret algoritme,
+    Den offentlige nøgle regnes ved at gange de to primtal sammen, og den private ved at bruge en kompliceret algoritme,
     der hedder Extended Euclidean Algorithm.
     De to tilfældige primtal kaldes \emph{p} og \emph{q}, deres produkt (den offentlige nøgle) kaldes \emph{n}, og den private nøgle kaldes \emph{d}.
     Udover at bruge primtal til at generere RSA nøglerne, bruger RSA også en eksponent, som har en række af krav den skal opfylde,
@@ -102,11 +102,21 @@
 
     \subsection{Hvordan virker RSA?}\label{subsec:hvordan-virker-rsa}
     Når man krypterer med RSA, bruges følgende formel:
-
     \begin{equation}
-        c = m^e \mod n\label{eq:equation}
+        c = m^e \mod n \label{eq:rsa-encrypt}
     \end{equation}
-
+    Her bruges modulus regning, som er måden man sikrer, at den krypterede tekst, ikke kan dekrypteres.
+    Modulus virker nemlig ved at tage resten efter en heltalsdivision,
+    det vil sige at flere udregninger godt kan give det samme resultat
+    \begin{equation}
+        2^{11} \mod 527 = 467 \label{eq:mod-ex}
+        106^{13} \mod 551 = 467
+        m^e \mod n = c
+    \end{equation}
+    I dette eksempel, er m = 2, på første linje og m = 106 på anden linje kan man se at bare fordi man kender c,
+    betyder det ikke at man kender m, da c er ens i begge eksempler, men m er forskellige.
+    For at dekryptere denne tekst skal man bruge værdien for d.
+    I dette eksempel bruger vi meget små tal, og det er derfor meget nemt at faktorisere de to moduluer.
 
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
     API står for Application programming interface, hvilket er en måde for noget kode at intergere med noget andet kode.
