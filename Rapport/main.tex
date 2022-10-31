@@ -38,7 +38,6 @@
                 \textbf{RSACrackstation}
             \end{huge}
 
-
             \vspace{1cm}
 
             \textbf{Daniel Nettelfield og Gustav Nybro}
@@ -47,8 +46,6 @@
 
             \noindent
             \includegraphics[scale=0.7]{logo}
-
-
 
             \vfill
 
@@ -69,10 +66,13 @@
 
     \section*{Abstract}\label{sec:abstract}
 
-    Formålet med projektet er at kunne demonstrere vores tillærte viden fra programmeringfaget.
-    Ved brug af vores ræssonmentskompetence har vi formået at sammesætte et projekt der dækker alle de faglige mål i programmeringsfaget.
-
-    Vi har fremstillet en hjemmeside til at behandle RSA, på en brugervenlig og hurtig måde. Koden kan tilgåes fra links i bilag og det færdige produkt kan tilgåes på intenettet på \href{https://rsacrackstation.com}{RSACrackstation.com}.
+    Formålet med projektet er at kunne demonstrere vores tillærte viden fra programmeringsfaget.
+    Ved brug af vores ræssonmentskompetence har vi formået at sammesætte et projekt,
+    der dækker alle de faglige mål i programmeringsfaget.
+    
+    Vi har fremstillet en hjemmeside til at behandle RSA, på en brugervenlig og hurtig måde.
+    Koden kan tilgåes fra links i bilag og det færdige produkt kan tilgåes på internettet,
+    på \href{https://rsacrackstation.com}{rsacrackstation.com}.
 
     \newpage
 
@@ -422,7 +422,6 @@ public class RSADecrypter{
     Denne udregning blev gennemgået i \autoref{subsec:hvordan-virker-rsa}, og er sådan man dekryptere RSA.\@
     Til sidst returnerer vi resultatet af udregningen som typen string, for at undgå problemer i frontenden.\@
 
-
     \section{Test af programmet}\label{sec:testing}
 
     \subsection{Test af kryptering}\label{subsec:testing-encryption}
@@ -458,15 +457,23 @@ public class RSADecrypter{
 
     Her får vi den originale besked ud, hvilket betyder at vi har brudt RSA krypteringen, og bestået alle tests.
 
-
+    
     \section{Konklusion}\label{sec:konklusion}
     Vi har i dette projekt arbejdet med at bryde RSA kryptering ved hjælp af faktorisering.
     Vi har lavet en hjemmeside, som kan bruges til at kryptere og dekryptere RSA, og til at bryde svag RSA kryptering.
-    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database,
+    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database, 
     som vi kan tilgå ved at bruge en API, udviklet af factorDB, som en den største offentlige faktoriseringsdatabase.
-    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler,
+    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler, 
     der er stærke nok til at være sikre mod faktorisering.
     Vi har også lavet en række tests, som viser at vores hjemmeside virker,
     og at vi kan leve op til vores krav om at bryde RSA krypteringen.
-
+    
+    \section{Billag}\label{sec:billag}
+    \subsection{Kilde Kode - Zip Fil}\label{subsec:billag-source-code}
+    \href{https://github.com/Zymat-dk/RSACrackstation/archive/refs/heads/main.zip}{RSACrackstation.zip}
+    \subsection{Kilde Kode - Github Browse}\label{subsec:billag-github}
+    \href{https://github.com/Zymat-dk/RSACrackstation}{RSACrackstation.zip}
+    \subsection{URL - RSACrackstation}\label{subsec:billag-url}
+    \href{https://rsacrackstation.com}{rsacrackstation.com}
+    
 \end{document}
