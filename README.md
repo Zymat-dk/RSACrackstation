@@ -1,6 +1,9 @@
 # RSACrackstation
 
-The source code behind the service running at [RSACrackstation](https://rsacrackstation.com). Feel free to poke around and look at the code. 
+<img alt="Lines of code" src="https://img.shields.io/tokei/lines/github/Zymat-dk/RSACrackstation?color=FF8A00">
+
+The source code behind the service running at [RSACrackstation](https://rsacrackstation.com). Feel free to poke around and look at the code.
+
 
 Control all at once 
 ```bash
