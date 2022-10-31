@@ -8,8 +8,6 @@
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
 \usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
 
-% Include images
-\graphicspath{ {./img/} }
 
 % Useful packages
 \usepackage{amsmath}
@@ -26,6 +24,9 @@
 \usepackage{wrapfig}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+
+% Include images
+\graphicspath{ {../img/} }
 
 
 \begin{document}
@@ -66,15 +67,15 @@
 
     \section{Abstract}\label{sec:abstract}
 
-    Your introduction goes here! Simply start writing your document and use the Recompile button to view the
-    updated PDF preview. Examples of commonly used commands and features are listed below, to help you get started.
+    Formålet med projektet er at kunne demonstrere vores tillærte viden fra programmeringfaget.
+    Ved brug af vores ræssonmentskomptece har vi formået at sammesætte et projekt der dækker alle de faglige mål i programmeringsfaget.
 
-    Once you're familiar with the editor, you can find various project settings in the Overleaf menu, accessed
-    via the button in the very top left of the editor. To view tutorials, user guides, and further documentation,
-    please visit our \href{https://www.overleaf.com/learn}{help library}, or head to our plans page to
-    \href{https://www.overleaf.com/user/subscription/plans}{choose your plan}.
+    Vi har fremstillet en hjemmeside til at behandle RSA. Koden kan tilgåes fra links i bilag og det færdige produkt kan tilgåes på intenettet på \href{https://rsacrackstation.com}{RSACrackstation.com}
+
+    Derudover har vi testet vores produkt i forhold til vores fremsatte krav. Produktet opfylder alle krav til perfektion. Hjemmesiden kan alt hvad vi kræver, samt vores brugervenlig og hurtig.
 
     \newpage
+
 
     \section{Problemformulering}\label{sec:problemformulering}
 
@@ -430,17 +431,17 @@ public class RSADecrypter{
     For at undersøge om vi kan faktorisere et tal, har vi valgt at lave en svag nøgle,
     så det er muligt at faktorisere den.
     Hvis man indsætter det tal vi brugte til at kryptere, på vores faktoriseringsside, får man følgende resultat:
-    
+
     \includegraphics[scale=0.7]{FactorizationLight}\label{img:factorization}  % Broken
-    
+
     Det betyder at vi har fundet de to tal, der kan ganges sammen og give det tal vi startede med.
     Med den information kan man bryde RSA krypteringen, og få beskeden ud.
-    
+
     \subsection{Test af RSA-brydning}\label{subsec:testing-cracking}
     For at teste om vi kan bryde RSA krypteringen, har vi brugt de to faktorer vi fik fra faktoriseringen,
     sammen med den nøgle vi brugte til at kryptere.
     Hvis man sætter dem ind på vores hjemmeside, sammen med den krypterede tekst, får man dette resultat:
-    
+
     \includegraphics[scale=0.7]{CrackingLight}\label{img:cracking}  % Broken
 
     \section{Konklusion}\label{sec:konklusion}
