@@ -6,7 +6,6 @@ public class RSADecrypter{
     private BigInteger _n;
     private BigInteger _d;
     private BigInteger _c;
-
     private BigInteger _m;
     
     public RSADecrypter(string n, string d){

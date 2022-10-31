@@ -303,8 +303,45 @@ public string[] GetFactors(){
     Til sidst returnerer vi arrayet, som indeholder de faktorer vi har fået fra factorDB.\@
     
     \subsection{RSA Funktionalitet}\label{subsec:rsa-functionality}
+    For at kryptere og dekryptere RSA, skal vi bruge lidt kode.
+    Da vi bruge objektorienteret programmering, har vi lavet nogle klasser, en af disse hedder \emph{RSADecryper},
+    som indeholder metoder til at dekryptere.
+    Hele klassen kan ses her:
+    \begin{listing}[!ht]
     \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
+public class RSADecrypter{
+    private BigInteger _n;
+    private BigInteger _d;
+    private BigInteger _c;
+    private BigInteger _m;
+    
+    public RSADecrypter(string n, string d){
+        _n = BigInteger.Parse(n);
+        _d = BigInteger.Parse(d);
+    }
+    
+    public string Decrypt(string c){
+        _c = BigInteger.Parse(c);
+        _m = BigInteger.ModPow(_c, _d, _n);
+        return Convert.ToString(_m);
+    }
+}
     \end{minted}
+    \caption{/Backend/RSADecrypter.cs}
+    \end{listing}
+    
+    I denne klasse, har vi fire private variable, som er af typen \emph{BigInteger}.
+    BigInteger er en klasse, der kan håndtere meget store tal, hvilket vi har brug for, når vi arbejder med RSA.\@
+    På linje 7 definerer vi en constructor-metode, som er den metode der kaldes,
+    når man initialiserer et objekt af typen \emph{RSADecrypter}.
+    Denne metode tager to parametre, som begge er tal, men er af typen string,
+    da vi ikke kan håndtere tal af typen BigInteger i frontenden.
+    På linje 8 og 9, gemmer vi de to parametre som private variable, som vi kan bruge i andre metoder i klassen.\@
+    På linje 12, defineres metoden \emph{Decrypt()}, som tager et tal af typen string, og returnere en string.
+    Her tager vi også tal ind som string, for at kunne håndtere det i frontenden.
+    På linje 13, gemmer vi det indkommende tal som en private variable, og derefter laver vi en udregning på linje 14.
+    Denne udregning blev gennemgået i \autoref{subsec:hvordan-virker-rsa}, og er sådan man dekryptere RSA.\@
+    Til sidst returnerer vi resultatet af udregningen som typen string, for at undgå problemer i frontenden.\@
 
     \section{Test af programmet}\label{sec:test}
     \section{Konklusion}\label{sec:konklusion}
