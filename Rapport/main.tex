@@ -23,7 +23,7 @@
 \usepackage{wrapfig}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amstex}
+
 
 
 
@@ -59,6 +59,9 @@
 
     \tableofcontents
 
+    \newpage
+
+
     \section{Abstract}\label{sec:abstract}
 
     Your introduction goes here! Simply start writing your document and use the Recompile button to view the
@@ -69,6 +72,7 @@
     please visit our \href{https://www.overleaf.com/learn}{help library}, or head to our plans page to
     \href{https://www.overleaf.com/user/subscription/plans}{choose your plan}.
 
+    \newpage
 
     \section{Problemformulering}\label{sec:problemformulering}
 
@@ -324,7 +328,7 @@
     Hvis talet findes i databasen, sender vi det tilbage til brugeren, og hvis det ikke findes, sender vi en fejlmeddelelse.
     Vores implementation af dette kan ses nedenfor.
     \begin{listing}[!ht]
-    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
+        \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
 public string[] GetFactors(){
     string[] factors = { "-1", "-1" };
     var url = $"http://factordb.com/api?query={_n}";
@@ -342,10 +346,10 @@ public string[] GetFactors(){
     
     return factors;
 }
-    \end{minted}
-    \caption{/Backend/RSACracker.cs, Linje 42}
+        \end{minted}
+        \caption{/Backend/RSACracker.cs, Linje 42}
     \end{listing}
-    
+
     På linje 1 defineres en metode, der hedder \emph{GetFactors()}, som returnere et array af strings.
     Et array er en datastruktur der kan indeholde flere værdier af samme type.
     I dette tilfælde indeholder arrayet to strings, som er de to faktorer der kommer af at faktorisere \textbf{n}.
@@ -355,12 +359,12 @@ public string[] GetFactors(){
     På linje 4 defineres en variabel, der hedder \emph{request}, som er af typen \emph{WebRequest}.
     WebRequest er en klasse, der indeholder metoder til at sende forespørgsler til en server.
     I dette tilfælde, bruger vi typen af forespørgslen, der hedder `GET`, som er den mest almindelige type af forespørgsler.
-    Med en `GET` forespørgsel, kan vi hente data fra en server, uden at ændre noget på den, 
+    Med en `GET` forespørgsel, kan vi hente data fra en server, uden at ændre noget på den,
     hvilket er det vi ønsker i dette tilfælde.
     På linje 5 definere vi en ny variabel, af typen string, som hedder \emph{data}.
     Der er her vores respons fra factorDB, skal ligge.
     Derefter kommer der en masse kode, som ikke er vigtig for at forstå hvordan vi bruger API'en.
-    På linje 11 definere vi endnu en variabel, der hedder \emph{jsonData}, som er af typen \emph{JsonObject}, 
+    På linje 11 definere vi endnu en variabel, der hedder \emph{jsonData}, som er af typen \emph{JsonObject},
     hvilket lader os håndtere JSON data, som vi får fra factorDB.\@
     Derefter kommer der lidt kode, som undersøger om vi får en gyldig respons, dette er ikke nødvendigt at gennegå.
     På linje 12 laver vi et for-loop, som kører to gange.
@@ -368,14 +372,14 @@ public string[] GetFactors(){
     Det er her vi henter ændrer værdierne i arrayet, som vi definerede på linje 2.
     Det gør vi ved at læse JSON dataen, og sætte værdierne i arrayet til de faktorer vi får fra factorDB.\@
     Til sidst returnerer vi arrayet, som indeholder de faktorer vi har fået fra factorDB.\@
-    
+
     \subsection{RSA Funktionalitet}\label{subsec:rsa-functionality}
     For at kryptere og dekryptere RSA, skal vi bruge lidt kode.
     Da vi bruge objektorienteret programmering, har vi lavet nogle klasser, en af disse hedder \emph{RSADecryper},
     som indeholder metoder til at dekryptere.
     Hele klassen kan ses her:
     \begin{listing}[!ht]
-    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
+        \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
 public class RSADecrypter{
     private BigInteger _n;
     private BigInteger _d;
@@ -393,10 +397,10 @@ public class RSADecrypter{
         return Convert.ToString(_m);
     }
 }
-    \end{minted}
-    \caption{/Backend/RSADecrypter.cs}
+        \end{minted}
+        \caption{/Backend/RSADecrypter.cs}
     \end{listing}
-    
+
     I denne klasse, har vi fire private variable, som er af typen \emph{BigInteger}.
     BigInteger er en klasse, der kan håndtere meget store tal, hvilket vi har brug for, når vi arbejder med RSA.\@
     På linje 7 definerer vi en constructor-metode, som er den metode der kaldes,
