@@ -157,10 +157,10 @@
     Hvor de to resultater, er de samme to tal, vi krypterede til at starte med, og vi har altså dekrypteret vores tekst.
 
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
-    API står for Application programming interface, hvilket er en måde for noget kode at intergere med noget andet kode.
-    En API er modsætningen til en bruger interface, som er et interface ment til mennesker.
+    API står for Application Programming Interface, hvilket er en måde for noget kode at interagere med noget andet kode.
+    En API er modsætningen til en brugergrænseflade, som er en grænseflade rettet mod mennesker.
     API calls kan enten ændre data eller hente data fra en server.
-    APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs.
+    APIs er overalt på internettet og størstedelen af populære hjemmesider bruger APIs.
     Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen.
     Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden.
     Backenden sender kun rå JSON data tilbage, som frontenden behandler og viser på en måde, brugeren lettere kan forestå.
@@ -168,14 +168,13 @@
 
     \section{Frontend}\label{sec:frontend}
     \subsection{Intro}
-    For at kunne bruge hjemmesiden ordenligt er et vigtigt med et brugervenligt interface.
+    For at kunne bruge hjemmesiden ordenligt er det vigtigt med et brugervenligt interface.
     For at kunne lave et brugervenligt interface, skal der bruges HTML, CSS og JavaScript.
-    Det er muligt at lave en flot og meget brugervenligt interface med blot normal CSS og JavaScript,
-    men for hurtigere at kunne udvikle vores produkt, valgte vi at bruge Tailwind CSS og JQuery i stedet.
-    Tailwind CSS er et CSS framework, der han en masse prædefineret klasser, som kun har en bestemt funktion.
+    Det er muligt at lave et flot og meget brugervenligt interface med blot normal CSS og JavaScript,
+    men for at hurtigere kunne udvikle vores produkt, valgte vi at bruge Tailwind CSS og JQuery i stedet.
+    Tailwind CSS er et CSS framework, der han en masse prædefinerede klasser, som kun har én bestemt funktion.
     Man kan derfor hurtigt lave et flot interface, uden at skulle skrive CSS selv, men bare bruge de prædefinerede klasser.
     Tailwind gør det også nemmere at lave et responsivt UI, da hele frameworket er bygget op omkring det.
-
 
     \subsection{Tailwind CDN}
     For at kunne bruge Tailwind frameworket, har man flere forskellige muligheder, dog er der to oplagte:
@@ -185,13 +184,13 @@
     \end{enumerate}
     Eftersom vi ikke ville gøre det her projekt mere avanceret end nødvendig, og fordi projektet ikke skal hostes i et produktionsmiljø, kan vi godt nøjes med CDN versionen.
     Hvis hjemmesiden skulle bruges i produktion, ville man ikke bruge Tailwind via CDN, fordi det er ressourcer der skal hentes fra en 3. part, hvilket kan give forskellige problemer.
-    Eksempelvis hvis Tailwinds servere går ned, ser alle hjemmesider, der bruger Tailwinds CDN, meget anderledes ud, fordi CSS'en ikke kan loades.
-    CDN'en indeholder også alle klasser og skal derfor loade mere end nødvendigt, hvilket kan gøre hjemmesiden lidt langsommere.
+    Hvis Tailwinds servere går ned, går alle hjemmesider der bruger Tailwinds CDN ned, fordi CSS'en ikke kan loades.
+    CDN'en indeholder også alle klasser og skal derfor loade mere end nødvendigt, hvilket kan gøre hjemmesiden langsommere.
 
     \medskip
 
     Dette projekt var også småt nok, til at det ville tage en betydelig del af tiden, at sætte Tailwind op ordenligt.
-    Tailwind via NPM virker kun, hvis der kører en process og scanner HTML filerne for opdateringer og laver de klasser der mangler.
+    Tailwind via NPM virker kun, hvis der kører en process og scanner HTML-filerne for opdateringer og laver de klasser der mangler.
     Det betyder så også at Tailwind kun indeholder hvad der bliver brugt og intet andet, i modsætning til mange andre CSS frameworks, så som Bootstrap.
 
     \subsection{Darkmode}
@@ -203,15 +202,15 @@
         ...
     \end{minted}
 
-    I eksemplet ovenfor bliver der oprette et $<div>$ tag som indeholder nogle elementer.
+    I eksemplet ovenfor bliver der oprettet et $<div>$ tag som indeholder nogle elementer.
     Tagget har to klasser der ændrer tekstens farve, som burde overskrive hinanden, men fordi den ene har \emph{dark:} foran,
     bliver den kun brugt når darkmode er slået til.
 
     \subsection{Hex Auto Toggle}
 
     Hjemmesiden kan arbejde både med decimaltal og hexadecimaltal, og der er en knap der skifter mellem dem.
-    Hvis man kopirer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket er derfor den automatisk
-    skifter mellem dem, afhængig af hvad der er indsat i inputfeltet.
+    Hvis man kopierer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket vi løser, ved at automatisk 
+    skifte mellem dem, afhængig af hvad der er indsat i inputfeltet.
     Koden nedenfor skifter automatisk mellem de to.
 
     \begin{listing}[!ht]
@@ -235,26 +234,30 @@
     \medskip
 
     I linje 2 refererer vi til elementet \emph{num}, som er tekstfeltet, hvor man kan indtaste sit tal.
-    Efter det tjekker vi om der bliver 'pasted' tal ind i inputfeltet og laver en funktion som kører hvis det bliver.
+    Efter det tjekker vi om der bliver `pasted` tal ind i inputfeltet og laver en funktion,
+    som kører hvis der bliver indsat noget.
 
     \medskip
 
-    I linje 3 initialisere vi en variabel i local scope, der indeholder dataen i upklipsholderen, som læses direkte fra udklipsholderen i stedet for tekstfeltet.
-    Dette gør vi for at undgå fejl.
+    I linje 3 initialiserer vi en variabel i local scope, der indeholder dataen i upklipsholderen,
+    som læses direkte fra udklipsholderen i stedet for tekstfeltet.
+    Dette gør vi fordi værdien af inputfeltet ikke har ændret sig, når funktionen kører.
 
     \medskip
 
-    I linje 4-8 tjekker vi om dataen fra variablen i linje 3, indeholder store eller små bogstaver og kører funktionen \emph{updateHexToggle()} hvis variablen \emph{isHex} er falsk.
+    I linje 4-8 tjekker vi om dataen fra variablen i linje 3,
+    indeholder store eller små bogstaver og kører funktionen \emph{updateHexToggle()} hvis variablen \emph{isHex} er falsk.
     Vi kører funktionen for at opdatere knappen man kan se på hjemmesiden, samt variablen \emph{isHex}.
     If-statementet tjekker om der er bogstaver i teksten, da hexadecimale tal ofte er en blanding mellem bogstaver og tal.
     Dette er ikke en helt sikker måde at skifte mellem tallene, fordi mindre tal nogle gange ikke indeholder bogstaver.
-    Det er dog umuligt at tjekke om et tal er hex eller ej, uden at bruge den her metode. Eksempelvis kan tallet 33 forståes som både hex og decimal.
+    Det er dog umuligt at tjekke om et tal er hex eller ej, uden at bruge den her metode.
+    Eksempelvis kan tallet 33 forstås som både hex og decimal.
 
     \medskip
 
     Hvis tallet ikke indeholder bogstaver kører koden mellem linje 9 og 12.
     Denne kode tjekker igen om variablen \emph{isHex} er sand, og kører funktionen \emph{updateHexToggle()}.
-    Det tjekker blot om knappe allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
+    Det tjekker blot om knappen allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
 
     \subsection{AJAX Call}
     For at frontenden kan kommunikere med backenden, bruger vi et AJAX kald.
