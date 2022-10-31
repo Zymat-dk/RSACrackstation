@@ -34,14 +34,21 @@
         \begin{center}
             \vspace{1cm}
 
-            \textbf{RSACrackstation}
+            \begin{huge}
+                \textbf{RSACrackstation}
+            \end{huge}
 
-            \vspace{0.5cm}
-            Rapport over RSACrackstation projektet
+
+            \vspace{1cm}
+
+            \textbf{Daniel Nettelfield og Gustav Nybro}
 
             \vspace{1.5cm}
 
-            \textbf{Daniel Nettelfield og Gustav Nybro}
+            \noindent
+            \includegraphics[scale=0.7]{logo}
+
+
 
             \vfill
 
@@ -63,7 +70,7 @@
     \section*{Abstract}\label{sec:abstract}
 
     Formålet med projektet er at kunne demonstrere vores tillærte viden fra programmeringfaget.
-    Ved brug af vores ræssonmentskomptece har vi formået at sammesætte et projekt der dækker alle de faglige mål i programmeringsfaget.
+    Ved brug af vores ræssonmentskompetence har vi formået at sammesætte et projekt der dækker alle de faglige mål i programmeringsfaget.
 
     Vi har fremstillet en hjemmeside til at behandle RSA, på en brugervenlig og hurtig måde. Koden kan tilgåes fra links i bilag og det færdige produkt kan tilgåes på intenettet på \href{https://rsacrackstation.com}{RSACrackstation.com}.
 
@@ -372,6 +379,8 @@ public string[] GetFactors(){
     Det gør vi ved at læse JSON dataen, og sætte værdierne i arrayet til de faktorer vi får fra factorDB.\@
     Til sidst returnerer vi arrayet, som indeholder de faktorer vi har fået fra factorDB.\@
 
+    \newpage
+
     \subsection{RSA Funktionalitet}\label{subsec:rsa-functionality}
     For at kryptere og dekryptere RSA, skal vi bruge lidt kode.
     Da vi bruge objektorienteret programmering, har vi lavet nogle klasser, en af disse hedder \emph{RSADecryper},
@@ -413,6 +422,7 @@ public class RSADecrypter{
     Denne udregning blev gennemgået i \autoref{subsec:hvordan-virker-rsa}, og er sådan man dekryptere RSA.\@
     Til sidst returnerer vi resultatet af udregningen som typen string, for at undgå problemer i frontenden.\@
 
+
     \section{Test af programmet}\label{sec:testing}
 
     \subsection{Test af kryptering}\label{subsec:testing-encryption}
@@ -421,14 +431,18 @@ public class RSADecrypter{
     Derefter indsætter vi nøglen på krypteringssiden, og krypterer vores besked.
     Dette giver et stort tal, som enten kan vises som normalt heltal, eller som et hexadecimalt tal.
 
-    \includegraphics[scale=0.7]{EncryptionLight}\label{img:encryption}  % Broken
+    \begin{center}
+        \includegraphics[scale=0.5]{EncryptionLight}\label{img:encryption}  % Broken
+    \end{center}
 
     \subsection{Test af faktorisering}\label{subsec:testing-factorization}
     For at undersøge om vi kan faktorisere et tal, har vi valgt at lave en svag nøgle,
     så det er muligt at faktorisere den.
     Hvis man indsætter det tal vi brugte til at kryptere, på vores faktoriseringsside, får man følgende resultat:
 
-    \includegraphics[scale=0.7]{FactorizationLight}\label{img:factorization}  % Broken
+    \begin{center}
+        \includegraphics[scale=0.6]{FactorizationLight}\label{img:factorization}  % Broken
+    \end{center}
 
     Det betyder at vi har fundet de to tal, der kan ganges sammen og give det tal vi startede med.
     Med den information kan man bryde RSA krypteringen, og få beskeden ud.
@@ -438,16 +452,19 @@ public class RSADecrypter{
     sammen med den nøgle vi brugte til at kryptere.
     Hvis man sætter dem ind på vores hjemmeside, sammen med den krypterede tekst, får man dette resultat:
 
-    \includegraphics[scale=0.7]{CrackingLight}\label{img:cracking}  % Broken
-    
+    \begin{center}
+        \includegraphics[scale=0.5]{CrackingLight}\label{img:cracking}  % Broken
+    \end{center}
+
     Her får vi den originale besked ud, hvilket betyder at vi har brudt RSA krypteringen, og bestået alle tests.
+
 
     \section{Konklusion}\label{sec:konklusion}
     Vi har i dette projekt arbejdet med at bryde RSA kryptering ved hjælp af faktorisering.
     Vi har lavet en hjemmeside, som kan bruges til at kryptere og dekryptere RSA, og til at bryde svag RSA kryptering.
-    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database, 
+    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database,
     som vi kan tilgå ved at bruge en API, udviklet af factorDB, som en den største offentlige faktoriseringsdatabase.
-    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler, 
+    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler,
     der er stærke nok til at være sikre mod faktorisering.
     Vi har også lavet en række tests, som viser at vores hjemmeside virker,
     og at vi kan leve op til vores krav om at bryde RSA krypteringen.
