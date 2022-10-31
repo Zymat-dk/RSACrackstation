@@ -69,7 +69,7 @@
     Formålet med projektet er at kunne demonstrere vores tillærte viden fra programmeringsfaget.
     Ved brug af vores ræssonmentskompetence har vi formået at sammesætte et projekt,
     der dækker alle de faglige mål i programmeringsfaget.
-    
+
     Vi har fremstillet en hjemmeside til at behandle RSA, på en brugervenlig og hurtig måde.
     Koden kan tilgåes fra links i bilag og det færdige produkt kan tilgåes på internettet,
     på \href{https://rsacrackstation.com}{rsacrackstation.com}.
@@ -105,7 +105,7 @@
     og sende den krypterede tekst til banken, som dekrypterer den med sin private nøgle.
     RSA nøglerne er genereret ved at bruge to primtal, som er valgt tilfældigt.
     Den offentlige nøgle regnes ved at gange de to primtal sammen, og den private ved at bruge en kompliceret algoritme,
-    der hedder den Udvidede Euklidske Algoritme.\@
+    der hedder den Udvidede Euklidiske Algoritme.\@
     De to tilfældige primtal kaldes \emph{p} og \emph{q}, deres produkt (den offentlige nøgle) kaldes \emph{n}, og den private nøgle kaldes \emph{d}.
     Udover at bruge primtal til at generere RSA nøglerne, bruger RSA også en eksponent, som har en række af krav den skal opfylde,
     alt efter værdierne af de to primtal.
@@ -131,14 +131,14 @@
     \end{equation}
 
     I dette eksempel, er \(\textbf{m} = 2\), i ligning~\eqref{eq:encrypt-ex1} og \(\textbf{m} = 106\) i ligning~\eqref{eq:encrypt-ex2}.
-    så man kan man se at bare fordi man kender \textbf{c} betyder det ikke at man kender \textbf{m},
+    Så man kan man se at bare fordi man kender \textbf{c} betyder det ikke at man kender \textbf{m},
     da \textbf{c} er ens i begge eksempler, men \textbf{m} er forskellige.
     For at dekryptere denne tekst skal man bruge værdien for \textbf{d}, som findes ved at faktorisere de to \textbf{n}`er.
     I dette eksempel bruger vi meget små tal, og det er derfor meget nemt at faktorisere de to moduluer.
     Når man har faktoriseret \textbf{n}, kan man køre den udvidede Euklidske algoritme, som bruges til at finde \textbf{d}.
     Hvis man kører denne algoritme på vores to eksempler, får man \(\textbf{d} = 131\) og \(\textbf{d} = 349\).\@
-    \textbf{D} kaldes for den inverse af \(\textbf{e} \mod \textbf{n}\), og bruges til at gøre det modsatte af kryptering.
-    Når man har regnet \textbf{D}, er det meget enkelt at dekryptere, man skal nemlig gøre det samme som når man kryptere,
+    \textbf{d} kaldes for den inverse af \(\textbf{e} \mod \textbf{n}\), og bruges til at gøre det modsatte af kryptering.
+    Når man har regnet \textbf{d}, er det meget enkelt at dekryptere, man skal nemlig gøre det samme som når man kryptere,
     men med \textbf{d} i stedet for \textbf{e}:
 
     \begin{equation}
@@ -157,12 +157,12 @@
     Hvor de to resultater, er de samme to tal, vi krypterede til at starte med, og vi har altså dekrypteret vores tekst.
 
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
-    API står for Application programming interface, hvilket er en måde for noget kode at intergere med noget andet kode.
+    API står for Application Programming Interface, hvilket er en måde for noget kode at interagere med noget andet kode.
     En API er modsætningen til en bruger interface, som er et interface ment til mennesker.
-    API calls kan enten ændre data eller hente data fra en server.
-    APIs er overalt på internettet og største delen af populære hjemmesider bruger APIs.
+    API kald kan enten ændre data eller hente data fra en server.
+    APIs er overalt på internettet og størstedelen af populære hjemmesider bruger APIs.
     Et godt eksempel på en API der bliver brugt af mange mennesker, er Rejseplanen.
-    Rejsplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden.
+    Rejseplanen fungerer ved at en bruger indtaster noget data, som bliver sendt til backenden.
     Backenden sender kun rå JSON data tilbage, som frontenden behandler og viser på en måde, brugeren lettere kan forestå.
 
 
@@ -209,7 +209,7 @@
 
     \subsection{Hex Auto Toggle}
 
-    Hjemmesiden kan arbejde både med decimaltal og hexadecimaltal, og der er en knap der skifter mellem dem.
+    Hjemmesiden kan både arbejde med decimaltal og hexadecimaltal, og der er en knap der skifter mellem dem.
     Hvis man kopirer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket er derfor den automatisk
     skifter mellem dem, afhængig af hvad der er indsat i inputfeltet.
     Koden nedenfor skifter automatisk mellem de to.
@@ -235,11 +235,11 @@
     \medskip
 
     I linje 2 refererer vi til elementet \emph{num}, som er tekstfeltet, hvor man kan indtaste sit tal.
-    Efter det tjekker vi om der bliver 'pasted' tal ind i inputfeltet og laver en funktion som kører hvis det bliver.
+    Efter det tjekker vi om der bliver indsat et tal ind i inputfeltet og laver en funktion som kører hvis det bliver.
 
     \medskip
 
-    I linje 3 initialisere vi en variabel i local scope, der indeholder dataen i upklipsholderen, som læses direkte fra udklipsholderen i stedet for tekstfeltet.
+    I linje 3 initialisere vi en variabel i local scope, der indeholder dataen fra upklipsholderen, som læses direkte fra udklipsholderen i stedet for tekstfeltet.
     Dette gør vi for at undgå fejl.
 
     \medskip
@@ -253,8 +253,8 @@
     \medskip
 
     Hvis tallet ikke indeholder bogstaver kører koden mellem linje 9 og 12.
-    Denne kode tjekker igen om variablen \emph{isHex} er sand, og kører funktionen \emph{updateHexToggle()}.
-    Det tjekker blot om knappe allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
+    Denne kode tjekker igen om variablen \emph{isHex} er sand, og kører funktionen  \emph{updateHexToggle()} hvis den er.
+    Det tjekker blot om knappen allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
 
     \subsection{AJAX Call}
     For at frontenden kan kommunikere med backenden, bruger vi et AJAX kald.
@@ -304,7 +304,7 @@
     Fra linje 4 begynder AJAX kaldet.
     Mellem linje 5 og 9 specificerer vi hvilken data, der skal sendes hvorhen og hvordan den skal sendes.
     Dataen sendes til \emph{/api/GetFactors}, som er endpointet for backenden, hvilket betyder at det er stedet backenden og frontende kan kommunikere.
-    Den sendes med et POST request, hvilket er en type forespørgsel, hvor man kan sende data med.
+    Den sendes med et POST request, hvilket er en type forespørgsel, man kan sende data med.
     Dataen sendes som et JavaScript objekt, hvilket også er derfor det ikke nødvendigt at sende en `content-type` med.
     Der findes også andre måder at sende dataen med, hvor man ikke bruger et JavaScript objekt, men det her er klart det bedste måde.
 
@@ -457,17 +457,18 @@ public class RSADecrypter{
 
     Her får vi den originale besked ud, hvilket betyder at vi har brudt RSA krypteringen, og bestået alle tests.
 
-    
+
     \section{Konklusion}\label{sec:konklusion}
     Vi har i dette projekt arbejdet med at bryde RSA kryptering ved hjælp af faktorisering.
     Vi har lavet en hjemmeside, som kan bruges til at kryptere og dekryptere RSA, og til at bryde svag RSA kryptering.
-    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database, 
+    Vi har været i stand til faktorisere store tal, ved hjælp af kald til en database,
     som vi kan tilgå ved at bruge en API, udviklet af factorDB, som en den største offentlige faktoriseringsdatabase.
-    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler, 
+    Udover at kryptere og dekryptere RSA, har vi udviklet en nøglegenerator, som kan generere RSA-nøgler,
     der er stærke nok til at være sikre mod faktorisering.
     Vi har også lavet en række tests, som viser at vores hjemmeside virker,
     og at vi kan leve op til vores krav om at bryde RSA krypteringen.
-    
+
+
     \section{Billag}\label{sec:billag}
     \subsection{Kilde Kode - Zip Fil}\label{subsec:billag-source-code}
     \href{https://github.com/Zymat-dk/RSACrackstation/archive/refs/heads/main.zip}{RSACrackstation.zip}
@@ -475,5 +476,5 @@ public class RSADecrypter{
     \href{https://github.com/Zymat-dk/RSACrackstation}{RSACrackstation.zip}
     \subsection{URL - RSACrackstation}\label{subsec:billag-url}
     \href{https://rsacrackstation.com}{rsacrackstation.com}
-    
+
 \end{document}
