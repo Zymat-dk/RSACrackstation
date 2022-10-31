@@ -25,6 +25,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{amstex}
 
+
+
 \begin{document}
     \begin{titlepage}
         \begin{center}
@@ -102,22 +104,22 @@
 
     \subsection{Hvordan virker RSA?}\label{subsec:hvordan-virker-rsa}
     Når man krypterer med RSA, bruges følgende formel:
-    
+
     \begin{equation}
         c = m^e \mod n \label{eq:rsa-encrypt}
     \end{equation}
-    
+
     Her bruges modulus regning, som er måden man sikrer, at den krypterede tekst, ikke kan dekrypteres.
     Modulus virker nemlig ved at tage resten efter en heltalsdivision,
     det vil sige at flere udregninger godt kan give det samme resultat
-    
+
     \begin{equation}
         2^{11} \mod 527 = 467 \label{eq:encrypt-ex1}
     \end{equation}
     \begin{equation}
         106^{13} \mod 551 = 467 \label{eq:encrypt-ex2}
     \end{equation}
-    
+
     I dette eksempel, er \(\textbf{m} = 2\), i ligning~\eqref{eq:encrypt-ex1} og \(\textbf{m} = 106\) i ligning~\eqref{eq:encrypt-ex2}.
     så man kan man se at bare fordi man kender \textbf{c} betyder det ikke at man kender \textbf{m},
     da \textbf{c} er ens i begge eksempler, men \textbf{m} er forskellige.
@@ -126,22 +128,22 @@
     Når man har faktoriseret \textbf{n}, kan man køre den udvidede Euklidske algoritme, som bruges til at finde \textbf{d}.
     Hvis man kører denne algoritme på vores to eksempler, får man \(\textbf{d} = 131\) og \(\textbf{d} = 349\).\@
     \textbf{D} kaldes for den inverse af \(\textbf{e} \mod \textbf{n}\), og bruges til at gøre det modsatte af kryptering.
-    Når man har regnet \texbf{D}, er det meget enkelt at dekryptere, man skal nemlig gøre det samme som når man kryptere,
+    Når man har regnet \textbf{D}, er det meget enkelt at dekryptere, man skal nemlig gøre det samme som når man kryptere,
     men med \textbf{d} i stedet for \textbf{e}:
-    
+
     \begin{equation}
         m = c^d \mod n \label{eq:rsa-decrypt}
     \end{equation}
-    
+
     Hvis man gør dette for vores to eksempler får man dette:
-    
+
     \begin{equation}
         467^{131} \mod 527 = 2 \label{eq:decrypt-ex1}
     \end{equation}
     \begin{equation}
         467^{349} \mod 551 = 106 \label{eq:decrypt-ex2}
     \end{equation}
-    
+
     Hvor de to resultater, er de samme to tal, vi krypterede til at starte med, og vi har altså dekrypteret vores tekst.
 
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
@@ -202,7 +204,8 @@
     skifter mellem dem, afhængig af hvad der er indsat i inputfeltet.
     Koden nedenfor skifter automatisk mellem de to.
 
-    \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{javascript}
+    \begin{listing}[!ht]
+        \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{javascript}
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
     $("#num").bind('paste', function(e) {
         let data = e.originalEvent.clipboardData.getData('text'); // Gets data from clipboard
@@ -215,7 +218,9 @@
             updateHexToggle()
         }
     });
-    \end{minted}
+        \end{minted}
+        \caption{/Views/Home/Index.cshtml, Linje 49 - 60}
+    \end{listing}
 
     \medskip
 
@@ -241,12 +246,74 @@
     Denne kode tjekker igen om variablen \emph{isHex} er sand, og kører funktionen \emph{updateHexToggle()}.
     Det tjekker blot om knappe allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
 
+    \subsection{AJAX Call}
+    For at frontenden kan kommunikere med backenden, bruger vi et AJAX kald.
+
+
+    \begin{listing}[!ht]
+        \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{javascript}
+    function factorize() {
+        let num = $("#num").val();
+        ...
+        $.ajax({
+            url: "/api/GetFactors",
+            type: "POST",
+            data: {
+                "inputNum": num,
+            },
+            success: function(data) {
+                if (data[0] == -2 || data[1] == -2) { 
+                    showSnackbar("FactorDB is currently offline", 0) 
+                    $("#p").val("");
+                    $("#q").val("");
+                    return;
+                }
+                if (data[0] == -1 || data[1] == -1) { 
+                    showSnackbar("Could not factorize", 1) 
+                    $("#p").val("");
+                    $("#q").val("");
+                    return;
+                }
+                $("#p").val(data[0]);
+                $("#q").val(data[1]);
+            }
+        });
+    }
+        \end{minted}
+        \caption{/Views/Home/Index.cshtml, Linje 82 - 127}
+    \end{listing}
+
+    Vi laver en funktion som indeholder AJAX kaldet, for nemmere at kunne sende en forespørgsel til backenden.
+    I linje 2, laver vi en variabel, som indeholder dataen fra det første tekstfelt.
+    Under linje 2, håndterer vi dataen og tjekker om den overholder forskellige kriterier, men for simplicitet, har vi valgt at undlade denne del her.
+    Vi tjekker blot om dataen er noget serveren kan håndtere, og hvis det ikke er, modtager brugeren en fejlbesked.
+    Det betyder også at dataen er sikker efter dette punkt og når det skal sendes via AJAX kaldet.
+
+    \medskip
+
+    Fra linje 4 begynder AJAX kaldet.
+    Mellem linje 5 og 9 specificerer vi hvilken data, der skal sendes hvorhen og hvordan den skal sendes.
+    Dataen sendes til \emph{/api/GetFactors}, som er endpointet for backenden, hvilket betyder at det er stedet backenden og frontende kan kommunikere.
+    Den sendes med et POST request, hvilket er en type forespørgsel, hvor man kan sende data med.
+    Dataen sendes som et JavaScript objekt, hvilket også er derfor det ikke nødvendigt at sende en `content-type` med.
+    Der findes også andre måder at sende dataen med, hvor man ikke bruger et JavaScript objekt, men det her er klart det bedste måde.
+
+    \medskip
+
+    Koden mellem linje 10 - 24, kører hvis funktionen ikke fejler og får en respons fra serveren.
+    Dataen der bliver sendt tilbage har formatet [x, y]. Hvor x og y begge er integers.
+    Første if-sætning tjekker om dataen er `-2`, hvilket betyder at serveren ikke kunde forbinde til databsen.
+    Hvis dette er tilfældes viser den en lille fejlbesked og fjerner en eventuel værdi af $p$ og $q$ felterne, samt returner, hvilket stopper koden fra at køre videre.
+    Anden if-sætning tjekker om dataen er `-1`, hvilket betyder at der er sket en generel fejl på serveren.
+    Hvis der er sket en generel fejl, viser den igen en lille fejlbesked og tømmer felterne, samt returnerer for at stoppe koden.
+    Hvis der ikke er sket nogle fejl, indeholder data-arrayet to tal, som indsættes i felterne $p$ og $q$.
+
 
     \section{Backend}\label{sec:backend}
     Backenden er den del af hjemmesiden, som ikke bliver vist til brugeren.
     Det er her vi behandler dataen, som bliver sendt til os fra frontend.
     Vores backend er skrevet i C\#, og bruge objektorienteret programmering, hvor vi laver klasser til at håndtere forskellige ting.
-    
+
     \subsection{Primtalsfaktorisering}\label{subsec:prime-factorization}
     For at bryde RSA-algoritmen, skal man faktorisere det store tal \textbf{n}, som er produktet af to primtal.
     At faktorisere store tal er en meget svær opgave, som kræver meget tid og ressourcer.
