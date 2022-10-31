@@ -17,13 +17,12 @@
 \usepackage{anyfontsize}
 \usepackage{sectsty}
 
-
 \usepackage{minted}
-
 
 \usepackage{wrapfig}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{amstex}
 
 \begin{document}
     \begin{titlepage}
@@ -83,8 +82,6 @@
         \item Hjemmesiden skal kunne kryptere med RSA\@.
     \end{itemize}
 
-
-
     \section{Hvad er RSA?}\label{sec:hvad-er-rsa}
     RSA er en asymmetrisk kryptografialgoritme, som er udviklet af Ron Rivest, Adi Shamir og Leonard Adleman i 1977.
     En asymmetrisk kryptografialgoritme er en kryptografialgoritme der bruger to forskellige nøgler til at kryptere og dekryptere,
@@ -93,30 +90,56 @@
     og sende den krypterede tekst til banken, som dekrypterer den med sin private nøgle.
     RSA nøglerne er genereret ved at bruge to primtal, som er valgt tilfældigt.
     Den offentlige nøgle regnes ved at gange de to primtal sammen, og den private ved at bruge en kompliceret algoritme,
-    der hedder Extended Euclidean Algorithm.
+    der hedder den Udvidede Euklidske Algoritme.\@
     De to tilfældige primtal kaldes \emph{p} og \emph{q}, deres produkt (den offentlige nøgle) kaldes \emph{n}, og den private nøgle kaldes \emph{d}.
     Udover at bruge primtal til at generere RSA nøglerne, bruger RSA også en eksponent, som har en række af krav den skal opfylde,
     alt efter værdierne af de to primtal.
     Dog findes der et tal, som altid kan bruges som eksponent, og det er 65537, denne eksponent kaldes \emph{e}.
-    Det sidste tal man bruger i RSA, hedder \emph{m}, og er den værdi man gerne vil sende, ofte en tekst.
+    Det sidste tal man bruger i RSA, hedder \emph{m}, og er den værdi man gerne vil sende, ofte en tekst.\@
 
     \subsection{Hvordan virker RSA?}\label{subsec:hvordan-virker-rsa}
     Når man krypterer med RSA, bruges følgende formel:
+    
     \begin{equation}
         c = m^e \mod n \label{eq:rsa-encrypt}
     \end{equation}
+    
     Her bruges modulus regning, som er måden man sikrer, at den krypterede tekst, ikke kan dekrypteres.
     Modulus virker nemlig ved at tage resten efter en heltalsdivision,
     det vil sige at flere udregninger godt kan give det samme resultat
+    
     \begin{equation}
-        2^{11} \mod 527 = 467 \label{eq:mod-ex}
-        106^{13} \mod 551 = 467
-        m^e \mod n = c
+        2^{11} \mod 527 = 467 \label{eq:encrypt-ex1}
     \end{equation}
-    I dette eksempel, er m = 2, på første linje og m = 106 på anden linje kan man se at bare fordi man kender c,
-    betyder det ikke at man kender m, da c er ens i begge eksempler, men m er forskellige.
-    For at dekryptere denne tekst skal man bruge værdien for d.
+    \begin{equation}
+        106^{13} \mod 551 = 467 \label{eq:encrypt-ex2}
+    \end{equation}
+    
+    I dette eksempel, er \(\textbf{m} = 2\), i tredje ligning og \(\textbf{m} = 106\) i anden ligning,
+    så man kan man se at bare fordi man kender \textbf{c} betyder det ikke at man kender \textbf{m},
+    da \textbf{c} er ens i begge eksempler, men \textbf{m} er forskellige.
+    For at dekryptere denne tekst skal man bruge værdien for \textbf{d}, som findes ved at faktorisere de to \textbf{n}`er.
     I dette eksempel bruger vi meget små tal, og det er derfor meget nemt at faktorisere de to moduluer.
+    Når man har faktoriseret \textbf{n}, kan man køre den udvidede Euklidske algoritme, som bruges til at finde \textbf{d}.
+    Hvis man kører denne algoritme på vores to eksempler, får man \(\textbf{d} = 131\) og \(\textbf{d} = 349\).\@
+    \textbf{D} kaldes for den inverse af \(\textbf{e} \mod \textbf{n}\), og bruges til at gøre det modsatte af kryptering.
+    Når man har regnet \texbf{D}, er det meget enkelt at dekryptere, man skal nemlig gøre det samme som når man kryptere,
+    men med \textbf{d} i stedet for \textbf{e}:
+    
+    \begin{equation}
+        m = c^d \mod n \label{eq:rsa-decrypt}
+    \end{equation}
+    
+    Hvis man gør dette for vores to eksempler får man dette:
+    
+    \begin{equation}
+        467^{131} \mod 527 = 2 \label{eq:decrypt-ex1}
+    \end{equation}
+    \begin{equation}
+        467^{349} \mod 551 = 106 \label{eq:decrypt-ex2}
+    \end{equation}
+    
+    Hvor de to resultater, er de samme to tal, vi krypterede til at starte med, og vi har altså dekrypteret vores tekst.
 
     \section{Hvad er en API?}\label{sec:hvad-er-en-api}
     API står for Application programming interface, hvilket er en måde for noget kode at intergere med noget andet kode.
@@ -191,8 +214,6 @@
 
 
     \section{Backend}\label{sec:backend}
-
-    \subsection{RSA Funktionalitet}\label{subsec:rsa-funktionalitet}
 
     \subsection{API call}\label{subsec:api-call}
 
