@@ -157,8 +157,6 @@
     Hvis man kopirer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket er derfor den automatisk
     skifter mellem dem, afhængig af hvad der er indsat i inputfeltet.
     Koden nedenfor skifter automatisk mellem de to.
-   
-
 
     \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{javascript}
     // Checks if number is pasted and automatically changes state to hex if hex is pasted
@@ -174,13 +172,22 @@
         }
     });
     \end{minted}
-    Funktionen \emph{bind} bliver kaldt på \emph{#num}, som er inputfeltet hvor brugeren indtaster tallet.
-    Når der bliver kopieret noget ind i inputfeltet, bliver \emph{paste} funktionen kaldt.
-    Funktionen henter data fra clipboardet og gemmer det i en variabel.
-    Herefter bliver der brugt en regex til at tjekke om der er nogle bogstaver i det indsatte tal.
-    Hvis der er nogle bogstaver, bliver der tjekket om \emph{isHex} er \emph{false}, hvis det er tilfældet, bliver \emph{updateHexToggle} kaldt.
-    \emph{updateHexToggle} skifter mellem de to, og hvis \emph{isHex} er \emph{true}, bliver den kaldt igen, så den skifter tilbage til decimaltal.
-    
+
+    I linje 2 refererer vi til elementet \emph{num}, som er tekstfeltet, hvor man kan indtaste sit tal.
+    Efter det tjekker vi om der bliver 'pasted' tal ind i inputfeltet og laver en funktion som kører hvis det bliver.
+
+    I linje 3 initialisere vi en variabel i local scope, der indeholder dataen i upklipsholderen, som læses direkte fra udklipsholderen i stedet for tekstfeltet.
+    Dette gør vi for at undgå fejl.
+
+    I linje 4-8 tjekker vi om dataen fra variablen i linje 3, indeholder store eller små bogstaver og kører funktionen \emph{updateHexToggle()} hvis variablen \emph{isHex} er falsk.
+    Vi kører funktionen for at opdatere knappen man kan se på hjemmesiden, samt variablen \emph{isHex}.
+    If-statementet tjekker om der er bogstaver i teksten, da hexadecimale tal ofte er en blanding mellem bogstaver og tal.
+    Dette er ikke en helt sikker måde at skifte mellem tallene, fordi mindre tal nogle gange ikke indeholder bogstaver.
+    Det er dog umuligt at tjekke om et tal er hex eller ej, uden at bruge den her metode. Eksempelvis kan tallet 33 forståes som både hex og decimal.
+
+    Hvis tallet ikke indeholder bogstaver kører den koden mellem linje 9 og 12.
+    Denne kode tjekker igen om variablen \emph{isHex} er sand, og kører funktionen \emph{updateHexToggle()}.
+    Det tjekker blot om knappe allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
 
 
     \section{Backend}\label{sec:backend}
