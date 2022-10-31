@@ -326,11 +326,11 @@
     \section{Backend}\label{sec:backend}
     Backenden er den del af hjemmesiden, som ikke bliver vist til brugeren.
     Det er her vi behandler dataen, som bliver sendt til os fra frontend.
-    Vores backend er skrevet i C\#, og bruge objektorienteret programmering, hvor vi laver klasser til at håndtere forskellige ting.
+    Vores backend er skrevet i C\#, og bruger objektorienteret programmering, hvor vi laver klasser til at håndtere forskellige ting.
 
     \subsection{Primtalsfaktorisering}\label{subsec:prime-factorization}
     For at bryde RSA-algoritmen, skal man faktorisere det store tal \textbf{n}, som er produktet af to primtal.
-    At faktorisere store tal er en meget svær opgave, som kræver meget tid og ressourcer.
+    At faktorisere store tal er en meget svær opgave, som kræver meget tid og mange ressourcer.
     Det er derfor ikke muligt at faktorisere tallet, når brugeren anmoder om det.
     For at løse dette, findes der store databaser af tal, som er faktoriserede.
     Når en bruger indtaster et tal på hjemmesiden, sender vi talet videre til en database, der hedder factordb.
@@ -364,30 +364,30 @@ public string[] GetFactors(){
     Et array er en datastruktur der kan indeholde flere værdier af samme type.
     I dette tilfælde indeholder arrayet to strings, som er de to faktorer der kommer af at faktorisere \textbf{n}.
     På linje 2 initialiseres arrayet med to strings, som er sat til -1.
-    \{-1, -1\} er vores default værdi, som vi bruger til at checke om vi har fået en faktorisering fra factordb.
+    \{-1, -1\} er vores default værdi, som vi bruger til at tjekke om vi har fået en faktorisering fra factorDB.\@
     På linje 3 defineres en variabel, der hedder \emph{url}, som er en streng af tekst, der indeholder den url vi skal sende vores API forespørgsel til.
     På linje 4 defineres en variabel, der hedder \emph{request}, som er af typen \emph{WebRequest}.
     WebRequest er en klasse, der indeholder metoder til at sende forespørgsler til en server.
     I dette tilfælde, bruger vi typen af forespørgslen, der hedder `GET`, som er den mest almindelige type af forespørgsler.
     Med en `GET` forespørgsel, kan vi hente data fra en server, uden at ændre noget på den,
     hvilket er det vi ønsker i dette tilfælde.
-    På linje 5 definere vi en ny variabel, af typen string, som hedder \emph{data}.
+    På linje 5 definerer vi en ny variabel, af typen string, som hedder \emph{data}.
     Der er her vores respons fra factorDB, skal ligge.
     Derefter kommer der en masse kode, som ikke er vigtig for at forstå hvordan vi bruger API'en.
     På linje 11 definere vi endnu en variabel, der hedder \emph{jsonData}, som er af typen \emph{JsonObject},
     hvilket lader os håndtere JSON data, som vi får fra factorDB.\@
     Derefter kommer der lidt kode, som undersøger om vi får en gyldig respons, dette er ikke nødvendigt at gennegå.
-    På linje 12 laver vi et for-loop, som kører to gange.
-    Første gang det kører, sætter vi variablen \emph{i} til 0, og den anden gang sætter vi den til 1.
+    På linje 12 laver vi en for-løkke, som kører to gange.
+    Første gang den kører, sætter vi variablen \emph{i} til 0, og den anden gang sætter vi den til 1.
     Det er her vi henter ændrer værdierne i arrayet, som vi definerede på linje 2.
-    Det gør vi ved at læse JSON dataen, og sætte værdierne i arrayet til de faktorer vi får fra factorDB.\@
+    Det gør vi ved at læse JSON dataen, og sætte værdierne ind i arrayet til de faktorer vi får fra factorDB.\@
     Til sidst returnerer vi arrayet, som indeholder de faktorer vi har fået fra factorDB.\@
 
     \newpage
 
     \subsection{RSA Funktionalitet}\label{subsec:rsa-functionality}
     For at kryptere og dekryptere RSA, skal vi bruge lidt kode.
-    Da vi bruge objektorienteret programmering, har vi lavet nogle klasser, en af disse hedder \emph{RSADecryper},
+    Da vi bruger objektorienteret programmering, har vi lavet nogle klasser, en af disse hedder \emph{RSADecrypter},
     som indeholder metoder til at dekryptere.
     Hele klassen kan ses her:
     \begin{listing}[!ht]
@@ -435,7 +435,7 @@ public class RSADecrypter{
     Dette giver et stort tal, som enten kan vises som normalt heltal, eller som et hexadecimalt tal.
 
     \begin{center}
-        \includegraphics[scale=0.5]{EncryptionLight}\label{img:encryption}  % Broken
+        \includegraphics[scale=0.5]{EncryptionLight}\label{img:encryption}
     \end{center}
 
     \subsection{Test af faktorisering}\label{subsec:testing-factorization}
@@ -444,7 +444,7 @@ public class RSADecrypter{
     Hvis man indsætter det tal vi brugte til at kryptere, på vores faktoriseringsside, får man følgende resultat:
 
     \begin{center}
-        \includegraphics[scale=0.6]{FactorizationLight}\label{img:factorization}  % Broken
+        \includegraphics[scale=0.6]{FactorizationLight}\label{img:factorization}
     \end{center}
 
     Det betyder at vi har fundet de to tal, der kan ganges sammen og give det tal vi startede med.
@@ -456,7 +456,7 @@ public class RSADecrypter{
     Hvis man sætter dem ind på vores hjemmeside, sammen med den krypterede tekst, får man dette resultat:
 
     \begin{center}
-        \includegraphics[scale=0.5]{CrackingLight}\label{img:cracking}  % Broken
+        \includegraphics[scale=0.5]{CrackingLight}\label{img:cracking}
     \end{center}
 
     Her får vi den originale besked ud, hvilket betyder at vi har brudt RSA krypteringen, og bestået alle tests.
