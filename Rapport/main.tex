@@ -426,6 +426,8 @@ public class RSADecrypter{
     Denne udregning blev gennemgået i \autoref{subsec:hvordan-virker-rsa}, og er sådan man dekryptere RSA.\@
     Til sidst returnerer vi resultatet af udregningen som typen string, for at undgå problemer i frontenden.\@
 
+    \newpage
+
     \section{Test af programmet}\label{sec:testing}
 
     \subsection{Test af kryptering}\label{subsec:testing-encryption}
@@ -438,10 +440,13 @@ public class RSADecrypter{
         \includegraphics[scale=0.5]{EncryptionLight}\label{img:encryption}
     \end{center}
 
+    \vspace{2cm}
+
     \subsection{Test af faktorisering}\label{subsec:testing-factorization}
     For at undersøge om vi kan faktorisere et tal, har vi valgt at lave en svag nøgle,
     så det er muligt at faktorisere den.
     Hvis man indsætter det tal vi brugte til at kryptere, på vores faktoriseringsside, får man følgende resultat:
+
 
     \begin{center}
         \includegraphics[scale=0.6]{FactorizationLight}\label{img:factorization}
@@ -449,6 +454,8 @@ public class RSADecrypter{
 
     Det betyder at vi har fundet de to tal, der kan ganges sammen og give det tal vi startede med.
     Med den information kan man bryde RSA krypteringen, og få beskeden ud.
+
+    \newpage
 
     \subsection{Test af RSA-brydning}\label{subsec:testing-cracking}
     For at teste om vi kan bryde RSA krypteringen, har vi brugt de to faktorer vi fik fra faktoriseringen,
