@@ -59,6 +59,9 @@ def generatePrimes(size: int) -> tuple:
     try:
         primes = [number.getStrongPrime(size), number.getStrongPrime(size)]
         return primes, "success"
+    except ValueError:  # Allow for smaller sizes
+        primes = [number.getPrime(size), number.getPrime(size)]
+        return primes, "success"
     except:
         return [-1, -1], "error"
 
