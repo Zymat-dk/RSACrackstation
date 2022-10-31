@@ -296,13 +296,17 @@ public string[] GetFactors(){
     På linje 11 definere vi endnu en variabel, der hedder \emph{jsonData}, som er af typen \emph{JsonObject}, 
     hvilket lader os håndtere JSON data, som vi får fra factorDB.\@
     Derefter kommer der lidt kode, som undersøger om vi får en gyldig respons, dette er ikke nødvendigt at gennegå.
+    På linje 12 laver vi et for-loop, som kører to gange.
+    Første gang det kører, sætter vi variablen \emph{i} til 0, og den anden gang sætter vi den til 1.
+    Det er her vi henter ændrer værdierne i arrayet, som vi definerede på linje 2.
+    Det gør vi ved at læse JSON dataen, og sætte værdierne i arrayet til de faktorer vi får fra factorDB.\@
+    Til sidst returnerer vi arrayet, som indeholder de faktorer vi har fået fra factorDB.\@
     
     \subsection{RSA Funktionalitet}\label{subsec:rsa-functionality}
     \begin{minted}[frame=lines,framesep=2mm,baselinestretch=1.2,fontsize=\footnotesize,linenos]{csharp}
     \end{minted}
 
-    \subsection{API call}\label{subsec:api-call}
-
+    \section{Test af programmet}\label{sec:test}
     \section{Konklusion}\label{sec:konklusion}
 
 \end{document}
