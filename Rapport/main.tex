@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{extarticle}
 
 % Language setting
 % Replace `english' with e.g. `spanish' to change the document language
@@ -6,7 +6,7 @@
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
-\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
 
 % Useful packages
 \usepackage{amsmath}
@@ -15,14 +15,14 @@
 \usepackage{tikz}
 \usetikzlibrary{calc}
 \usepackage{anyfontsize}
-\usepackage{sectsty}
 
 \usepackage{minted}
+
+\usepackage[parfill]{parskip}
 
 \usepackage{wrapfig}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amstex}
 
 \begin{document}
     \begin{titlepage}
@@ -81,6 +81,8 @@
         \item Hjemmesiden skal kunne bryde RSA kryptering.
         \item Hjemmesiden skal kunne kryptere med RSA\@.
     \end{itemize}
+
+
 
     \section{Hvad er RSA?}\label{sec:hvad-er-rsa}
     RSA er en asymmetrisk kryptografialgoritme, som er udviklet af Ron Rivest, Adi Shamir og Leonard Adleman i 1977.
@@ -152,6 +154,7 @@
 
 
     \section{Frontend}\label{sec:frontend}
+    \subsection{Intro}
     For at kunne bruge hjemmesiden ordenligt er et vigtigt med et brugervenligt interface.
     For at kunne lave et brugervenligt interface, skal der bruges HTML, CSS og JavaScript.
     Det er muligt at lave en flot og meget brugervenligt interface med blot normal CSS og JavaScript,
@@ -160,8 +163,25 @@
     Man kan derfor hurtigt lave et flot interface, uden at skulle skrive CSS selv, men bare bruge de prædefinerede klasser.
     Tailwind gør det også nemmere at lave et responsivt UI, da hele frameworket er bygget op omkring det.
 
+
+    \subsection{Tailwind CDN}
+    For at kunne bruge Tailwind frameworket, har man flere forskellige muligheder, dog er der to oplagte:
+    \begin{enumerate}
+        \item Installere Tailwind via NPM
+        \item Loade Tailwind med en CDN (Content Delivery Network)
+    \end{enumerate}
+    Eftersom vi ikke ville gøre det her projekt mere avanceret end nødvendig, og fordi projektet ikke skal hostes i et produktionsmiljø, kan vi godt nøjes med CDN versionen.
+    Hvis hjemmesiden skulle bruges i produktion, ville man ikke bruge Tailwind via CDN, fordi det er ressourcer der skal hentes fra en 3. part, hvilket kan give forskellige problemer.
+    Eksempelvis hvis Tailwinds servere går ned, ser alle hjemmesider, der bruger Tailwinds CDN, meget anderledes ud, fordi CSS'en ikke kan loades.
+    CDN'en indeholder også alle klasser og skal derfor loade mere end nødvendigt, hvilket kan gøre hjemmesiden lidt langsommere.
+
     \medskip
 
+    Dette projekt var også småt nok, til at det ville tage en betydelig del af tiden, at sætte Tailwind op ordenligt.
+    Tailwind via NPM virker kun, hvis der kører en process og scanner HTML filerne for opdateringer og laver de klasser der mangler.
+    Det betyder så også at Tailwind kun indeholder hvad der bliver brugt og intet andet, i modsætning til mange andre CSS frameworks, så som Bootstrap.
+
+    \subsection{Darkmode}
     Alle vores HTML elementer som er blevet ændret med Tailwind, har to forskellige klasser - en til darkmode og en til lightmode.
     Et eksempel kan ses nedenfor
 
@@ -174,7 +194,7 @@
     Tagget har to klasser der ændrer tekstens farve, som burde overskrive hinanden, men fordi den ene har \emph{dark:} foran,
     bliver den kun brugt når darkmode er slået til.
 
-    \medskip
+    \subsection{Hex Auto Toggle}
 
     Hjemmesiden kan arbejde både med decimaltal og hexadecimaltal, og der er en knap der skifter mellem dem.
     Hvis man kopirer tallet et sted fra, kan man nemt glemme at skifte mellem de to, hvilket er derfor den automatisk
@@ -196,11 +216,17 @@
     });
     \end{minted}
 
+    \medskip
+
     I linje 2 refererer vi til elementet \emph{num}, som er tekstfeltet, hvor man kan indtaste sit tal.
     Efter det tjekker vi om der bliver 'pasted' tal ind i inputfeltet og laver en funktion som kører hvis det bliver.
 
+    \medskip
+
     I linje 3 initialisere vi en variabel i local scope, der indeholder dataen i upklipsholderen, som læses direkte fra udklipsholderen i stedet for tekstfeltet.
     Dette gør vi for at undgå fejl.
+
+    \medskip
 
     I linje 4-8 tjekker vi om dataen fra variablen i linje 3, indeholder store eller små bogstaver og kører funktionen \emph{updateHexToggle()} hvis variablen \emph{isHex} er falsk.
     Vi kører funktionen for at opdatere knappen man kan se på hjemmesiden, samt variablen \emph{isHex}.
@@ -208,18 +234,19 @@
     Dette er ikke en helt sikker måde at skifte mellem tallene, fordi mindre tal nogle gange ikke indeholder bogstaver.
     Det er dog umuligt at tjekke om et tal er hex eller ej, uden at bruge den her metode. Eksempelvis kan tallet 33 forståes som både hex og decimal.
 
-    Hvis tallet ikke indeholder bogstaver kører den koden mellem linje 9 og 12.
+    \medskip
+
+    Hvis tallet ikke indeholder bogstaver kører koden mellem linje 9 og 12.
     Denne kode tjekker igen om variablen \emph{isHex} er sand, og kører funktionen \emph{updateHexToggle()}.
     Det tjekker blot om knappe allerede er sat til hex og skifter den tilbage til decimal, hvis teksten der bliver indsat er decimal.
 
 
     \section{Backend}\label{sec:backend}
 
+    \subsection{RSA Funktionalitet}\label{subsec:rsa-funktionalitet}
+
     \subsection{API call}\label{subsec:api-call}
 
     \section{Konklusion}\label{sec:konklusion}
-
-    \bibliographystyle{alpha}
-    \bibliography{sample}
 
 \end{document}
