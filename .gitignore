@@ -7,6 +7,7 @@ riderModule.iml
 .idea/.idea.RSACrackstation
 /.idea/
 RSACrackstation.sln.DotSettings.user
+*/__pycache__/
 
 
 ## Core latex/pdflatex auxiliary files:
