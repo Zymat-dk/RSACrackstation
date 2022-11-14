@@ -20,10 +20,10 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         try:
             resp = generatePrimes(params['size'])
-            numbers, status = resp
+            numbers, status, is_strong = resp
         except:
             numbers = [-1, -1]
-            status = "error"
+            status = 'error'
 
         self.wfile.write(json.dumps({
             'method': self.command,
@@ -31,7 +31,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             'request_version': self.request_version,
             'protocol_version': self.protocol_version,
             'status': status,
-            'numbers': numbers
+            'numbers': numbers,
+            'is_strong': is_strong
         }).encode())
         return
 
@@ -58,10 +59,10 @@ def generatePrimes(size: int) -> tuple:
     """
     try:
         primes = [number.getStrongPrime(size), number.getStrongPrime(size)]
-        return primes, "success"
+        return primes, "success", True
     except ValueError:  # Allow for smaller sizes
         primes = [number.getPrime(size), number.getPrime(size)]
-        return primes, "success"
+        return primes, "success", False
     except:
         return [-1, -1], "error"
 
