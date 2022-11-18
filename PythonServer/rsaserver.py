@@ -4,12 +4,13 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from socketserver import ThreadingMixIn
 from urllib.parse import parse_qs, urlparse
 import json
-import threading
 
 from keygen import generatePrimes
+from smallE import smallE
 
 MAX_VAL = 2048
 DEFAULT_VAL = 1024
+
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -19,22 +20,17 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-        try:
-            resp = generatePrimes(params['size'])
-            numbers, status, is_strong = resp
-        except:
-            numbers = [-1, -1]
-            status = 'error'
-
-        self.wfile.write(json.dumps({
+        response = {
             'method': self.command,
             'params': params,
             'request_version': self.request_version,
             'protocol_version': self.protocol_version,
-            'status': status,
-            'numbers': numbers,
-            'is_strong': is_strong
-        }).encode())
+        }
+
+        function_response = generatePrimes(params['size'])
+        response.update(function_response)
+
+        self.wfile.write(json.dumps(response).encode())
         return
 
 

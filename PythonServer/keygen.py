@@ -1,18 +1,20 @@
 from Crypto.Util import number
 
 
-def generatePrimes(size: int) -> tuple:
+def generatePrimes(size: int) -> dict:
     """
     Generate two primes of size {size}
     """
+    response = {"numbers": [-1, -1], "status": "error", "is_strong": False}
     try:
         primes = [number.getStrongPrime(size), number.getStrongPrime(size)]
-        return primes, "success", True
+        response = {"numbers": primes, "status": "success", "is_strong": True}
     except ValueError:  # Allow for smaller sizes
         primes = [number.getPrime(size), number.getPrime(size)]
-        return primes, "success", False
+        response = {"numbers": primes, "status": "success", "is_strong": False}
     except:
-        return [-1, -1], "error"
+        pass
+    return response
 
 
 def main():
@@ -20,9 +22,9 @@ def main():
         size = int(input("Size: "))
     except:
         main()
-    numbers, status, is_strong = generatePrimes(size)
-    p, q = numbers
-    print(f"{'Strong' if is_strong else 'Weak'} key\np: {p}\nq: {q}\nn: {p * q}")
+    response = generatePrimes(size)
+    p, q = response["numbers"]
+    print(f"{'Strong' if response['is_strong'] else 'Weak'} key\np: {p}\nq: {q}\nn: {p * q}")
 
 
 if __name__ == "__main__":
