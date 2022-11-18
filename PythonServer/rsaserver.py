@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-from Crypto.Util import number
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from socketserver import ThreadingMixIn
 from urllib.parse import parse_qs, urlparse
 import json
-from socketserver import ThreadingMixIn
 import threading
+
+from keygen import generatePrimes
 
 MAX_VAL = 2048
 DEFAULT_VAL = 1024
@@ -41,7 +42,6 @@ def parse_params(params: dict) -> dict:
     """
     Convert {size: ['4']} to {size: 4} and use DEFAULT_VAL as default case
     """
-
     size = params.get("size", ["1024"])[0]
     try:
         size = int(size)
@@ -51,20 +51,6 @@ def parse_params(params: dict) -> dict:
         size = DEFAULT_VAL
     params["size"] = size
     return params
-
-
-def generatePrimes(size: int) -> tuple:
-    """
-    Generate two primes of size {size}
-    """
-    try:
-        primes = [number.getStrongPrime(size), number.getStrongPrime(size)]
-        return primes, "success", True
-    except ValueError:  # Allow for smaller sizes
-        primes = [number.getPrime(size), number.getPrime(size)]
-        return primes, "success", False
-    except:
-        return [-1, -1], "error"
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
