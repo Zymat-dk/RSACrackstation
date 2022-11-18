@@ -20,6 +20,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+        # Set default response
         response = {
             'method': self.command,
             'params': params,
@@ -27,10 +28,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             'protocol_version': self.protocol_version,
         }
 
-        function_response = generatePrimes(params['size'])
-        response.update(function_response)
+        function_response = generatePrimes(params['size'])  # Get a response from the function
+        response.update(function_response)  # Add function response to the response
 
-        self.wfile.write(json.dumps(response).encode())
+        self.wfile.write(json.dumps(response).encode())  # Write the response to the client
         return
 
 
