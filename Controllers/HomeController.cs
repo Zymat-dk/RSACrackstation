@@ -30,18 +30,22 @@ public class HomeController : Controller{
     }
 
     public IActionResult RsaCrack(){
+        ViewData["Description"] = Description["crack"];
         return View();
     }
     
     public IActionResult RSAEncrypt(){
+        ViewData["Description"] = Description["encrypt"];
         return View();
     }
     
     public IActionResult RSADecrypt(){
+        ViewData["Description"] = Description["decrypt"];
         return View();
     }
 
     public IActionResult RSAKeygen(){
+        ViewData["Description"] = Description["keygen"];
         return View();
     }
     

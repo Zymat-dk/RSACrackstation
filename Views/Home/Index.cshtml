@@ -2,7 +2,7 @@
     ViewBag.Title = "Home";
     Layout = "_Layout";
 
-    Dictionary<string, string> descs = ViewData["Description"] as Dictionary<string, string>;
+    Dictionary<string, string>? descriptions = ViewData["Description"] as Dictionary<string, string>;
 }
 
-<h2>@descs["crack"]</h2>
+<h2>@descriptions?["crack"]</h2>
