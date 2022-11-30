@@ -63,7 +63,8 @@ public class KeyGenerator{
         return new Dictionary<string, string>()
         {
             {"status", "success"}, {"message", "Keys generated successfully"},
-            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()}, {"D", _d.ToString()}
+            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()},
+            {"D", _d.ToString()}, {"is_strong", jsonData["is_strong"].ToString()}
         };
     }
 }
