@@ -7,15 +7,25 @@ namespace RSACrackstation.Controllers;
 public class HomeController : Controller{
     private readonly ILogger<HomeController> _logger;
 
+    public Dictionary<string, string> Description = new ()
+    {
+        { "prime", "Prime factorization page that bla bla " },
+        { "crack", "The cracking page that yeehaw" }, 
+        { "decrypt", "Decrypt pageingen yeash"}, 
+        { "encrypt", "Encrypt pageing yeehaw" },
+        { "keygen", "Keygen pageing yeehaw" }
+    };
     public HomeController(ILogger<HomeController> logger){
         _logger = logger;
     }
 
     public IActionResult Index(){
+        ViewData["Description"] = Description;
         return View();
     }
     
     public IActionResult Prime(){
+        ViewData["Description"] = Description["prime"];
         return View();
     }
 
