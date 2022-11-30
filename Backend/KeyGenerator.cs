@@ -26,7 +26,7 @@ public class KeyGenerator{
     }
 
     public Dictionary<string, string> GenerateKeys(int keySize){
-        var url = $"http://127.0.0.1:8080/?size={keySize}"; // local python server for number generation
+        var url = $"http://127.0.0.1:8080/?calculation_type=keygen&size={keySize}"; // local python server for number generation
         var request = WebRequest.Create(url);
         request.Method = "GET"; // Use GET request
 
