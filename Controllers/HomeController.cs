@@ -14,6 +14,10 @@ public class HomeController : Controller{
     public IActionResult Index(){
         return View();
     }
+    
+    public IActionResult Prime(){
+        return View();
+    }
 
     public IActionResult RsaCrack(){
         return View();
