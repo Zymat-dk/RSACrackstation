@@ -3,7 +3,60 @@
     Layout = "_Layout";
 
     Dictionary<string, string>? descriptions = ViewData["Description"] as Dictionary<string, string>;
-    ViewData["Description"] = "RSACrackstation.com is the all-in-one solution for cracking RSA, generating RSA keys, Prime Factorization, encrypting RSA and much more. ";
+    ViewData["Description"] = "RSACrackstation.com is the all-in-one solution for cracking RSA, generating RSA keys," +
+                              " Prime Factorization, encrypting RSA and much more. ";
 }
-
-<h2>@descriptions?["crack"]</h2>
+<style>
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    }
+</style>
+<section class="text-gray-400 body-font">
+    <div class="container w-4/5 px-5 py-12 mx-auto">
+        <div class="flex flex-wrap w-full mb-12 flex-col items-center text-center">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">RSA Crackstation</h1>
+        </div>
+        <div class="flex flex-wrap -m-4">
+            <a class="xl:w-1/3 md:w-1/2 p-4 hover:opacity-100 transition ease-in-out opacity-90" href="@Html.ActionLink("Prime Factorization", "Prime", "Home", null)
+                                                                                                                   ">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-lg text-white font-medium title-font mb-2">Prime Factorization</h2>
+                    <p class="leading-relaxed text-base line-clamp">@descriptions?["prime"]</p>
+                </div>
+            </a>
+            <a class="xl:w-1/3 md:w-1/2 p-4" href="#">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-lg text-white font-medium title-font mb-2">Prime Factorization</h2>
+                    <p class="leading-relaxed text-base line-clamp">@descriptions?["prime"]</p>
+                </div>
+            </a>
+            <a class="xl:w-1/3 md:w-1/2 p-4" href="#">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-lg text-white font-medium title-font mb-2">Prime Factorization</h2>
+                    <p class="leading-relaxed text-base line-clamp">@descriptions?["prime"]</p>
+                </div>
+            </a>
+            <a class="xl:w-1/3 md:w-1/2 p-4" href="#">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-lg text-white font-medium title-font mb-2">Prime Factorization</h2>
+                    <p class="leading-relaxed text-base line-clamp">@descriptions?["prime"]</p>
+                </div>
+            </a>
+            <a class="xl:w-1/3 md:w-1/2 p-4" href="#">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-lg text-white font-medium title-font mb-2">Prime Factorization</h2>
+                    <p class="leading-relaxed text-base line-clamp">@descriptions?["prime"]</p>
+                </div>
+            </a>
+            <a class="xl:w-1/3 md:w-1/2 p-4" href="#">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h2 class="text-lg text-white font-medium title-font mb-2">Prime Factorization</h2>
+                    <p class="leading-relaxed text-base line-clamp">@descriptions?["prime"]</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

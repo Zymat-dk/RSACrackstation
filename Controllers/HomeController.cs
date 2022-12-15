@@ -9,11 +9,12 @@ public class HomeController : Controller{
 
     public Dictionary<string, string> Description = new ()
     {
-        { "prime", "Prime factorization page that bla bla " },
+        { "prime", "Prime factorization page that bla bla lasjdf ælaksjfæ alskdj fæas ldkfja æsdfklja slkfd jæa sdkf jaæs l fd kjasæ ldfj " },
         { "crack", "The cracking page that yeehaw" }, 
         { "decrypt", "Decrypt pageingen yeash"}, 
         { "encrypt", "Encrypt pageing yeehaw" },
-        { "keygen", "Keygen pageing yeehaw" }
+        { "keygen", "Keygen pageing yeehaw" }, 
+        { "smalle", "gamerrererere smalllll eeee" }
     };
     public HomeController(ILogger<HomeController> logger){
         _logger = logger;
@@ -50,6 +51,7 @@ public class HomeController : Controller{
     }
     
     public IActionResult SmallE(){
+        ViewData["Description"] = Description["smalle"];
         return View();
     }
     
