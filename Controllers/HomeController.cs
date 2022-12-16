@@ -7,15 +7,28 @@ namespace RSACrackstation.Controllers;
 public class HomeController : Controller{
     private readonly ILogger<HomeController> _logger;
 
-    public Dictionary<string, string> Description = new ()
+    public Dictionary<string, string> Description = new()
     {
-        { "prime", "Prime factorization page that bla bla lasjdf ælaksjfæ alskdj fæas ldkfja æsdfklja slkfd jæa sdkf jaæs l fd kjasæ ldfj " },
-        { "crack", "The cracking page that yeehaw" }, 
-        { "decrypt", "Decrypt pageingen yeash"}, 
-        { "encrypt", "Encrypt pageing yeehaw" },
-        { "keygen", "Keygen pageing yeehaw" }, 
-        { "smalle", "gamerrererere smalllll eeee" }
+        {
+            "prime",
+            "A page for factorizing prime numbers to the corresponding p and q. Very useful for known weak RSA keys."
+        },
+        { "crack", "Simply input known variables about RSA and use this tool for RSA and decrypting the message." },
+        {
+            "decrypt",
+            "Quickly decrypt RSA encrypted text with this simple module. Output text can either be ASCII, Decimal or HEX."
+        },
+        {
+            "encrypt",
+            "Page for encrypting an input with RSA. Very useful if you quickly need to encrypt text with a known key."
+        },
+        { "keygen", "Generate RSA keys quickly with this module. It can generate from 2 bit to 4096 bit keys." },
+        {
+            "smalle",
+            "Crack RSA encryption if you know it's vulnerable to small e attacks or simple use the module to check for small e vulnerabilities."
+        }
     };
+
     public HomeController(ILogger<HomeController> logger){
         _logger = logger;
     }
@@ -24,7 +37,7 @@ public class HomeController : Controller{
         ViewData["Description"] = Description;
         return View();
     }
-    
+
     public IActionResult Prime(){
         ViewData["Description"] = Description["prime"];
         return View();
@@ -34,12 +47,12 @@ public class HomeController : Controller{
         ViewData["Description"] = Description["crack"];
         return View();
     }
-    
+
     public IActionResult RSAEncrypt(){
         ViewData["Description"] = Description["encrypt"];
         return View();
     }
-    
+
     public IActionResult RSADecrypt(){
         ViewData["Description"] = Description["decrypt"];
         return View();
@@ -49,12 +62,12 @@ public class HomeController : Controller{
         ViewData["Description"] = Description["keygen"];
         return View();
     }
-    
+
     public IActionResult SmallE(){
         ViewData["Description"] = Description["smalle"];
         return View();
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error(){
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
