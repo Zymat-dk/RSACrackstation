@@ -22,7 +22,7 @@ public class HomeController : Controller{
             "encrypt",
             "Page for encrypting an input with RSA. Very useful if you quickly need to encrypt text with a known key."
         },
-        { "keygen", "Generate RSA keys quickly with this module. It can generate from 2 bit to 4096 bit keys." },
+        { "keygen", "Generate RSA keys quickly with this module. It can generate from 2 bit to 2048 bit keys." },
         {
             "smalle",
             "Crack RSA encryption if you know it's vulnerable to small e attacks or simple use the module to check for small e vulnerabilities."
