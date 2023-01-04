@@ -52,10 +52,4 @@ public class ApiController : Controller{
         var output = kg.GenerateKeys(keySize);
         return output;
     }
-    
-    public Dictionary<string, string> SmallE(string N, string e, string ct){
-        var cracker = new RSACracker(N);
-        cracker.E = BigInteger.Parse(e);
-        return cracker.SmallE(ct);
-    }
 }
