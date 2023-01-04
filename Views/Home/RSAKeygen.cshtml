@@ -273,7 +273,7 @@
                 $("#tooltip-default").children().eq(1).addClass("hidden");
                 $("#tooltip-default").children().eq(0).removeClass("hidden");
                 
-                if (data["is_strong"]){
+                if (data["is_strong"] === "true"){
                     $("#tooltip-safety").text("This key is safe for use in RSA encryption.");
                     $("#safe-safe").removeClass("hidden");
                 }
