@@ -11,9 +11,10 @@ def smallE(n: int, e: int, c: int) -> dict:
     for i in range(MAX_I):
         m, is_true_root = gmpy2.iroot(i * n + c, e)
         if is_true_root:
+            m = int(m)
             response["success"] = True
             response["i"] = i
-            response["m"] = bytearray.fromhex(format(m, 'x')).decode()
+            response["m"] = m
             break
 
     return response
@@ -25,7 +26,8 @@ def main():
     c = int(input("c: "))
     response = smallE(n, e, c)
     if response["success"]:
-        print(f"i: {response['i']}\nm: {response['m']}")
+        m = bytearray.fromhex(format(response["m"], "x")).decode()
+        print(f"i: {response['i']}\nm: {m}")
 
 
 if __name__ == "__main__":
