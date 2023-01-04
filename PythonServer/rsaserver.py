@@ -18,6 +18,13 @@ class RequestHandler(BaseHTTPRequestHandler):
         params = parse_qs(parsed_path.query)
         params = parse_params(params)
 
+        response = self.create_response(params)
+        self.end_headers()
+
+        self.wfile.write(json.dumps(response).encode())  # Write the response to the client
+        return
+
+    def create_response(self, params: dict) -> dict:
         # Set default response
         response = {
             'method': self.command,
@@ -37,11 +44,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             case _:
                 response['error'] = 'Invalid calculation type'
                 self.send_response(400)
-
-        self.end_headers()
-
-        self.wfile.write(json.dumps(response).encode())  # Write the response to the client
-        return
+        return response
 
 
 def parse_params(params: dict) -> dict:
