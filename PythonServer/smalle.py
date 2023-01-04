@@ -5,17 +5,21 @@ MAX_E = 10
 
 
 def smallE(n: int, e: int, c: int) -> dict:
-    response = {"success": False}
+    response = {}
     if e > MAX_E:
+        response["error"] = f"e is too large (max {MAX_E})"
         return response
     for i in range(MAX_I):
         m, is_true_root = gmpy2.iroot(i * n + c, e)
         if is_true_root:
             m = int(m)
-            response["success"] = True
             response["i"] = i
             response["m"] = m
+            print(m)
             break
+    else:
+        response["error"] = f"Unable to find a root in {MAX_I} iterations"
+        return response
 
     return response
 

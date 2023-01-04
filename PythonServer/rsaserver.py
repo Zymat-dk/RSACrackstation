@@ -22,6 +22,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             return
 
         response = self.create_response(params)
+        print(response)
+        self.send_header("Content-type", "application/json")
         self.end_headers()
         self.wfile.write(json.dumps(response).encode())  # Write the response to the client
         return
