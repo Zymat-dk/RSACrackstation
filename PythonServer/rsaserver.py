@@ -8,8 +8,8 @@ import json
 from keygen import generatePrimes
 from smalle import smallE
 
-MAX_VAL = 2048
-DEFAULT_VAL = 1024
+MAX_SIZE = 2048
+DEFAULT_SIZE = 1024
 
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -17,33 +17,33 @@ class RequestHandler(BaseHTTPRequestHandler):
         parsed_path = urlparse(self.path)
         params = parse_qs(parsed_path.query)
         params = parse_params(params)
+        if "error" in params:
+            self.send_error(400, params["error"])
+            return
 
         response = self.create_response(params)
         self.end_headers()
-
         self.wfile.write(json.dumps(response).encode())  # Write the response to the client
         return
 
     def create_response(self, params: dict) -> dict:
         # Set default response
         response = {
-            'method': self.command,
-            'params': params,
-            'request_version': self.request_version,
-            'protocol_version': self.protocol_version,
+            "method": self.command,
+            "params": params,
+            "request_version": self.request_version,
+            "protocol_version": self.protocol_version,
         }
-        match params['calculation_type']:
-            case 'keygen':
-                function_response = generatePrimes(params['size'])  # Get a response from the function
+        match params["calculation_type"]:
+            case "keygen":
+                function_response = generatePrimes(params["size"])  # Get a response from the function
                 response.update(function_response)  # Add function response to the response
                 self.send_response(200)
-            case 'smalle':
-                function_response = smallE()  # Get a response from the function
+            case "smalle":
+                n, e, c = params["n"], params["e"], params["c"]
+                function_response = smallE(n, e, c)  # Get a response from the function
                 response.update(function_response)  # Add function response to the response
                 self.send_response(200)
-            case _:
-                response['error'] = 'Invalid calculation type'
-                self.send_response(400)
         return response
 
 
@@ -51,24 +51,35 @@ def parse_params(params: dict) -> dict:
     """
     Convert {size: ['4']} to {size: 4} and use DEFAULT_VAL as default case
     """
-    print(params)
-    size = params.get('size', ['1024'])[0]
-    try:
-        size = int(size)
-    except ValueError:
-        size = DEFAULT_VAL
-    if size < 2 or size > MAX_VAL:
-        size = DEFAULT_VAL
-    params['size'] = size
-
-    calculation_type = params.get('calculation_type', ['unknown'])[0]
+    params = {key: val[0] for key, val in params.items()}  # Flatten the dict
+    calculation_type = params.get("calculation_type", "unknown")
     # Check if the calculation type is valid
-    if calculation_type not in ['keygen', 'smalle']:
-        calculation_type = 'unknown'
-    # Check if any params are missing
-    if calculation_type == 'smalle' and any([i not in params for i in ['c', 'e', 'n']]):
-        calculation_type = 'unknown'
-    params['calculation_type'] = calculation_type
+    match calculation_type:
+        case "keygen":
+            # Handle keygen params
+            params["calculation_type"] = "keygen"
+            size = params.get("size", DEFAULT_SIZE)
+            try:
+                size = int(size)
+            except ValueError:
+                size = DEFAULT_SIZE
+            if size < 2 or size > MAX_SIZE:
+                size = DEFAULT_SIZE
+            params["size"] = size
+        case "smalle":
+            # Handle smalle params
+            params["calculation_type"] = "smalle"
+            if not all(key in params for key in ("n", "e", "c")):
+                params["error"] = "Missing parameters"
+            for key in ("n", "e", "c"):
+                try:
+                    params[key] = int(params[key])
+                except ValueError:
+                    params["error"] = "Invalid parameter"
+        case _:
+            params["calculation_type"] = "unknown"
+            params["error"] = "Invalid calculation type"
+
     return params
 
 
@@ -76,7 +87,7 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     """Handle requests in a separate thread."""
 
 
-if __name__ == '__main__':
-    server = ThreadedHTTPServer(('localhost', 8080), RequestHandler)
-    print('Starting server, use <Ctrl-C> to stop')
+if __name__ == "__main__":
+    server = ThreadedHTTPServer(("localhost", 8080), RequestHandler)
+    print("Starting server, use <Ctrl-C> to stop")
     server.serve_forever()
