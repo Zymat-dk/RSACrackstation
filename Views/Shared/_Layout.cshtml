@@ -120,7 +120,7 @@
     <div class="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
         <!-- Social links -->
         <p class="flex flex-grow text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
-            © 2022 RSA Crackstation &mdash;
+            ©&nbsp;<span id="year">2022</span>&nbsp;RSA Crackstation &mdash;
             <a href="https://github.com/DNIIBOY" class="text-gray-600 dark:text-gray-50 mx-1" rel="noopener noreferrer" target="_blank">Daniel Nettelfield</a>
             &<a href="https://github.com/Gustav2" class="text-gray-600 dark:text-gray-50 mx-1" rel="noopener noreferrer" target="_blank">Gustav Nybro</a>
         </p>
@@ -201,6 +201,7 @@
         $("#maindiv").toggleClass("blur-sm");
     }
     
+    $("#year").text(new Date().getFullYear());
     
     // Darkmode toggle script
 
