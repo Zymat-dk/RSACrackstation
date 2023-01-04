@@ -5,16 +5,21 @@ MAX_E = 10
 
 
 def smallE(n: int, e: int, c: int) -> dict:
-    response = {"success": False}
+    response = {}
     if e > MAX_E:
+        response["error"] = f"e is too large (max {MAX_E})"
         return response
     for i in range(MAX_I):
         m, is_true_root = gmpy2.iroot(i * n + c, e)
         if is_true_root:
-            response["success"] = True
+            m = int(m)
             response["i"] = i
-            response["m"] = bytearray.fromhex(format(m, 'x')).decode()
+            response["m"] = m
+            print(m)
             break
+    else:
+        response["error"] = f"Unable to find a root in {MAX_I} iterations"
+        return response
 
     return response
 
@@ -25,7 +30,8 @@ def main():
     c = int(input("c: "))
     response = smallE(n, e, c)
     if response["success"]:
-        print(f"i: {response['i']}\nm: {response['m']}")
+        m = bytearray.fromhex(format(response["m"], "x")).decode()
+        print(f"i: {response['i']}\nm: {m}")
 
 
 if __name__ == "__main__":

@@ -26,7 +26,7 @@ public class KeyGenerator{
     }
 
     public Dictionary<string, string> GenerateKeys(int keySize){
-        var url = $"http://127.0.0.1:8080/?size={keySize}"; // local python server for number generation
+        var url = $"http://127.0.0.1:8080/?calculation_type=keygen&size={keySize}"; // local python server for number generation
         var request = WebRequest.Create(url);
         request.Method = "GET"; // Use GET request
 
@@ -63,7 +63,8 @@ public class KeyGenerator{
         return new Dictionary<string, string>()
         {
             {"status", "success"}, {"message", "Keys generated successfully"},
-            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()}, {"D", _d.ToString()}
+            {"p", _p.ToString()}, {"q", _q.ToString()}, {"N", _n.ToString()},
+            {"D", _d.ToString()}, {"is_strong", jsonData["is_strong"].ToString()}
         };
     }
 }

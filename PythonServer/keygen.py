@@ -12,15 +12,13 @@ def generatePrimes(size: int) -> dict:
     except ValueError:  # Allow for smaller sizes
         primes = [number.getPrime(size), number.getPrime(size)]
         response = {"numbers": primes, "status": "success", "is_strong": False}
-    except:
-        pass
     return response
 
 
 def main():
     try:
         size = int(input("Size: "))
-    except:
+    except ValueError:
         main()
     response = generatePrimes(size)
     p, q = response["numbers"]
