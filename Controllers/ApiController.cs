@@ -54,8 +54,6 @@ public class ApiController : Controller{
     }
     
     public Dictionary<string, string> SmallE(string N, string e, string ct){
-        Console.WriteLine("WHOOO");
-        Console.WriteLine(e);
         var cracker = new RSACracker(N);
         cracker.E = BigInteger.Parse(e);
         return cracker.SmallE(ct);

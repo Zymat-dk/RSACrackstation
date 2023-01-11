@@ -184,7 +184,7 @@
         $("#copySpan").addClass("hidden");
         
         // Input parsing
-        let inputs = ["c", "D", "N"];
+        let inputs = ["c", "e", "N"];
         let passed = true;
         inputs.forEach(function(input) {
             let value = $("#" + input).val();
@@ -234,9 +234,14 @@
                 "N": N,
             },
             success: function(data) {
-                m_decimal = data
-                setMType()
-                $("#copySpan").removeClass("hidden");
+              console.log(data)
+              if (data["status"]==="error"){
+                showSnackbar(data["message"], 0)
+                return;
+              }
+              m_decimal = data["m"]
+              setMType()
+              $("#copySpan").removeClass("hidden");
             }
         });
     }
