@@ -27,3 +27,7 @@
 * Tilføjede nøglesikkerheds-indikator til nøglegenereringsside
 * Lavede python backend til small-e
 * Omformater python backend
+
+## 11/01
+* Fik small-e til at virke, med både frontend og backend
+* Lavede stor git merge
