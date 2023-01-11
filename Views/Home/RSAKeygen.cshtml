@@ -169,6 +169,26 @@
         document.getElementById("keySizeRange").value = document.getElementById("keySize").value;
     });
     
+    let size = [];
+    
+    for(let i = 512; i <= 2048; i += 128) {
+        size.push(i);
+    }
+    
+    function getClosest(arr, val) {
+    	return arr.reduce(function (prev, curr) {
+        return (Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev);
+      });
+    }
+    
+    document.querySelector("#keySizeRange").addEventListener("change", function() {
+        if (document.querySelector("#keySize").value > 512){
+            let closest = getClosest(size, this.value);
+            this.value = document.querySelector("#keySize").value = closest;
+        }
+    });
+
+    
     // Submits form if enter is pressed
     $("#keySize").keypress(function(event) {
         if (event.keyCode === 13) {

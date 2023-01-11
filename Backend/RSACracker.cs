@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Net;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Http.Features;
@@ -95,6 +96,44 @@ public class RSACracker{
         _q = BigInteger.Parse(factors[1]);
 
         return factors;
+    }
+
+    public Dictionary<string, string> SmallE(string ct){
+        var url =
+            $"http://127.0.0.1:8080/?calculation_type=smalle&n={_n}&e={E}&c={ct}"; // local python server for smallE
+        var request = WebRequest.Create(url);
+        request.Method = "GET"; // Use GET request
+
+        var data = "";
+        try{
+            using var webResponse = request.GetResponse();
+            using var webStream = webResponse.GetResponseStream();
+            using var reader = new StreamReader(webStream);
+            data = reader.ReadToEnd();
+        }
+        catch (System.Net.WebException){
+            return new Dictionary<string, string>()
+            {
+                { "status", "error" },
+                { "message", "Could not connect to Small E server" }
+            };
+        }
+
+        dynamic jsonData = JsonObject.Parse(data); // parse json data
+        if (jsonData.ContainsKey("error")){
+            return new Dictionary<string, string>()
+            {
+                { "status", "error" },
+                { "message", jsonData["error"].ToString() }
+            };
+        }
+
+        return new Dictionary<string, string>()
+        {
+            { "status", "success" },
+            { "m", jsonData["m"].ToString() },
+            { "i", jsonData["i"].ToString() }
+        };
     }
 
     public BigInteger GetD(){
