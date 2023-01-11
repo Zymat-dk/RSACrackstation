@@ -1,12 +1,15 @@
 import gmpy2
 
 MAX_I = 10000
-MAX_E = 10
+MAX_E = 25
 
 
 def smallE(n: int, e: int, c: int) -> dict:
     response = {}
-    if e > MAX_E:
+    if e < 1:
+        response["error"] = f"e is too small (min 1)"
+        return response
+    elif e > MAX_E:
         response["error"] = f"e is too large (max {MAX_E})"
         return response
     for i in range(MAX_I):

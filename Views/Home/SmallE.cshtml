@@ -201,7 +201,7 @@
         }
         
         // Get values from input fields and convert them to hex if needed
-        let ids = ["c", "D", "N"];
+        let ids = ["c", "e", "N"];
         let values = [];
         ids.forEach(function(id) {
             let val = $("#" + id).val();
@@ -215,15 +215,15 @@
             return;
         }
         let c = values[0];
-        let D = values[1];
+        let e = values[1];
         let N = values[2];
         
         $.ajax({
-            url: "/api/Decipher",
+            url: "/api/SmallE",
             type: "POST",
             data: {
                 "ct": c,
-                "D": D,
+                "e": e,
                 "N": N,
             },
             success: function(data) {
@@ -233,7 +233,4 @@
             }
         });
     }
-
-
-
 </script>   
