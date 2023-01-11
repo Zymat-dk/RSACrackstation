@@ -1,7 +1,239 @@
 ﻿@{
-    ViewBag.Title = "Home";
-    Layout = "_Layout";
-   
+    <!-- Updates the title -->
+    ViewData["Title"] = "RSA Decrypter";
 }
 
-<p>Hej</p>
+<section class="text-gray-600 body-font h-min">
+    <!-- Tailwind automatically creates sufficient margin to sides with "container" -->
+    <div class="container px-5 pt-12 mx-auto">
+        <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900 dark:text-gray-50 mb-12">RSA Decrypter</h1>
+
+            <div class="w-full sm:w-5/6">
+                <!-- Prime input field and HEX/Decimal toggle -->
+                <div class="w-full flex justify-center">
+                    <span class="text-2xl mr-3 dark:text-gray-100 w-8">c</span>
+                    <input id="c" placeholder="c" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
+                    
+                    <div id="hexTooltip" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                        <span>Choose between base10 (decimal) and base16 (hexadecimal)</span>
+                    </div>
+                </div>
+                <div class="w-full mt-6 flex">
+                    <span class="text-2xl mr-3 dark:text-gray-100 w-8">D</span>
+                    <input id="D" placeholder="D" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
+                </div>
+                <div class="w-full mt-6 mb-2 flex">
+                    <span class="text-2xl mr-3 dark:text-gray-100 w-8">N</span>
+                    <input id="N" placeholder="N" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
+                </div>
+            </div>
+            <div class="w-full flex mt-6 mb-12 justify-center">
+                <button id="subBtn" onclick="decrypt()" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Decrypt</button>
+                <div class="w-fit dark:text-white text-gray-800">
+                    <button id="hexToggle" class="border-2 border-gray-700 rounded-xl flex p-0.5 gap-1 font-bold ml-4" onclick="updateHexToggle()" data-tooltip-target="hexTooltip">
+                        <span class="bg-indigo-500 p-2 rounded-lg text-white">10</span>
+                        <span class="bg-transparent p-2 rounded-lg">16</span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="box w-2/3 flex justify-center mb-4 relative">
+                <!--<textarea id="m" placeholder="m" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out w-2/3"/><textarea>-->
+                <textarea id="m" placeholder="m" wrap="hard" class="w-full dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 transition-colors duration-200 ease-in-out"></textarea>
+                <div id="copySpan" class="hidden w-8 h-8 bg-white absolute top-2 right-2 rounded dark:text-white dark:bg-gray-600 bg-gray-50 dark:hover:bg-gray-700 hover:gray-200 transition">
+                    <button class="h-full w-full relative" onclick="copyToClipboard()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-auto" id="nonClip" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 1.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1Zm-5 0A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5v1A1.5 1.5 0 0 1 9.5 4h-3A1.5 1.5 0 0 1 5 2.5v-1Zm-2 0h1v1A2.5 2.5 0 0 0 6.5 5h3A2.5 2.5 0 0 0 12 2.5v-1h1a2 2 0 0 1 2 2V14a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2Z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mx-auto hidden" id="checkedClip" viewBox="0 0 16 16">
+                            <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3Zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3Z"/>
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5v-1Zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <ul id="inputRadio" class="items-center w-1/2 text-sm font-medium dark:text-gray-900 text-black bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white mb-4">
+                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 dark:text-white rounded-l-lg bg-indigo-500 text-white">
+                    <div class="flex items-center ">
+                        <input id="mASCII" checked type="radio" value="0" name="list-radio" class="hidden bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="mASCII" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium">ASCII</label>
+                    </div>
+                </li>
+                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600 dark:text-white">
+                    <div class="flex items-center ">
+                        <input id="mDecimal" type="radio" value="1" name="list-radio" class="hidden bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="mDecimal" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium ">Decimal</label>
+                    </div>
+                </li>
+                <li class="w-full dark:border-gray-600 rounded-r-lg dark:text-white">
+                    <div class="flex items-center">
+                        <input id="mHEX" type="radio" value="2" name="list-radio" class="hidden bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                        <label for="mHEX" class="cursor-pointer py-3 ml-2 w-full text-sm font-medium ">HEX</label>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+</section>
+<style>
+    /* Auto expands the plaintext field when enough data */
+    textarea {
+        overflow: hidden;
+        height: 50px;
+        padding: 0;
+        resize: none;
+    }
+</style>
+
+<script>
+    var m_decimal = "0";  // Decimal value of the message, used for conversion
+    // Get params from URL and set them to the input field
+    function getParams(){
+        let params = new URLSearchParams(window.location.search);
+        let N = params.get('N');
+        if (params.get('N') != null) {
+            document.getElementById("N").value = N;
+        }
+    }
+    getParams()
+    
+    $("input[name='list-radio']").change(function() {
+        setMType()
+    });
+    
+    // Toggle m value based on radioValue
+    function setMType(){
+        if (parseInt(m_decimal) <= 0){
+            return;
+        }
+        let radioValue = parseInt($("input[name='list-radio']:checked").val());
+        let m = $("#m");
+        switch (radioValue){
+            case 0:
+                m.val(decimalToAscii(m_decimal));
+                break;
+            case 1:
+                m.val(m_decimal);
+                break;
+            case 2:
+                m.val(decimalToHex(m_decimal));
+                break;
+        }
+    }
+
+    function copyToClipboard() {
+        let copyText = $("#m")[0].value;
+        navigator.clipboard.writeText(copyText);
+        showSnackbar("Copied to clipboard", 2);
+        $("#nonClip").addClass("hidden");
+        $("#checkedClip").removeClass("hidden");
+    }
+
+    $('textarea').height(50).height($('textarea')[0].scrollHeight);
+    $('textarea').on('input', function() {
+        $(this)
+        .height(50)
+        .height(this.scrollHeight);
+    });
+    
+    $(document).ready(function() {
+      //change colour when radio is selected
+        $('#inputRadio input:radio').change(function() {
+        // Only remove the class in the specific `box` that contains the radio
+        $('li.bg-indigo-500').removeClass('text-white');
+        $('li.bg-indigo-500').removeClass('bg-indigo-500');
+        $(this).closest('li').addClass('bg-indigo-500').addClass('text-white');
+
+        });
+    });
+    
+    // Checks if number is pasted and automatically changes state to hex if hex is pasted
+    $("#N").bind('paste', function(e) {
+        let data = e.originalEvent.clipboardData.getData('text');
+        if (/[A-Za-z]/g.test(data)) {  // Check if pasted value is hex
+            if (!isHex){
+                updateHexToggle();
+            }
+        }
+        else if (isHex){
+            updateHexToggle();
+        }
+    });
+    
+    // Submits form if enter is pressed
+    $("#pt").keypress(function(event) {
+        if (event.keyCode === 13) {
+            decrypt();
+        }
+    });
+    
+    // Sends the data to backend with AJAX call and displays the returned result
+    // If it returns an error, it displays an error message
+    function decrypt() {
+        $("#copySpan").addClass("hidden");
+        
+        // Input parsing
+        let inputs = ["c", "D", "N"];
+        let passed = true;
+        inputs.forEach(function(input) {
+            let value = $("#" + input).val();
+            if (value === "") {
+                showSnackbar("Please fill in all fields", 1);
+                passed = false;
+                return;
+            }
+            if (!value.match(/^[0-9]+$/) && !isHex) {
+                showSnackbar(`${input} is not a positive decimal value`, 1);
+                passed = false;
+                return;
+            }
+            if (!value.match(/^(0x)?[0-9A-Fa-f]+$/) && isHex) {
+                showSnackbar(`${input} is not a valid hex value`, 1);
+                passed = false;
+            }
+        });
+        if (!passed) {
+            return;
+        }
+        
+        // Get values from input fields and convert them to hex if needed
+        let ids = ["c", "D", "N"];
+        let values = [];
+        ids.forEach(function(id) {
+            let val = $("#" + id).val();
+            if (isHex){
+                val = hexToDecimal(val);
+            }
+            values.push(val);
+        });
+        if (values.includes(-1)){
+            showSnackbar("Invalid hex value", 1);
+            return;
+        }
+        let c = values[0];
+        let D = values[1];
+        let N = values[2];
+        
+        $.ajax({
+            url: "/api/Decipher",
+            type: "POST",
+            data: {
+                "ct": c,
+                "D": D,
+                "N": N,
+            },
+            success: function(data) {
+                m_decimal = data
+                setMType()
+                $("#copySpan").removeClass("hidden");
+            }
+        });
+    }
+
+
+
+</script>   
