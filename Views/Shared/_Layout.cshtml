@@ -3,7 +3,7 @@
 <!-- The jQuery toggles darkmode by adding and removing the "dark" tag -->
 <head>
     <meta name="title" content="RSA Crackstation - The all-in-one tool for all things RSA">
-    <meta name="description" content="RSACrackstation.com is the all-in-one solution for cracking RSA, generating RSA keys, Prime Factorization, encrypting RSA and much more. ">
+    <meta name="description" content="@ViewData["Description"]">
     <meta name="keywords" content="PrimeFactorization, rsa, encryption, rsacracking, rsaencryption, rsaa, rsadecrypt, rsaencrypt, rsaenc, rsadec, cyber, cybersec, cybersecurity, cyberrsa, rsacyber, rsasecurity, rsafactor, prime, primefactor, crackrsa, crack, crackstation, ">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -41,9 +41,6 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="dark:bg-gray-900">
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
 <header class="text-gray-600 body-font border border-b-1 bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-100 dark:border-none">
     <div class="container mx-auto flex flex-wrap p-4 flex-col md:flex-row items-center">
@@ -56,11 +53,12 @@
         </a>
         <!-- Navbar with pages links -->
         <nav class="hidden md:block md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
-            @Html.ActionLink("Prime Factorization", "Index", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
+            @Html.ActionLink("Prime Factorization", "Prime", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
             @Html.ActionLink("RSA Crack", "RSACrack", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
             @Html.ActionLink("Encrypt", "RSAEncrypt", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
             @Html.ActionLink("Decrypt", "RSADecrypt", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
-            <!--@Html.ActionLink("Key Generator", "RSAKeygen", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })-->
+            @Html.ActionLink("Key Generator", "RSAKeygen", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
+            @Html.ActionLink("Small e cracker", "SmallE", "Home", null, new { @class = "mr-5 hover:text-gray-900 dark:hover:text-gray-50 transition hover:scale-95" })
         </nav>
         <button onclick="toggleMenu()" class="space-y-2 block md:hidden absolute top-5 left-5">
             <div class="w-8 h-0.5 bg-gray-600 dark:bg-gray-200"></div>
@@ -122,14 +120,10 @@
     <div class="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
         <!-- Social links -->
         <p class="flex flex-grow text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
-            © 2022 RSA Crackstation &mdash;
+            ©&nbsp;<span id="year">2022</span>&nbsp;RSA Crackstation &mdash;
             <a href="https://github.com/DNIIBOY" class="text-gray-600 dark:text-gray-50 mx-1" rel="noopener noreferrer" target="_blank">Daniel Nettelfield</a>
             &<a href="https://github.com/Gustav2" class="text-gray-600 dark:text-gray-50 mx-1" rel="noopener noreferrer" target="_blank">Gustav Nybro</a>
         </p>
-        <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
-            A part of <a class="text-gray-600 dark:text-gray-50 ml-1" href="https://zymat.dk">Zymat Group</a>
-        </p>
-
     </div>
 </footer>
 <!-- Snackbar that displays that displays error messages -->
@@ -207,6 +201,7 @@
         $("#maindiv").toggleClass("blur-sm");
     }
     
+    $("#year").text(new Date().getFullYear());
     
     // Darkmode toggle script
 

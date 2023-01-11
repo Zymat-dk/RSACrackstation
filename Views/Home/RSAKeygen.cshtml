@@ -16,7 +16,21 @@
                 </div>
                 <div class="">
                     <input id="keySize" placeholder="1024" value="1024" pattern="/\d*/" class="w-full h-full m-1 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+                    <span class="absolute w-fit h-fit translate-x-[5.5rem] -translate-y-[140%]" data-tooltip-target="tooltip-safety">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="safe-unsafe" class="w-8 h-8 hidden text-orange-700" viewBox="0 0 16 16">
+                            <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" id="safe-safe" class="w-8 h-8 hidden text-green-800" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </span>
+                    <div id="tooltip-safety" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+
+                    </div>
+
                 </div>
+
+
                 <div class="col-start-4 col-span-2">
                     <button id="subBtn" onclick="generate()" class="relative flex justify-center w-fit text-center mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                         <span id="subBtnText">Generate</span>
@@ -196,6 +210,9 @@
         $("#subBtnText").text("Generating...");
         $("#subBtn").prop("disabled", true);
         
+        $("#safe-safe").addClass("hidden");
+        $("#safe-unsafe").addClass("hidden");
+        
         if (!e.match(/^[0-9]+$/g) && !isHex) {
             showSnackbar("Please enter a valid number", 0);
             return;
@@ -235,6 +252,15 @@
                 $("#dWarn").removeClass("hidden");
                 $("#tooltip-default").children().eq(1).addClass("hidden");
                 $("#tooltip-default").children().eq(0).removeClass("hidden");
+                
+                if (data["is_strong"] === "true"){
+                    $("#tooltip-safety").text("This key is safe for use in RSA encryption.");
+                    $("#safe-safe").removeClass("hidden");
+                }
+                else {
+                    $("#tooltip-safety").text("This key is not safe, and should not be used for security purposes.");
+                    $("#safe-unsafe").removeClass("hidden");
+                }
             }
         });
     }
