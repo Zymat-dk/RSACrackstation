@@ -14,7 +14,8 @@
                 <div class="w-full flex justify-center">
                     <span class="text-2xl mr-3 dark:text-gray-100 w-8">c</span>
                     <input id="c" placeholder="c" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
-                    
+                    <span class="text-2xl mx-3 dark:text-gray-100 w-8">e</span>
+                    <input value="3" required pattern="\d+" id="e" placeholder="e" class="w-24 dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "/>
                     <div id="hexTooltip" role="tooltip" class="w-36 -translate-x-1/2 absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
                         <span>Choose between base10 (decimal) and base16 (hexadecimal)</span>
                     </div>
@@ -23,10 +24,7 @@
                     <span class="text-2xl mr-3 dark:text-gray-100 w-8">D</span>
                     <input id="D" placeholder="D" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
                 </div>
-                <div class="w-full mt-6 mb-2 flex">
-                    <span class="text-2xl mr-3 dark:text-gray-100 w-8">N</span>
-                    <input id="N" placeholder="N" class="dark:bg-gray-600 dark:bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border dark:border-gray-600 border-gray-300 focus:border-indigo-500 text-base outline-none dark:text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out flex-grow"/>
-                </div>
+
             </div>
             <div class="w-full flex mt-6 mb-12 justify-center">
                 <button id="subBtn" onclick="decrypt()" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Decrypt</button>
@@ -91,16 +89,7 @@
 
 <script>
     var m_decimal = "0";  // Decimal value of the message, used for conversion
-    // Get params from URL and set them to the input field
-    function getParams(){
-        let params = new URLSearchParams(window.location.search);
-        let N = params.get('N');
-        if (params.get('N') != null) {
-            document.getElementById("N").value = N;
-        }
-    }
-    getParams()
-    
+
     $("input[name='list-radio']").change(function() {
         setMType()
     });
@@ -171,6 +160,24 @@
         }
     });
     
+    function isNumber(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+    
+    $("#e").focusout(function() {
+        if (isNumber($("#e").val())){
+            if (parseInt($("#e").val()) <= 0){
+                $("#e").val("0");
+            } else if (parseInt($("#e").val()) > 25){
+                $("#e").val("25");
+            }
+        } 
+        else {
+            $("#e").val("0");
+        }
+        
+    })
+    
     // Sends the data to backend with AJAX call and displays the returned result
     // If it returns an error, it displays an error message
     function decrypt() {
@@ -236,4 +243,4 @@
 
 
 
-</script>   
+</script>
