@@ -131,9 +131,13 @@
     
     function sendToEncrypt() {
         let N = $("#N").val();
+        let e = $("#e").val();
         let location = '/Home/RSAEncrypt'
         if (N !== "") {
             location += '?N=' + N;
+        }
+        if (e !== "") {
+            location += '&e=' + e;
         }
         if (isHex && N !== "") {
             location += '&hex';
